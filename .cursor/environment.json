@@ -1,0 +1,16 @@
+{
+  "name": "Academia Georgetown",
+  "install": "npm ci",
+  "terminals": [
+    {
+      "name": "astro-dev",
+      "command": "npm run dev"
+    }
+  ],
+  "ports": [
+    {
+      "name": "astro-dev-server",
+      "port": 4321
+    }
+  ]
+}
