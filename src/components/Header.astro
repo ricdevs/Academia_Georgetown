@@ -5,7 +5,7 @@ const path = Astro.url.pathname;
 ---
 
 <header class="ag-header">
-  <div class="ag-header-inner">
+  <div class="container-ag ag-header-inner">
     <a href="/" class="ag-logo" aria-label={site.name}>
       <img src="/images/logo.png" alt={site.name} width="457" height="75" />
     </a>
@@ -34,7 +34,7 @@ const path = Astro.url.pathname;
       <span></span>
     </button>
   </div>
-  <nav id="mobile-nav" class="ag-mobile-nav" aria-label="Móvil">
+  <nav id="mobile-nav" class="container-ag ag-mobile-nav" aria-label="Móvil">
     {nav.map((item) => (
       <a href={item.href}>{item.label}</a>
     ))}

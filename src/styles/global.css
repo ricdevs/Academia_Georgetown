@@ -49,7 +49,7 @@ a {
 }
 
 .container-ag {
-  width: min(1180px, calc(100% - 5rem));
+  width: min(1080px, 80%);
   margin-inline: auto;
 }
 
@@ -190,23 +190,16 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  padding: 0.55rem 10%;
+  padding: 0.7rem 0;
   background: #fff;
   position: relative;
 }
 
 .ag-logo img {
-  width: 320px;
+  width: 280px;
   max-width: 100%;
   height: auto;
   display: block;
-}
-
-@media (min-width: 1350px) {
-  .ag-logo img {
-    width: 366px;
-  }
 }
 
 .ag-nav {
@@ -290,7 +283,7 @@ a {
 .ag-mobile-nav {
   display: none;
   background: #fff;
-  padding: 0.5rem 10% 1.25rem;
+  padding: 0.5rem 0 1.25rem;
 }
 
 .ag-mobile-nav.is-open {
@@ -309,7 +302,8 @@ a {
 
 @media (max-width: 980px) {
   .ag-header-inner {
-    padding: 10px 5%;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .ag-logo img {
@@ -335,11 +329,10 @@ a {
 
 .ag-split-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 480px);
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 420px);
   gap: 3.25rem;
   align-items: center;
-  width: 100%;
-  padding: 0 10% 7.5rem;
+  padding: 0 0 7.5rem;
   position: relative;
   z-index: 3;
 }
@@ -444,7 +437,7 @@ a {
   .ag-split-inner {
     grid-template-columns: 1fr;
     gap: 2rem;
-    padding: 0 5% 4rem;
+    padding: 0 0 4rem;
   }
 
   .ag-split-media {
@@ -608,6 +601,7 @@ a {
 
 .ag-nivel-form select.input {
   appearance: none;
+  background-color: #f2f4f7;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%23666' d='M1 1l5 5 5-5'/></svg>");
   background-repeat: no-repeat;
   background-position: right 1rem center;
