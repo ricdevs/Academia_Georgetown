@@ -7,13 +7,21 @@ interface Props {
   phone?: string;
   extraFields?: Array<'discount' | 'dni' | 'address' | 'company' | 'course'>;
   submitLabel?: string;
+  heading?: boolean;
 }
-const props = Astro.props;
+const { heading = true, ...props } = Astro.props;
 ---
 
-<section class="bg-mist py-16">
-  <div class="container-ag">
-    <Recaptcha />
-    <ContactForm {...props} />
+{heading && (
+  <section class="ag-section-tight">
+    <div class="container-ag">
+      <h2 class="ag-title">Formulario de contacto</h2>
+    </div>
+  </section>
+)}
+<section class="ag-contact" style="background-image: url('/images/contact-bg.jpg')">
+  <div class="container-ag ag-contact-inner">
+    <ContactForm theme="dark" {...props} />
   </div>
+  <Recaptcha />
 </section>

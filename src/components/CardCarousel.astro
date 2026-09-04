@@ -1,0 +1,41 @@
+---
+interface Props {
+  title?: string;
+  show?: number;
+  scroll?: number;
+  gap?: number;
+  items: { href: string; title: string; image: string }[];
+}
+
+const { title, show = 3, scroll = 1, gap = 15, items } = Astro.props;
+---
+
+<section class="ag-section">
+  <div class="container-ag">
+    {title && <h2 class="ag-title ag-center" style="margin-bottom: 1.75rem;">{title}</h2>}
+    <div class="ag-carousel" data-carousel data-show={String(show)} data-scroll={String(scroll)} data-gap={String(gap)}>
+      <button class="ag-carousel-btn" type="button" data-prev aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6"></path>
+        </svg>
+      </button>
+      <div class="ag-carousel-viewport" data-viewport>
+        <div class="ag-carousel-track" data-track>
+          {items.map((item) => (
+            <a class="ag-card" href={item.href}>
+              <figure>
+                <img src={item.image} alt="" width="520" height="292" loading="lazy" />
+              </figure>
+              <h4>{item.title}</h4>
+            </a>
+          ))}
+        </div>
+      </div>
+      <button class="ag-carousel-btn" type="button" data-next aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M9 18l6-6-6-6"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>

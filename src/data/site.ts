@@ -18,29 +18,45 @@ export const site = {
 };
 
 export const nav = [
-  { href: '/ingles-para-estudiantes/', label: 'Universitarios' },
+  { href: '/ingles-para-estudiantes/', label: 'Estudiantes' },
   { href: '/ingles-profesional/', label: 'Profesional' },
   { href: '/ingles-para-jovenes/', label: 'Jóvenes' },
   { href: '/contacto/', label: 'Contacto' },
 ];
 
+type FooterLink = { href: string; label: string; external?: boolean };
+
+export const footerCols: { title: string; links: FooterLink[] }[] = [
+  {
+    title: 'Enlaces',
+    links: [
+      { href: '/', label: 'Inicio' },
+      { href: '/ingles-para-estudiantes/', label: 'Académico' },
+      { href: '/ingles-profesional/', label: 'Profesional' },
+      { href: '/ingles-para-jovenes/', label: 'Jóvenes' },
+      { href: site.tesla, label: 'Georgetown TESLA', external: true },
+    ],
+  },
+  {
+    title: 'Contactar',
+    links: [
+      { href: '/contacto/', label: 'Contacto' },
+      { href: '/career/', label: 'Trabaja con Nosotros' },
+    ],
+  },
+  {
+    title: 'Responsabilidad',
+    links: [
+      { href: '/terminos/', label: 'Términos y Condiciones' },
+      { href: '/politica-privacidad/', label: 'Política de Privacidad' },
+      { href: '/aviso-legal/', label: 'Aviso Legal' },
+    ],
+  },
+];
+
 export const footerLinks = {
-  enlaces: [
-    { href: '/', label: 'Inicio' },
-    { href: '/ingles-para-estudiantes/', label: 'Académico' },
-    { href: '/ingles-profesional/', label: 'Profesional' },
-    { href: '/ingles-para-jovenes/', label: 'Jóvenes' },
-    { href: '/blog/', label: 'Blog' },
-    { href: site.tesla, label: 'Georgetown TESLA', external: true },
-  ],
-  contactar: [
-    { href: '/contacto/', label: 'Contacto' },
-    { href: '/career/', label: 'Trabaja con Nosotros' },
-    { href: '/aviso-legal/', label: 'Responsabilidad' },
-    { href: '/terminos/', label: 'Términos y Condiciones' },
-    { href: '/politica-privacidad/', label: 'Política de Privacidad' },
-    { href: '/aviso-legal/', label: 'Aviso Legal' },
-  ],
+  enlaces: footerCols[0].links,
+  contactar: [...footerCols[1].links, ...footerCols[2].links],
 };
 
 export const faqs = [
@@ -85,19 +101,19 @@ export const mission = [
   },
   {
     title: 'Resultados',
-    text: 'Aunque no sea indispensable, animamos a todos nuestros alumnos a plasmar su esfuerzo y progresos en algo tangible: el examen oficial.',
+    text: 'Aunque no sea indispensable, desde la Academia de Inglés Georgetown, animamos a todos nuestros alumnos a plasmar su esfuerzo y progresos en algo tangible: el examen oficial.',
   },
   {
     title: 'El Tiempo es Oro',
-    text: 'Necesitas estudiar y/o trabajar en inglés en menos de un año. Aunque empezar pronto facilita la labor, la Academia es especialista en el desafío del corto plazo.',
+    text: 'Necesitas estudiar y/o trabajar en Inglés en menos de un año. Aunque empezar pronto facilita la labor y garantiza mejores resultados, la Academia de Inglés Georgetown es especialista en el desafío del corto plazo.',
   },
   {
     title: 'Cada Alumno es Único',
-    text: 'No hay dos alumnos iguales. El programa se personaliza en función del nivel y objetivos de cada uno.',
+    text: 'En la Academia de Inglés Georgetown sabemos que no hay dos alumnos iguales. Las necesidades del alumno son la única directriz. El programa se personaliza en función del nivel y objetivos de cada uno.',
   },
   {
     title: 'Misión',
-    text: 'Enseñar a cada alumno a trabajar de la manera más eficiente para alcanzar sus metas en el mínimo tiempo. Sin eficiencia no hay excelencia.',
+    text: 'Nuestra misión es enseñar a cada alumno a trabajar de la manera más eficiente para alcanzar sus metas en el mínimo tiempo. Sin eficiencia no hay excelencia.',
   },
 ];
 
@@ -108,15 +124,15 @@ export const pillars = [
   },
   {
     title: 'Tutoría Especializada',
-    text: 'Acciones formativas con tutela asíncrona o tuteladas con profesores certificados por la Academia de Inglés Georgetown.',
+    text: 'Acciones formativas con Tutela asíncrona o tuteladas con Profesores certificados: Las actividades formativas son tutorizadas por personal docente certificado por la Academia de Inglés Georgetown.',
   },
   {
-    title: 'Ámbito y Calendario',
-    text: 'Configuramos la acción formativa (12-24-36 semanas) y el calendario de formación con fechas de pruebas de progreso y examen final.',
+    title: 'Ámbito Y Calendario',
+    text: 'Configuramos la acción formativa (12-24-36 semanas) y el calendario de Formación con fechas de pruebas de progreso y Examen Final.',
   },
   {
     title: 'Online',
-    text: 'Gracias a la plataforma propia, los cursos se imparten de manera presencial en Pamplona o online, ajustándose a las necesidades de cada alumno.',
+    text: 'Gracias a la plataforma propia de la Academia de Inglés Georgetown los cursos se pueden impartir tanto de manera presencial en Pamplona como de manera Online, ajustándose a las necesidades de cada alumno.',
   },
 ];
 

@@ -6,24 +6,33 @@ interface Props {
   phone?: string;
   extraFields?: Array<'discount' | 'dni' | 'address' | 'company' | 'course'>;
   submitLabel?: string;
+  theme?: 'light' | 'dark';
 }
 
-const { source = 'contacto', phone = site.phone, extraFields = [], submitLabel = 'Enviar' } = Astro.props;
+const {
+  source = 'contacto',
+  phone = site.phone,
+  extraFields = [],
+  submitLabel = 'Enviar',
+  theme = 'light',
+} = Astro.props;
+
+const dark = theme === 'dark';
 ---
 
-<div class="grid gap-10 lg:grid-cols-[1fr_1.1fr]">
+<>
   <div>
-    <h2 class="text-3xl font-light text-ink md:text-4xl">
+    <h2>
       Descubre cómo la Academia de Inglés Georgetown puede ayudarte a conseguir tus objetivos.
     </h2>
-    <p class="mt-6 text-muted leading-relaxed">
+    <p>
       Uno de nuestros expertos se pondrá en contacto contigo para identificar tus necesidades o
       solucionar cualquier duda a través de la dirección y teléfono que nos facilites en el siguiente
       formulario.
     </p>
-    <p class="mt-4 font-semibold text-navy">Teléfono: {phone}</p>
+    <p class="ag-phone">Teléfono: {phone}</p>
   </div>
-  <form class="js-lead-form grid gap-3" data-source={source}>
+  <form class:list={['js-lead-form grid gap-3', dark && 'ag-form-dark']} data-source={source}>
     <input type="hidden" name="source" value={source} />
     <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
     <label class="sr-only" for={`name-${source}`}>Nombre y Apellidos</label>
@@ -35,7 +44,7 @@ const { source = 'contacto', phone = site.phone, extraFields = [], submitLabel =
     <label class="sr-only" for={`email-${source}`}>Correo electrónico</label>
     <input class="input" id={`email-${source}`} name="email" type="email" required placeholder="Correo electrónico" />
     <label class="sr-only" for={`phone-${source}`}>Teléfono Móvil</label>
-    <input class="input" id={`phone-${source}`} name="phone" required placeholder="Teléfono Móvil" />
+    <input class="input" id={`phone-${source}`} name="phone" required placeholder="Teléfono Movil" />
     {extraFields.includes('discount') && (
       <input class="input" name="discount" placeholder="Código de descuento" />
     )}
@@ -60,14 +69,18 @@ const { source = 'contacto', phone = site.phone, extraFields = [], submitLabel =
       </select>
     )}
     <textarea class="input min-h-28" name="message" placeholder="Mensaje"></textarea>
-    <p class="text-xs text-muted">
+    <p class:list={['text-xs', dark ? 'text-white/80' : 'text-muted']}>
       Al enviar aceptas el tratamiento de tus datos por {site.legalName} para atender tu solicitud.
       Consulta la <a href="/politica-privacidad/">política de privacidad</a>.
     </p>
-    <button class="btn btn-primary w-full" type="submit">{submitLabel}</button>
+    {dark ? (
+      <button class="btn-submit" type="submit">{submitLabel}</button>
+    ) : (
+      <button class="btn btn-solid w-full" type="submit">{submitLabel}</button>
+    )}
     <p class="js-form-status hidden text-sm"></p>
   </form>
-</div>
+</>
 <script>
   import { initLeadForms } from '../scripts/forms';
   initLeadForms();

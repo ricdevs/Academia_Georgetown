@@ -8,16 +8,21 @@ interface Props {
 const { items = defaultFaqs } = Astro.props;
 ---
 
-<section class="container-ag py-16">
-  <h2 class="mb-8 text-center text-3xl font-light">Preguntas Frecuentes</h2>
-  <div class="mx-auto max-w-3xl divide-y divide-line border-y border-line">
-    {items.map((item) => (
-      <details class="group py-4">
-        <summary class="cursor-pointer list-none text-lg font-semibold text-navy">
-          {item.q}
-        </summary>
-        <p class="mt-3 text-muted leading-relaxed">{item.a}</p>
-      </details>
-    ))}
+<section class="ag-section">
+  <div class="container-ag">
+    <h2 class="ag-title ag-center" style="margin-bottom: 1.5rem;">Preguntas Frecuentes</h2>
+    <div class="mx-auto max-w-3xl">
+      {items.map((item) => (
+        <div class="ag-toggle" data-toggle>
+          <button class="ag-toggle-title" type="button" aria-expanded="false">
+            <span>{item.q}</span>
+            <span class="ag-toggle-icon" aria-hidden="true"></span>
+          </button>
+          <div class="ag-toggle-panel">
+            <p>{item.a}</p>
+          </div>
+        </div>
+      ))}
+    </div>
   </div>
 </section>

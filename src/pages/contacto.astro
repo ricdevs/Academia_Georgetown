@@ -1,14 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactSection from '../components/ContactSection.astro';
+import PageHero from '../components/PageHero.astro';
 import { site } from '../data/site';
 ---
 
 <BaseLayout title={`Contacto - ${site.name}`} description="Contacta con Academia Georgetown en Pamplona.">
-  <section class="container-ag py-16">
-    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-navy">Contacto</p>
-    <h1 class="mt-3 text-4xl font-light">Academia de inglés en Pamplona</h1>
-    <p class="mt-4 max-w-2xl text-muted">{site.address}</p>
-  </section>
-  <ContactSection source="contacto" />
+  <PageHero
+    title="Academia de inglés en Pamplona"
+    kicker="Contacto"
+    lede={site.address}
+    actions={[{ href: site.phoneHref, label: `Teléfono ${site.phone}` }]}
+  />
+  <ContactSection source="contacto" heading={false} />
 </BaseLayout>

@@ -34,35 +34,35 @@ const description = pec?.description ?? site.description;
 
 <BaseLayout title={`${title} - ${site.name}`} description={description}>
   {pec && (
-    <article class="container-ag py-16">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-navy">{pec.headline}</p>
-      <h1 class="mt-3 text-4xl font-light">{pec.title}</h1>
-      <p class="mt-4 max-w-3xl text-lg text-muted">{pec.subtitle}</p>
-      <div class="mt-6 flex flex-wrap gap-3">
-        <a class="btn btn-primary" href="/contacto/">Solicite información</a>
-        <a class="btn btn-secondary" href="/contenido/">Contenido</a>
-        <a class="btn btn-secondary" href="/matricula-y-financiacion/">Matrícula y financiación</a>
+    <article class="container-ag ag-page-hero" style="padding-bottom: 0;">
+      <p class="ag-kicker">{pec.headline}</p>
+      <h1 data-reveal="left">{pec.title}</h1>
+      <p class="ag-lede">{pec.subtitle}</p>
+      <div class="ag-hero-actions">
+        <a class="btn btn-on-light" href="/contacto/">Solicite información</a>
+        <a class="btn btn-solid" href="/contenido/">Contenido</a>
+        <a class="btn btn-solid" href="/matricula-y-financiacion/">Matrícula y financiación</a>
       </div>
-      <h2 class="mt-12 text-2xl font-semibold text-navy">Completar con éxito el presente curso le permitirá:</h2>
-      <ul class="mt-4 list-disc space-y-2 pl-5 text-muted">
+      <h2 class="ag-title" style="margin-top: 3rem; font-size: 1.6rem;">Completar con éxito el presente curso le permitirá:</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 ag-body">
         {pec.benefits.map((b) => <li>{b}</li>)}
       </ul>
-      <div class="mt-10 grid gap-6 md:grid-cols-3">
-        <div>
-          <h3 class="font-semibold text-navy">Idóneo para</h3>
-          <p class="mt-2 text-muted">{pec.idealFor}</p>
+      <div class="mt-10 ag-grid-3">
+        <div class="ag-blurb">
+          <h3>Idóneo para</h3>
+          <p>{pec.idealFor}</p>
         </div>
-        <div>
-          <h3 class="font-semibold text-navy">Horario</h3>
-          <p class="mt-2 text-muted">{pec.schedule}</p>
+        <div class="ag-blurb">
+          <h3>Horario</h3>
+          <p>{pec.schedule}</p>
         </div>
-        <div>
-          <h3 class="font-semibold text-navy">Modalidad</h3>
-          <p class="mt-2 text-muted">{pec.modality}</p>
+        <div class="ag-blurb">
+          <h3>Modalidad</h3>
+          <p>{pec.modality}</p>
         </div>
       </div>
-      <h2 class="mt-12 text-2xl font-semibold text-navy">Materias incluidas</h2>
-      <p class="mt-3 text-muted">
+      <h2 class="ag-title" style="margin-top: 3rem; font-size: 1.6rem;">Materias incluidas</h2>
+      <p class="ag-body">
         Nuestro programa máster de Georgetown PEC – {pec.shortTitle} cubre las áreas sobre las que el
         examen puede presentar preguntas.
       </p>
@@ -75,7 +75,7 @@ const description = pec?.description ?? site.description;
   {kind === 'cert' && (
     <article class="prose-ag container-ag max-w-3xl py-16">
       {certLines.map((line, i) => (i === 0 ? <h1>{line}</h1> : <p>{line}</p>))}
-      <p><a class="btn btn-primary mt-6 inline-flex" href="/prueba-de-nivel/">Realiza una prueba de nivel</a></p>
+      <p><a class="btn btn-on-light mt-6 inline-flex" href="/prueba-de-nivel/">Realiza una prueba de nivel</a></p>
     </article>
   )}
 

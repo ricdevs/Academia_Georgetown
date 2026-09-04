@@ -1,47 +1,39 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
-import PecCarousel from '../components/PecCarousel.astro';
+import CardCarousel from '../components/CardCarousel.astro';
 import ContactSection from '../components/ContactSection.astro';
+import PageHero from '../components/PageHero.astro';
 import { pillars, site } from '../data/site';
-import { pecPrograms, certCards } from '../data/catalog';
+import { pecPrograms } from '../data/catalog';
+import { certCardMedia, pecImage } from '../data/media';
 
-const pecItems = pecPrograms.map((p) => ({ href: `/${p.slug}/`, title: p.shortTitle }));
+const pecItems = pecPrograms.map((p, i) => ({
+  href: `/${p.slug}/`,
+  title: p.shortTitle,
+  image: pecImage(i),
+}));
 ---
 
 <BaseLayout title={`Cursos de Inglés para el sector profesional - ${site.name}`}>
-  <section class="container-ag py-16">
-    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-navy">Academia de inglés en Pamplona y online</p>
-    <h1 class="mt-3 text-5xl font-semibold">Inglés profesional</h1>
-    <p class="mt-6 max-w-2xl text-lg text-muted">
-      Cursos de inglés para cada etapa de tu carrera profesional. Demuestra tu competencia en
-      entrevistas, domina el vocabulario y los conceptos clave que te abrirán las puertas del puesto
-      que quieres.
-    </p>
-    <div class="mt-8 flex flex-wrap gap-3">
-      <a class="btn btn-primary" href="/prueba-de-nivel/">Realiza una prueba de nivel</a>
-      <a class="btn btn-secondary" href="/contacto/">Solicita más información</a>
+  <PageHero
+    title="Inglés profesional"
+    lede="Cursos de inglés para cada etapa de tu carrera profesional. Demuestra tu competencia en entrevistas, domina el vocabulario y los conceptos clave que te abrirán las puertas del puesto que quieres."
+  />
+  <section class="ag-section-tight">
+    <div class="container-ag">
+      <div class="ag-grid-4">
+        {pillars.map((item) => (
+          <article class="ag-blurb" data-reveal>
+            <h2>{item.title}</h2>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
-  <section class="container-ag grid gap-8 py-8 md:grid-cols-2 lg:grid-cols-4">
-    {pillars.map((item) => (
-      <article>
-        <h2 class="text-xl font-semibold text-navy">{item.title}</h2>
-        <p class="mt-3 text-sm text-muted">{item.text}</p>
-      </article>
-    ))}
-  </section>
-  <section class="container-ag py-8">
-    <h2 class="mb-6 text-3xl font-light">Certificados más demandados</h2>
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {certCards.map((item) => (
-        <a href={item.href} class="rounded-md bg-navy p-8 text-center text-white no-underline">
-          <h3 class="text-xl font-semibold">{item.title}</h3>
-        </a>
-      ))}
-    </div>
-  </section>
-  <PecCarousel items={pecItems} />
+  <CardCarousel title="Certificados más demandados" items={[...certCardMedia]} show={3} />
+  <CardCarousel title="Programas Georgetown PEC – Inglés Específico" items={pecItems} show={4} scroll={4} gap={18} />
   <FaqAccordion />
   <ContactSection source="profesional" phone={site.phoneAlt} />
 </BaseLayout>

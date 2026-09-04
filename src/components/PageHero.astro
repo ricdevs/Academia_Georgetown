@@ -1,0 +1,35 @@
+---
+interface Props {
+  kicker?: string;
+  title: string;
+  lede?: string;
+  actions?: { href: string; label: string }[];
+}
+
+const {
+  kicker = 'Academia de inglés en Pamplona y online',
+  title,
+  lede,
+  actions = [
+    { href: '/prueba-de-nivel/', label: 'Realiza una prueba de nivel' },
+    { href: '/contacto/', label: 'Solicita más información' },
+  ],
+} = Astro.props;
+---
+
+<section class="ag-page-hero">
+  <div class="container-ag">
+    {kicker && <p class="ag-kicker">{kicker}</p>}
+    <h1 data-reveal="left">{title}</h1>
+    {lede && <p class="ag-lede">{lede}</p>}
+    {actions.length > 0 && (
+      <div class="ag-hero-actions">
+        {actions.map((a, i) => (
+          <a class:list={['btn', i === 0 ? 'btn-on-light' : 'btn-solid']} href={a.href}>
+            {a.label}
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
