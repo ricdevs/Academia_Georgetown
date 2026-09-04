@@ -1,0 +1,405 @@
+{
+  "essayPrompt": "Write an essay stating whether you think it is better to study online or in person. (Around 150 words)",
+  "questions": [
+    {
+      "id": "p1",
+      "prompt": "1- She has got a scholarship; She is luckier…………….",
+      "options": [
+        "as I",
+        "than I",
+        "than me",
+        "as me"
+      ]
+    },
+    {
+      "id": "p2",
+      "prompt": "2- Let’s…………….a cup of tea.",
+      "options": [
+        "to have",
+        "will have",
+        "have",
+        "having"
+      ]
+    },
+    {
+      "id": "p3",
+      "prompt": "3- He…………….to the airport by car.",
+      "options": [
+        "arrived",
+        "reached",
+        "was",
+        "got"
+      ]
+    },
+    {
+      "id": "p4",
+      "prompt": "4 - …………….of these handbags would you like to buy?",
+      "options": [
+        "Who",
+        "Whose",
+        "Which",
+        "What"
+      ]
+    },
+    {
+      "id": "p5",
+      "prompt": "5- I don’t speak French and my sister doesn’t…………….",
+      "options": [
+        "either",
+        "nor",
+        "even",
+        "neither"
+      ]
+    },
+    {
+      "id": "p6",
+      "prompt": "6- We went to Rome on holiday and…………….our neighbours.",
+      "options": [
+        "as",
+        "did so",
+        "so did",
+        "didn't so"
+      ]
+    },
+    {
+      "id": "p7",
+      "prompt": "7- …………….the main road and take the second turning on your right.",
+      "options": [
+        "go along",
+        "go for",
+        "get along",
+        "get through"
+      ]
+    },
+    {
+      "id": "p8",
+      "prompt": "8- Mrs. Ballagh ironed the clothes…………….she put them in a cupboard.",
+      "options": [
+        "before",
+        "after",
+        "during",
+        "when"
+      ]
+    },
+    {
+      "id": "p9",
+      "prompt": "9- It’s getting late. …………….",
+      "options": [
+        "Do stop not now!",
+        "Stop not now!",
+        "Don’t stop now!",
+        "Now, stop not!"
+      ]
+    },
+    {
+      "id": "p10",
+      "prompt": "10- We had bacon and eggs for breakfast. …………….",
+      "options": [
+        "So did us",
+        "So we did",
+        "So did we",
+        "So had us"
+      ]
+    },
+    {
+      "id": "p11",
+      "prompt": "11- Come on Jane! I’m very thirsty. …………….have a drink.",
+      "options": [
+        "Let’s we",
+        "Let's",
+        "Let's to",
+        "Let us to"
+      ]
+    },
+    {
+      "id": "p12",
+      "prompt": "12- My uncle Fred,………….lives in Leeds, is coming to see us next week.",
+      "options": [
+        "who",
+        "that",
+        "which",
+        "what"
+      ]
+    },
+    {
+      "id": "p13",
+      "prompt": "13- The notice on the wall……………. \"Staff Only\".",
+      "options": [
+        "tell",
+        "says",
+        "is telling",
+        "as saying"
+      ]
+    },
+    {
+      "id": "p14",
+      "prompt": "14- I don’t want to worry you, but you…………….get into trouble if you do it.",
+      "options": [
+        "should",
+        "can",
+        "may",
+        "must"
+      ]
+    },
+    {
+      "id": "p15",
+      "prompt": "15- Where…………….yesterday morning?",
+      "options": [
+        "have you gone",
+        "went you",
+        "you do go",
+        "did you go"
+      ]
+    },
+    {
+      "id": "p16",
+      "prompt": "16- We met…………….time ago that I can’t remember.",
+      "options": [
+        "a such long",
+        "such a long",
+        "a so long",
+        "so long a"
+      ]
+    },
+    {
+      "id": "p17",
+      "prompt": "17- I forgot…………….you this morning I was not coming for dinner.",
+      "options": [
+        "to say",
+        "saying",
+        "to tell",
+        "telling"
+      ]
+    },
+    {
+      "id": "p18",
+      "prompt": "18- It’s dinner time. …………I prepare something to eat?",
+      "options": [
+        "Will",
+        "Shall",
+        "Would",
+        "Ought"
+      ]
+    },
+    {
+      "id": "p19",
+      "prompt": "19- …………….you give me a hand with my homework?",
+      "options": [
+        "Shall",
+        "Should",
+        "Ought to",
+        "Will"
+      ]
+    },
+    {
+      "id": "p20",
+      "prompt": "20- The film was…………….boring that I almost fell asleep.",
+      "options": [
+        "such",
+        "such a",
+        "so",
+        "a so"
+      ]
+    },
+    {
+      "id": "p21",
+      "prompt": "21- That’s the shop assistant…………….",
+      "options": [
+        "who you spoke",
+        "you spoke",
+        "with that you spoke",
+        "you spoke to"
+      ]
+    },
+    {
+      "id": "p22",
+      "prompt": "22- The bus stop is…………….my house.",
+      "options": [
+        "very close",
+        "very close to",
+        "next",
+        "very next"
+      ]
+    },
+    {
+      "id": "p23",
+      "prompt": "23- Peter doesn’t like fish. …………….",
+      "options": [
+        "Neither Mary does",
+        "Mary doesn’t neither",
+        "Mary doesn’t either",
+        "Neither do Mary"
+      ]
+    },
+    {
+      "id": "p24",
+      "prompt": "24- I’m sure we…………….difficulties sooner or later.",
+      "options": [
+        "will go to",
+        "are having",
+        "will have",
+        "have"
+      ]
+    },
+    {
+      "id": "p25",
+      "prompt": "25- …………….I don’t believe that story.",
+      "options": [
+        "To tell you the truth",
+        "To say the truth",
+        "Telling truth",
+        "Saying the truth"
+      ]
+    },
+    {
+      "id": "p26",
+      "prompt": "26- Life in a city is more…………….than life in a village.",
+      "options": [
+        "funnier",
+        "worse",
+        "exciting",
+        "better"
+      ]
+    },
+    {
+      "id": "p27",
+      "prompt": "27- Is there…………….salt on the table?",
+      "options": [
+        "some",
+        "a",
+        "any",
+        "the"
+      ]
+    },
+    {
+      "id": "p28",
+      "prompt": "28- My…………….sister is fifty.",
+      "options": [
+        "mother",
+        "mother’s",
+        "mothers’s",
+        "mothers"
+      ]
+    },
+    {
+      "id": "p29",
+      "prompt": "29- …………….pork is there in the fridge?",
+      "options": [
+        "How many",
+        "How much",
+        "What",
+        "How"
+      ]
+    },
+    {
+      "id": "p30",
+      "prompt": "30- He is…………….artist.",
+      "options": [
+        "an",
+        "this",
+        "a",
+        "that"
+      ]
+    },
+    {
+      "id": "p31",
+      "prompt": "31- Good morning, Andrea. …………….lovely day!",
+      "options": [
+        "What",
+        "How",
+        "What a",
+        "So"
+      ]
+    },
+    {
+      "id": "p32",
+      "prompt": "32- What nationality are they? They are…………….",
+      "options": [
+        "Germany",
+        "the German",
+        "German's",
+        "German"
+      ]
+    },
+    {
+      "id": "p33",
+      "prompt": "33- I’m in a hurry because my husband…………….me.",
+      "options": [
+        "is waiting",
+        "waits for",
+        "is waiting for",
+        "wait"
+      ]
+    },
+    {
+      "id": "p34",
+      "prompt": "25- This Sunday we…………….play golf.",
+      "options": [
+        "go to",
+        "are going",
+        "are going to",
+        "go"
+      ]
+    },
+    {
+      "id": "p35",
+      "prompt": "35- I gave Tom half a dozen…………….for his birthday.",
+      "options": [
+        "handkerchiefs",
+        "handkerchieves",
+        "handkerchief",
+        "d)handkerchieve"
+      ]
+    },
+    {
+      "id": "p36",
+      "prompt": "36- We met…………….time ago that I can’t remember.",
+      "options": [
+        "a such long",
+        "such a long",
+        "a so long",
+        "so long a"
+      ]
+    },
+    {
+      "id": "p37",
+      "prompt": "37- Brighton is…………….the south coast of England.",
+      "options": [
+        "by",
+        "beside",
+        "on",
+        "in"
+      ]
+    },
+    {
+      "id": "p38",
+      "prompt": "38- Can you see them? Yes, they are…………….the big tree.",
+      "options": [
+        "between",
+        "in front",
+        "over",
+        "near"
+      ]
+    },
+    {
+      "id": "p39",
+      "prompt": "39- When Liz…………….in London she went to see the Houses of Parliament.",
+      "options": [
+        "got",
+        "came",
+        "arrived",
+        "reached"
+      ]
+    },
+    {
+      "id": "p40",
+      "prompt": "40- There is a very good…………….on TV tonight.",
+      "options": [
+        "French film",
+        "France film",
+        "film France",
+        "film French"
+      ]
+    }
+  ]
+}

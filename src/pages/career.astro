@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout title={`Trabaja con nosotros - ${site.name}`}>
+  <section class="container-ag max-w-3xl py-16">
+    <h1 class="text-4xl font-light">Trabaja con nosotros</h1>
+    <p class="mt-6 leading-relaxed text-muted">
+      En Academia Georgetown buscamos profesionales comprometidos, dinámicos y con un sólido dominio
+      del inglés. Envía tu CV y carta de presentación a
+      <a href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+    <p class="mt-4 text-muted">
+      La formación se imparte con el método Georgetown y la plataforma ALTEA. No hay área de usuario
+      en esta web: la selección se gestiona por correo.
+    </p>
+  </section>
+</BaseLayout>

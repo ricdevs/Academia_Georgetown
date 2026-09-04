@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout title={`Programa de referidos - ${site.name}`}>
+  <section class="container-ag max-w-3xl py-16">
+    <h1 class="text-4xl font-light">Gana ventajas y descuentos invitando a tus amigos</h1>
+    <p class="mt-6 text-muted leading-relaxed">
+      Descubre cómo puedes obtener ventajas invitando a tus amigos. Además de conseguir descuentos
+      exclusivos para las personas que se unan con tu código.
+    </p>
+  </section>
+  <ContactSection source="referidos" extraFields={['discount']} />
+</BaseLayout>

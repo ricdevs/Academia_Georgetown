@@ -1,0 +1,40 @@
+RewriteEngine On
+
+# Forms on SiteGround: /api/submit -> PHP handler
+RewriteRule ^api/submit/?$ /api/submit.php [L]
+
+# Trailing slash
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !/$
+RewriteRule ^(.+)$ /$1/ [R=301,L]
+
+Redirect 301 /login /
+Redirect 301 /login/ /
+Redirect 301 /register /
+Redirect 301 /register/ /
+Redirect 301 /lp-profile /
+Redirect 301 /lp-profile/ /
+Redirect 301 /lp-checkout /
+Redirect 301 /lp-checkout/ /
+Redirect 301 /courses /
+Redirect 301 /courses/ /
+Redirect 301 /set-own-courses /
+Redirect 301 /set-own-courses/ /
+Redirect 301 /instructors /
+Redirect 301 /instructors/ /
+Redirect 301 /instructor /
+Redirect 301 /instructor/ /
+Redirect 301 /become_a_teacher /
+Redirect 301 /become_a_teacher/ /
+Redirect 301 /term_conditions /terminos/
+Redirect 301 /term_conditions/ /terminos/
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+</IfModule>

@@ -1,0 +1,70 @@
+---
+import Recaptcha from './Recaptcha.astro';
+import quiz from '../data/level-test.json';
+---
+
+<Recaptcha />
+<form class="js-lead-form space-y-10" data-source="prueba-de-nivel">
+  <input type="hidden" name="source" value="prueba-de-nivel" />
+  <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
+
+  <div class="grid gap-8 md:grid-cols-2">
+    {quiz.questions.map((q) => (
+      <fieldset class="min-w-0">
+        <legend class="mb-3 font-semibold text-ink">{q.prompt}</legend>
+        <div class="grid gap-2">
+          {q.options.map((opt) => (
+            <label class="flex cursor-pointer items-center gap-2 text-muted">
+              <input type="radio" name={q.id} value={opt} />
+              <span>{opt}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+    ))}
+  </div>
+
+  <div>
+    <label class="mb-2 block font-semibold" for="essay">{quiz.essayPrompt}</label>
+    <textarea id="essay" name="essay" class="input min-h-40" placeholder={quiz.essayPrompt}></textarea>
+  </div>
+
+  <div class="grid gap-3 md:grid-cols-2">
+    <input class="input md:col-span-2" name="name" required placeholder="Nombre y Apellidos" />
+    <input class="input" name="phone" required placeholder="Teléfono Móvil" />
+    <input class="input" name="email" type="email" required placeholder="Correo electrónico" />
+    <input class="input" name="occupation" placeholder="Ocupación" />
+    <input class="input" name="dob" placeholder="Fecha de Nacimiento DD/MM/AA" />
+    <select class="input" name="lastCertificate">
+      <option value="">¿Cuál es el último certificado que obtuviste?</option>
+      <option>Ninguno</option>
+      <option>A1</option>
+      <option>A2</option>
+      <option>B1</option>
+      <option>B2</option>
+      <option>C1</option>
+      <option>C2</option>
+    </select>
+    <select class="input" name="targetCertificate">
+      <option value="">¿Qué Certificado Necesitas?</option>
+      <option>Solo quiero mejorar mi nivel de inglés.</option>
+      <option>Cambridge A1</option>
+      <option>Cambridge A2</option>
+      <option>Cambridge B1</option>
+      <option>Cambridge B2</option>
+      <option>Cambridge C1</option>
+      <option>Cambridge C2</option>
+      <option>TOEFL</option>
+      <option>APTIS General</option>
+      <option>APTIS Advanced</option>
+      <option>IELTS</option>
+      <option>EOI</option>
+    </select>
+  </div>
+  <button class="btn btn-primary" type="submit">Enviar prueba de nivel</button>
+  <p class="js-form-status hidden text-sm"></p>
+</form>
+<script>
+  import { initLeadForms } from '../scripts/forms';
+  initLeadForms();
+</script>

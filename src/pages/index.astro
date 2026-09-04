@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import PecCarousel from '../components/PecCarousel.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { mission, pillars, site } from '../data/site';
+import { pecPrograms, certCards } from '../data/catalog';
+
+const pecItems = pecPrograms.map((p) => ({ href: `/${p.slug}/`, title: p.shortTitle }));
+---
+
+<BaseLayout title={`${site.name} - Academia de Inglés en Pamplona`}>
+  <section class="relative overflow-hidden">
+    <div class="container-ag grid items-center gap-10 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:py-24">
+      <div>
+        <p class="mb-4 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-navy">
+          <span class="h-px w-10 bg-navy"></span>
+          Academia de inglés en Pamplona y online
+        </p>
+        <h1 class="text-5xl font-semibold leading-tight text-ink md:text-7xl">
+          Academia<br />Georgetown
+        </h1>
+        <p class="mt-6 max-w-xl text-lg text-muted">
+          Tu Centro Preparador y Examinador de Certificados de Inglés en Pamplona: Certificados
+          Cambridge, TOEFL iBT®, APTIS by British Council, IELTS y Georgetown PEC y PASS.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a class="btn btn-primary" href="/prueba-de-nivel/">Realiza una prueba de nivel</a>
+          <a class="btn btn-secondary" href="/contacto/">Solicita más información</a>
+        </div>
+      </div>
+      <div class="relative hidden min-h-[280px] lg:block">
+        <svg class="absolute inset-x-0 bottom-0 h-40 w-full text-[#ececf2]" viewBox="0 0 800 160" preserveAspectRatio="none" aria-hidden="true">
+          <path fill="currentColor" d="M0 80 C 160 160 280 0 400 60 C 560 140 640 20 800 80 L800 160 L0 160 Z"></path>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-ag grid items-center gap-10 py-16 lg:grid-cols-2">
+    <img src="/images/hero-home.jpg" alt="Academia Georgetown en Pamplona" class="h-full max-h-[520px] w-full object-cover" />
+    <div>
+      <h2 class="text-4xl font-light">Excelencia Académica</h2>
+      <p class="mt-6 leading-relaxed text-muted">
+        El método de la Academia de Inglés Georgetown ha sido desarrollado por un grupo de expertos
+        lingüistas con el objetivo de ofrecer el programa más completo y que mejor se ajuste a tus
+        necesidades de enseñanza del inglés. Gracias a la plataforma Georgetown ALTEA (Acquisition
+        Learning Technologies & Electronic Assessment) y la atención personalizada del profesorado,
+        conseguirás los resultados que deseas.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-ag py-8">
+    <p class="text-center text-xs font-semibold uppercase tracking-[0.2em] text-navy">Academia de Inglés Georgetown</p>
+    <h2 class="mx-auto mt-3 max-w-3xl text-center text-2xl font-light text-muted">
+      Los cursos de Academia de Inglés Georgetown permiten aprender en el mínimo tiempo, con soluciones
+      avanzadas que se adaptan a cada alumno.
+    </h2>
+    <div class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      {pillars.map((item) => (
+        <article>
+          <h3 class="text-xl font-semibold text-navy">{item.title}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-muted">{item.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-mist py-16">
+    <div class="container-ag">
+      <h2 class="mb-10 text-center text-3xl font-light">Misión de la Academia de Inglés Georgetown</h2>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {mission.map((item) => (
+          <article class="bg-white p-6 shadow-sm">
+            <h3 class="text-xl font-semibold text-navy">{item.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-muted">{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="container-ag grid gap-8 py-16 md:grid-cols-3">
+    <article>
+      <h2 class="text-2xl font-semibold text-navy">Cambridge</h2>
+      <p class="mt-3 text-muted">Obtén con el método GEORGETOWN los certificados CAMBRIDGE en el mínimo tiempo y avala tu dominio del inglés.</p>
+    </article>
+    <article>
+      <h2 class="text-2xl font-semibold text-navy">TOEFL iBT®</h2>
+      <p class="mt-3 text-muted">Prepárate y examínate en tu centro examinador Georgetown del TOEFL iBT® y obtén la máxima puntuación, con la mejor preparación y en el mínimo tiempo.</p>
+    </article>
+    <article>
+      <h2 class="text-2xl font-semibold text-navy">APTIS®</h2>
+      <p class="mt-3 text-muted">Prepara y certifica tu nivel desde A1 hasta C1 (MCER) en tu centro examinador Georgetown, y obtén los resultados en 3 días.</p>
+    </article>
+  </section>
+
+  <section class="container-ag py-8">
+    <h2 class="mb-8 text-center text-3xl font-light">Certificados de Inglés Más Demandados</h2>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {certCards.map((item) => (
+        <a href={item.href} class="rounded-md bg-navy p-8 text-center text-white no-underline">
+          <h3 class="text-xl font-semibold">{item.title}</h3>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="container-ag max-w-3xl py-16 text-center">
+    <blockquote class="text-lg leading-relaxed text-muted">
+      Desde el primer día me di cuenta de lo positivo y enriquecedor que iba a ser el curso para la
+      vida profesional. En primer lugar lo enfocado que está en lo importante: vocabulario y
+      conversación. Durante todo el curso se enfatiza el aprender vocabulario técnico y ponerlo en
+      práctica. Muy recomendable para mejorar y perfeccionar el inglés del sector del automóvil.
+    </blockquote>
+    <p class="mt-6 font-semibold text-navy">Adrián Manías Silva</p>
+    <p class="text-sm text-muted">Ciencias Económicas, UPNA</p>
+  </section>
+
+  <PecCarousel items={pecItems} />
+  <FaqAccordion />
+  <ContactSection source="home" />
+</BaseLayout>

@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout title={`Cursos subvencionados - ${site.name}`}>
+  <section class="container-ag py-16">
+    <h1 class="text-4xl font-light">Formulario de inscripción a los cursos 100% subvencionados por el Servicio Navarro de Empleo</h1>
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      <article class="border border-line p-6">
+        <h2 class="text-xl font-semibold text-navy">Nivel B2 (Inglés Empresarial)</h2>
+        <ul class="mt-4 space-y-1 text-muted">
+          <li>Lunes a viernes</li>
+          <li>12:00-14:30</li>
+          <li>Clases presenciales u online</li>
+          <li>Del 27 de julio al 31 de agosto</li>
+        </ul>
+      </article>
+      <article class="border border-line p-6">
+        <h2 class="text-xl font-semibold text-navy">Nivel C1 (Inglés Empresarial)</h2>
+        <ul class="mt-4 space-y-1 text-muted">
+          <li>Lunes a viernes</li>
+          <li>16:00-18:30</li>
+          <li>Clases presenciales u online</li>
+          <li>Del 27 de julio al 31 de agosto</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+  <ContactSection
+    source="formulario-subvencionados"
+    extraFields={['course', 'dni', 'company', 'address']}
+    submitLabel="Solicitar plaza"
+  />
+</BaseLayout>

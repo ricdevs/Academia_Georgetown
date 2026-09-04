@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "trailingSlash": "auto",
+  "routes": [
+    { "route": "/login", "redirect": "/", "statusCode": 301 },
+    { "route": "/login/", "redirect": "/", "statusCode": 301 },
+    { "route": "/register", "redirect": "/", "statusCode": 301 },
+    { "route": "/register/", "redirect": "/", "statusCode": 301 },
+    { "route": "/lp-profile", "redirect": "/", "statusCode": 301 },
+    { "route": "/lp-profile/", "redirect": "/", "statusCode": 301 },
+    { "route": "/lp-checkout", "redirect": "/", "statusCode": 301 },
+    { "route": "/lp-checkout/", "redirect": "/", "statusCode": 301 },
+    { "route": "/courses", "redirect": "/", "statusCode": 301 },
+    { "route": "/courses/", "redirect": "/", "statusCode": 301 },
+    { "route": "/set-own-courses", "redirect": "/", "statusCode": 301 },
+    { "route": "/set-own-courses/", "redirect": "/", "statusCode": 301 },
+    { "route": "/instructors", "redirect": "/", "statusCode": 301 },
+    { "route": "/instructors/", "redirect": "/", "statusCode": 301 },
+    { "route": "/instructor", "redirect": "/", "statusCode": 301 },
+    { "route": "/instructor/", "redirect": "/", "statusCode": 301 },
+    { "route": "/become_a_teacher", "redirect": "/", "statusCode": 301 },
+    { "route": "/become_a_teacher/", "redirect": "/", "statusCode": 301 },
+    { "route": "/term_conditions", "redirect": "/terminos/", "statusCode": 301 },
+    { "route": "/term_conditions/", "redirect": "/terminos/", "statusCode": 301 }
+  ],
+  "navigationFallback": {
+    "rewrite": "/404.html",
+    "exclude": ["/images/*", "/api/*"]
+  }
+}

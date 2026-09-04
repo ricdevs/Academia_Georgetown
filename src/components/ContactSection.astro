@@ -1,0 +1,19 @@
+---
+import Recaptcha from './Recaptcha.astro';
+import ContactForm from './ContactForm.astro';
+
+interface Props {
+  source?: string;
+  phone?: string;
+  extraFields?: Array<'discount' | 'dni' | 'address' | 'company' | 'course'>;
+  submitLabel?: string;
+}
+const props = Astro.props;
+---
+
+<section class="bg-mist py-16">
+  <div class="container-ag">
+    <Recaptcha />
+    <ContactForm {...props} />
+  </div>
+</section>

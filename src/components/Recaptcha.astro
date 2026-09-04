@@ -1,0 +1,5 @@
+---
+import { site } from '../data/site';
+const src = `https://www.google.com/recaptcha/api.js?render=${site.recaptchaSiteKey}`;
+---
+<script is:inline src={src}></script>

@@ -1,0 +1,11 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "CONTACT_TO": "info@academiageorgetown.es",
+    "RECAPTCHA_SECRET": "",
+    "CLIENTIFY_WEBHOOK_URL": "",
+    "AZURE_COMMUNICATION_CONNECTION_STRING": "",
+    "MAIL_FROM": ""
+  }
+}

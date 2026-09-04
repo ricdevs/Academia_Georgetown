@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import legal from '../data/legal.json';
+import { site } from '../data/site';
+
+interface Props {
+  slug: keyof typeof legal;
+  title: string;
+}
+
+const { slug, title } = Astro.props;
+const lines = legal[slug] ?? [];
+---
+
+<BaseLayout title={`${title} - ${site.name}`}>
+  <article class="prose-ag container-ag max-w-3xl py-16">
+    <h1>{title}</h1>
+    {lines.map((line) => {
+      const heading = line.length < 80 && !line.endsWith('.') && !line.includes(':') && line === line;
+      const isHeading =
+        line.length < 90 &&
+        !line.endsWith('.') &&
+        !line.endsWith(',') &&
+        /^[A-ZÁÉÍÓÚ¿]/.test(line) &&
+        line.split(' ').length < 12;
+      if (isHeading) return <h2>{line}</h2>;
+      return <p>{line}</p>;
+    })}
+  </article>
+</BaseLayout>

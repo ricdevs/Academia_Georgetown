@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { pillars, site } from '../data/site';
+import { youthCertCards } from '../data/catalog';
+---
+
+<BaseLayout title={`Cursos de Inglés para Jóvenes - ${site.name}`}>
+  <section class="container-ag py-16">
+    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-navy">Academia de inglés en Pamplona y online</p>
+    <h1 class="mt-3 text-5xl font-semibold">Inglés para escolares</h1>
+    <p class="mt-6 max-w-2xl text-lg text-muted">
+      Cursos de inglés y certificados para multiplicar las opciones académicas y forjar un futuro
+      profesional.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a class="btn btn-primary" href="/prueba-de-nivel/">Realiza una prueba de nivel</a>
+      <a class="btn btn-secondary" href="/contacto/">Solicita más información</a>
+    </div>
+  </section>
+  <section class="container-ag grid gap-8 py-8 md:grid-cols-3">
+    <article>
+      <h2 class="text-xl font-semibold text-navy">Método de enseñanza líder</h2>
+      <p class="mt-3 text-muted">Si tus objetivos son aprender y mejorar el inglés de una manera rápida y eficaz, en Georgetown descubrirás el método para conseguirlo.</p>
+    </article>
+    <article>
+      <h2 class="text-xl font-semibold text-navy">Cursos adaptados</h2>
+      <p class="mt-3 text-muted">El contenido específico de nuestros cursos permite controlar el progreso, optimizar recursos y aprovechar el tiempo al máximo.</p>
+    </article>
+    <article>
+      <h2 class="text-xl font-semibold text-navy">Plataforma para el dominio del inglés</h2>
+      <p class="mt-3 text-muted">Gracias al método Georgetown y el profesorado experto, los alumnos consiguen éxito académico y profesional.</p>
+    </article>
+  </section>
+  <section class="container-ag grid gap-8 py-8 md:grid-cols-2 lg:grid-cols-4">
+    {pillars.map((item) => (
+      <article>
+        <h2 class="text-xl font-semibold text-navy">{item.title}</h2>
+        <p class="mt-3 text-sm text-muted">{item.text}</p>
+      </article>
+    ))}
+  </section>
+  <section class="container-ag py-8">
+    <h2 class="mb-6 text-3xl font-light">Certificados más demandados</h2>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {youthCertCards.map((item) => (
+        <a href={item.href} class="rounded-md bg-navy p-8 text-center text-white no-underline">
+          <h3 class="text-xl font-semibold">{item.title}</h3>
+        </a>
+      ))}
+    </div>
+  </section>
+  <FaqAccordion />
+  <ContactSection source="jovenes" phone={site.phoneAlt} />
+</BaseLayout>

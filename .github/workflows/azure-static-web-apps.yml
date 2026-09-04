@@ -1,0 +1,45 @@
+name: Deploy Azure Static Web Apps
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches: [main, master]
+
+jobs:
+  build_and_deploy:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: Build and deploy
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Build And Deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: upload
+          app_location: /
+          api_location: api
+          output_location: dist
+          app_build_command: npm ci && npm run build
+        env:
+          CONTACT_TO: ${{ secrets.CONTACT_TO }}
+          RECAPTCHA_SECRET: ${{ secrets.RECAPTCHA_SECRET }}
+          CLIENTIFY_WEBHOOK_URL: ${{ secrets.CLIENTIFY_WEBHOOK_URL }}
+          AZURE_COMMUNICATION_CONNECTION_STRING: ${{ secrets.AZURE_COMMUNICATION_CONNECTION_STRING }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+
+  close_pr:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    name: Close Pull Request
+    steps:
+      - name: Close
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          action: close

@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { extractedPages } from '../data/catalog';
+import { site } from '../data/site';
+
+const lines = extractedPages['matricula-y-financiacion'];
+---
+
+<BaseLayout title={`Matrícula y Financiación - ${site.name}`}>
+  <article class="prose-ag container-ag max-w-3xl py-16">
+    <h1>Matrícula y financiación</h1>
+    {lines.map((line) => <p>{line}</p>)}
+    <p><a href="/contenido/">Contenido de los programas PEC</a></p>
+  </article>
+</BaseLayout>

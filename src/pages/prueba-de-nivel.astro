@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LevelTestForm from '../components/LevelTestForm.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout title={`Prueba de Nivel - ${site.name}`} description="Realiza la prueba de nivel de inglés de Academia Georgetown.">
+  <section class="container-ag py-16">
+    <div class="mx-auto mb-12 grid max-w-4xl gap-8 rounded-md bg-white p-8 shadow-lg md:grid-cols-2">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-navy">Prueba de Nivel Georgetown</p>
+        <h1 class="mt-3 text-4xl font-light">Guía para Completar la Prueba de Nivel</h1>
+      </div>
+      <p class="text-muted leading-relaxed">
+        Para comenzar, realiza nuestra prueba de nivel de inglés para evaluar de manera realista tus
+        habilidades lingüísticas actuales. A continuación, redacta un ensayo sobre el tema propuesto.
+        Cada paso es esencial para adaptar nuestro programa a tus necesidades específicas. Finalmente,
+        introduce tu información de contacto.
+        <br /><br />
+        Duración aproximada: 30′
+      </p>
+    </div>
+    <LevelTestForm />
+  </section>
+</BaseLayout>

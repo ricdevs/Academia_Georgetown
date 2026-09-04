@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactSection from '../components/ContactSection.astro';
+import {
+  pecPrograms,
+  pecBySlug,
+  certificates,
+  extractedPages,
+  landingBySlug,
+  seoLandings,
+} from '../data/catalog';
+import { site } from '../data/site';
+
+export function getStaticPaths() {
+  const pec = pecPrograms.map((p) => ({ params: { slug: p.slug }, props: { kind: 'pec' as const } }));
+  const certs = certificates.map((slug) => ({ params: { slug }, props: { kind: 'cert' as const } }));
+  const landings = seoLandings.map((l) => ({
+    params: { slug: l.slug },
+    props: { kind: 'landing' as const },
+  }));
+  return [...pec, ...certs, ...landings];
+}
+
+const { slug } = Astro.params;
+const { kind } = Astro.props;
+
+const pec = kind === 'pec' ? pecBySlug[slug!] : undefined;
+const certLines = kind === 'cert' ? (extractedPages as Record<string, string[]>)[slug!] ?? [] : [];
+const landing = kind === 'landing' ? landingBySlug[slug!] : undefined;
+
+const title = pec?.title ?? certLines[0] ?? landing?.title ?? site.name;
+const description = pec?.description ?? site.description;
+---
+
+<BaseLayout title={`${title} - ${site.name}`} description={description}>
+  {pec && (
+    <article class="container-ag py-16">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-navy">{pec.headline}</p>
+      <h1 class="mt-3 text-4xl font-light">{pec.title}</h1>
+      <p class="mt-4 max-w-3xl text-lg text-muted">{pec.subtitle}</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a class="btn btn-primary" href="/contacto/">Solicite información</a>
+        <a class="btn btn-secondary" href="/contenido/">Contenido</a>
+        <a class="btn btn-secondary" href="/matricula-y-financiacion/">Matrícula y financiación</a>
+      </div>
+      <h2 class="mt-12 text-2xl font-semibold text-navy">Completar con éxito el presente curso le permitirá:</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-muted">
+        {pec.benefits.map((b) => <li>{b}</li>)}
+      </ul>
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        <div>
+          <h3 class="font-semibold text-navy">Idóneo para</h3>
+          <p class="mt-2 text-muted">{pec.idealFor}</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-navy">Horario</h3>
+          <p class="mt-2 text-muted">{pec.schedule}</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-navy">Modalidad</h3>
+          <p class="mt-2 text-muted">{pec.modality}</p>
+        </div>
+      </div>
+      <h2 class="mt-12 text-2xl font-semibold text-navy">Materias incluidas</h2>
+      <p class="mt-3 text-muted">
+        Nuestro programa máster de Georgetown PEC – {pec.shortTitle} cubre las áreas sobre las que el
+        examen puede presentar preguntas.
+      </p>
+      <ul class="mt-4 grid gap-2 sm:grid-cols-2 md:grid-cols-3">
+        {pec.subjects.map((s) => <li class="text-muted">{s}</li>)}
+      </ul>
+    </article>
+  )}
+
+  {kind === 'cert' && (
+    <article class="prose-ag container-ag max-w-3xl py-16">
+      {certLines.map((line, i) => (i === 0 ? <h1>{line}</h1> : <p>{line}</p>))}
+      <p><a class="btn btn-primary mt-6 inline-flex" href="/prueba-de-nivel/">Realiza una prueba de nivel</a></p>
+    </article>
+  )}
+
+  {landing && (
+    <article class="prose-ag container-ag max-w-3xl py-16">
+      <h1>{landing.h1}</h1>
+      <p>
+        La Academia Georgetown es tu centro especializado para aprender inglés en Pamplona. Ofrecemos
+        programas personalizados y eficientes que te permitirán dominar el idioma en el menor tiempo
+        posible. Con la plataforma Georgetown ALTEA y nuestro equipo de expertos lingüistas,
+        garantizamos una formación de excelencia adaptada a tus necesidades. Prepárate para los
+        certificados Cambridge, TOEFL iBT®, APTIS, IELTS y nuestros exclusivos Georgetown PEC y PASS.
+      </p>
+      <ul>
+        <li><a href="/academia-de-ingles-en-pamplona/">Academia de inglés en Pamplona</a></li>
+        <li><a href="/sacarse-el-b1-de-ingles-en-pamplona/">Sacarse el B1 de inglés en Pamplona</a></li>
+        <li><a href="/sacarse-el-b2-de-ingles-en-pamplona/">Sacarse el B2 de inglés en Pamplona</a></li>
+        <li><a href="/sacarse-el-c1-de-ingles-en-pamplona/">Sacarse el C1 de inglés en Pamplona</a></li>
+        <li><a href="/certificado-de-ingles-en-pamplona/">Certificado de inglés en Pamplona</a></li>
+        <li><a href="/ingles-para-jovenes/">Clases de inglés para jóvenes en Pamplona</a></li>
+      </ul>
+      <p>
+        Si estás interesado, contacta a través del formulario o llama al {site.phoneAlt}.
+      </p>
+    </article>
+  )}
+
+  <ContactSection source={slug} phone={kind === 'landing' ? site.phoneAlt : site.phone} />
+</BaseLayout>
