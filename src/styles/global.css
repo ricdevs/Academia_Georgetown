@@ -48,14 +48,16 @@ a {
   border: 0;
 }
 
+/* Same row as the live Theme Builder header: 80% of the viewport, no 1080 cap */
 .container-ag {
-  width: min(1080px, 80%);
+  width: 80%;
+  max-width: none;
   margin-inline: auto;
 }
 
 @media (max-width: 980px) {
   .container-ag {
-    width: min(1140px, calc(100% - 2rem));
+    width: calc(100% - 2rem);
   }
 }
 
@@ -190,13 +192,18 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.7rem 0;
+  padding: 9px 0;
   background: #fff;
   position: relative;
 }
 
+.ag-logo {
+  flex: 0 1 auto;
+  margin-right: 30px;
+}
+
 .ag-logo img {
-  width: 280px;
+  width: 366px;
   max-width: 100%;
   height: auto;
   display: block;
@@ -205,7 +212,7 @@ a {
 .ag-nav {
   display: flex;
   align-items: center;
-  gap: 2.15rem;
+  gap: 22px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -213,9 +220,9 @@ a {
 
 .ag-nav a {
   display: inline-block;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 400;
-  color: var(--color-navy);
+  color: #080d4b;
   text-decoration: none;
   padding: 10px 0 8px;
   transition: opacity 0.2s ease, box-shadow 0.2s ease;
@@ -223,7 +230,11 @@ a {
 
 .ag-nav a:hover,
 .ag-nav a.is-current {
-  box-shadow: inset 0 -2px #f4a63b;
+  box-shadow: inset 0 -2px #ffa301;
+}
+
+.ag-nav a.is-current {
+  font-weight: 700;
 }
 
 .ag-menu-btn {
@@ -306,8 +317,18 @@ a {
     padding-bottom: 10px;
   }
 
+  .ag-logo {
+    margin-right: 0;
+  }
+
   .ag-logo img {
-    width: 235px;
+    width: 275px;
+  }
+
+  @media (max-width: 767px) {
+    .ag-logo img {
+      width: 235px;
+    }
   }
 
   .ag-nav {
@@ -329,7 +350,7 @@ a {
 
 .ag-split-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 420px);
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 480px);
   gap: 3.25rem;
   align-items: center;
   padding: 0 0 7.5rem;
@@ -474,15 +495,26 @@ a {
 /* Prueba de Nivel — live desktop form page */
 .ag-nivel {
   padding: 3.25rem 0 5rem;
+  background: #f4f5f8;
+}
+
+.ag-nivel-card {
   background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 24px 72px -12px rgb(0 0 0 / 0.12);
+  padding: 60px;
 }
 
 .ag-nivel-intro {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3.5rem 4.5rem;
+  grid-template-columns: 57.8fr 36.7fr;
+  column-gap: 5.5%;
   align-items: start;
-  margin-bottom: 3.75rem;
+  margin-bottom: 0;
+}
+
+.ag-nivel-quiz {
+  padding-top: 63px;
 }
 
 .ag-nivel-kicker {
@@ -613,6 +645,10 @@ a {
 }
 
 @media (max-width: 980px) {
+  .ag-nivel-card {
+    padding: 30px;
+  }
+
   .ag-nivel-intro,
   .ag-quiz,
   .ag-nivel-fields {
