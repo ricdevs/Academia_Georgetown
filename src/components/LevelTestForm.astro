@@ -4,34 +4,39 @@ import quiz from '../data/level-test.json';
 ---
 
 <Recaptcha />
-<form class="js-lead-form space-y-10" data-source="prueba-de-nivel">
+<form class="ag-nivel-form js-lead-form" data-source="prueba-de-nivel">
   <input type="hidden" name="source" value="prueba-de-nivel" />
-  <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
+  <input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off" />
 
-  <div class="grid gap-8 md:grid-cols-2">
-    {quiz.questions.map((q) => (
-      <fieldset class="min-w-0">
-        <legend class="mb-3 font-semibold text-ink">{q.prompt}</legend>
-        <div class="grid gap-2">
-          {q.options.map((opt) => (
-            <label class="flex cursor-pointer items-center gap-2 text-muted">
-              <input type="radio" name={q.id} value={opt} />
-              <span>{opt}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-    ))}
+  <div class="ag-quiz">
+    {
+      quiz.questions.map((q) => (
+        <fieldset class="ag-quiz-item">
+          <legend>{q.prompt}</legend>
+          <div class="ag-quiz-options">
+            {q.options.map((opt) => (
+              <label class="ag-quiz-opt">
+                <input type="radio" name={q.id} value={opt} />
+                <span>{opt}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      ))
+    }
   </div>
 
-  <div>
-    <label class="mb-2 block font-semibold" for="essay">{quiz.essayPrompt}</label>
-    <textarea id="essay" name="essay" class="input min-h-40" placeholder={quiz.essayPrompt}></textarea>
-  </div>
+  <textarea
+    id="essay"
+    name="essay"
+    class="input ag-nivel-essay"
+    placeholder={quiz.essayPrompt}
+    rows="7"
+  ></textarea>
 
-  <div class="grid gap-3 md:grid-cols-2">
-    <input class="input md:col-span-2" name="name" required placeholder="Nombre y Apellidos" />
-    <input class="input" name="phone" required placeholder="Teléfono Móvil" />
+  <div class="ag-nivel-fields">
+    <input class="input ag-span-2" name="name" required placeholder="Nombre y Apellidos" />
+    <input class="input" name="phone" required placeholder="Teléfono Movil" />
     <input class="input" name="email" type="email" required placeholder="Correo electrónico" />
     <input class="input" name="occupation" placeholder="Ocupación" />
     <input class="input" name="dob" placeholder="Fecha de Nacimiento DD/MM/AA" />
@@ -61,7 +66,10 @@ import quiz from '../data/level-test.json';
       <option>EOI</option>
     </select>
   </div>
-  <button class="btn btn-solid" type="submit">Enviar prueba de nivel</button>
+
+  <div class="ag-form-submit">
+    <button class="ag-enviar" type="submit">Enviar</button>
+  </div>
   <p class="js-form-status hidden text-sm"></p>
 </form>
 <script>

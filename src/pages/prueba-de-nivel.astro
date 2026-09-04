@@ -4,22 +4,29 @@ import LevelTestForm from '../components/LevelTestForm.astro';
 import { site } from '../data/site';
 ---
 
-<BaseLayout title={`Prueba de Nivel - ${site.name}`} description="Realiza la prueba de nivel de inglés de Academia Georgetown.">
-  <section class="container-ag py-16">
-    <div class="mx-auto mb-12 grid max-w-4xl gap-8 md:grid-cols-2" data-reveal>
-      <div>
-        <p class="ag-kicker" style="color: var(--color-navy);">Prueba de Nivel Georgetown</p>
-        <h1 class="ag-title">Guía para Completar la Prueba de Nivel</h1>
+<BaseLayout
+  title={`Prueba de Nivel - ${site.name}`}
+  description="Realiza la prueba de nivel de inglés de Academia Georgetown."
+>
+  <section class="ag-nivel">
+    <div class="container-ag">
+      <div class="ag-nivel-intro">
+        <div class="ag-nivel-heading" data-reveal="left">
+          <p class="ag-nivel-kicker">Prueba de Nivel Georgetown</p>
+          <h1>Guía para Completar la Prueba de Nivel</h1>
+        </div>
+        <div class="ag-nivel-copy" data-reveal>
+          <p>
+            Para comenzar, realiza nuestra prueba de nivel de inglés para evaluar de manera realista
+            tus habilidades lingüísticas actuales. A continuación, redacta un ensayo sobre el tema
+            propuesto. Cada paso es esencial para adaptar nuestro programa a tus necesidades
+            específicas. Finalmente, introduce tu información de contacto, asegurándote de que toda
+            la información es precisa.
+          </p>
+          <p class="ag-nivel-duration">Duración aproximada: 30′</p>
+        </div>
       </div>
-      <p class="text-muted leading-relaxed">
-        Para comenzar, realiza nuestra prueba de nivel de inglés para evaluar de manera realista tus
-        habilidades lingüísticas actuales. A continuación, redacta un ensayo sobre el tema propuesto.
-        Cada paso es esencial para adaptar nuestro programa a tus necesidades específicas. Finalmente,
-        introduce tu información de contacto.
-        <br /><br />
-        Duración aproximada: 30′
-      </p>
+      <LevelTestForm />
     </div>
-    <LevelTestForm />
   </section>
 </BaseLayout>
