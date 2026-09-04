@@ -350,7 +350,7 @@ a {
 
 .ag-split-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 480px);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 480px);
   gap: 3.25rem;
   align-items: center;
   padding: 0 0 7.5rem;
@@ -413,11 +413,12 @@ a {
   justify-content: flex-end;
   position: relative;
   z-index: 3;
+  min-width: 0;
 }
 
 .ag-split-media img {
-  width: 480px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 480px;
   height: 700px;
   object-fit: cover;
   object-position: center;
