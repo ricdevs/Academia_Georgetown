@@ -35,7 +35,16 @@ export default defineConfig({
       {
         name: 'dev-form-api',
         configureServer(server) {
-          server.middlewares.use('/api/submit', (req, res, next) => {
+          const handler = (req, res, next) => {
+            const [path] = (req.url || '').split('?');
+            if (path !== '/api/submit' && path !== '/api/submit/') return next();
+            if (req.method === 'OPTIONS') {
+              res.statusCode = 204;
+              res.setHeader('Access-Control-Allow-Origin', '*');
+              res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+              res.end();
+              return;
+            }
             if (req.method !== 'POST') return next();
             const chunks = [];
             req.on('data', (c) => chunks.push(c));
@@ -43,7 +52,12 @@ export default defineConfig({
               res.setHeader('Content-Type', 'application/json');
               res.end(JSON.stringify({ ok: true, dev: true }));
             });
-          });
+          };
+          // Run before Astro's routing/trailingSlash middleware so a POST to
+          // /api/submit (no trailing slash) is handled instead of 404'd in dev.
+          return () => {
+            server.middlewares.stack.unshift({ route: '', handle: handler });
+          };
         },
       },
     ],
