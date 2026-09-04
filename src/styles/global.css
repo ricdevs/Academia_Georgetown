@@ -193,18 +193,25 @@ a {
 
 .ag-header-inner {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   width: 100%;
   padding: 9px 10%;
   background: #fff;
+  position: relative;
 }
 
 .ag-logo img {
-  width: 280px;
+  width: 320px;
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+@media (min-width: 1350px) {
+  .ag-logo img {
+    width: 366px;
+  }
 }
 
 .ag-nav {
@@ -212,7 +219,7 @@ a {
   align-items: flex-end;
   gap: 2.1rem;
   list-style: none;
-  margin: 0;
+  margin: 0 0 2px;
   padding: 0;
 }
 
@@ -222,7 +229,7 @@ a {
   font-weight: 400;
   color: var(--color-navy);
   text-decoration: none;
-  padding: 17px 0 12.9px;
+  padding: 12px 0 8px;
   transition: opacity 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -363,9 +370,13 @@ a {
 .ag-hero h1 {
   font-weight: 300;
   font-size: clamp(2.25rem, 5vw, 54px);
-  line-height: 1.35;
+  line-height: 1.2;
   color: #fff;
   margin: 0;
+}
+
+.ag-hero h1 span {
+  display: block;
 }
 
 .ag-hero .ag-lede {
