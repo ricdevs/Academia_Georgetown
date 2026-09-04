@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import CardCarousel from '../components/CardCarousel.astro';
 import ContactSection from '../components/ContactSection.astro';
-import PageHero from '../components/PageHero.astro';
+import SplitHero from '../components/SplitHero.astro';
 import { pillars, site } from '../data/site';
 import { youthCertCards } from '../data/catalog';
 
@@ -16,9 +16,14 @@ const youthImages: Record<string, string> = {
 ---
 
 <BaseLayout title={`Cursos de Inglés para Jóvenes - ${site.name}`}>
-  <PageHero
-    title="Inglés para escolares"
+  <SplitHero
+    kicker="Academia de inglés en Pamplona y online"
+    titleLines={['Inglés para', 'escolares']}
     lede="Cursos de inglés y certificados para multiplicar las opciones académicas y forjar un futuro profesional."
+    image="/images/hero-academico.jpg"
+    imageAlt="Gafas sobre un cuaderno abierto junto a un ordenador portátil"
+    primary={{ href: '/prueba-de-nivel/', label: 'Realiza tu prueba de nivel' }}
+    secondary={{ href: '/contacto/', label: 'Solicita más información' }}
   />
   <section class="ag-section-tight">
     <div class="container-ag">

@@ -18,7 +18,7 @@ export const site = {
 };
 
 export const nav = [
-  { href: '/ingles-para-estudiantes/', label: 'Estudiantes' },
+  { href: '/ingles-para-estudiantes/', label: 'Universitarios' },
   { href: '/ingles-profesional/', label: 'Profesional' },
   { href: '/ingles-para-jovenes/', label: 'Jóvenes' },
   { href: '/contacto/', label: 'Contacto' },

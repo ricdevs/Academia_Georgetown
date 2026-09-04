@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import CardCarousel from '../components/CardCarousel.astro';
 import ContactSection from '../components/ContactSection.astro';
-import PageHero from '../components/PageHero.astro';
+import SplitHero from '../components/SplitHero.astro';
 import { pillars, site } from '../data/site';
 import { pecPrograms } from '../data/catalog';
 import { certCardMedia, pecImage } from '../data/media';
@@ -16,9 +16,14 @@ const pecItems = pecPrograms.map((p, i) => ({
 ---
 
 <BaseLayout title={`Cursos de Inglés para el sector profesional - ${site.name}`}>
-  <PageHero
-    title="Inglés profesional"
+  <SplitHero
+    kicker="Academia de inglés en Pamplona y online"
+    titleLines={['Inglés', 'profesional']}
     lede="Cursos de inglés para cada etapa de tu carrera profesional. Demuestra tu competencia en entrevistas, domina el vocabulario y los conceptos clave que te abrirán las puertas del puesto que quieres."
+    image="/images/hero-academico.jpg"
+    imageAlt="Gafas sobre un cuaderno abierto junto a un ordenador portátil"
+    primary={{ href: '/prueba-de-nivel/', label: 'Realiza tu prueba de nivel' }}
+    secondary={{ href: '/contacto/', label: 'Solicita más información' }}
   />
   <section class="ag-section-tight">
     <div class="container-ag">

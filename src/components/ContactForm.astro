@@ -3,84 +3,64 @@ import { site } from '../data/site';
 
 interface Props {
   source?: string;
-  phone?: string;
   extraFields?: Array<'discount' | 'dni' | 'address' | 'company' | 'course'>;
   submitLabel?: string;
-  theme?: 'light' | 'dark';
 }
 
-const {
-  source = 'contacto',
-  phone = site.phone,
-  extraFields = [],
-  submitLabel = 'Enviar',
-  theme = 'light',
-} = Astro.props;
-
-const dark = theme === 'dark';
+const { source = 'contacto', extraFields = [], submitLabel = 'Enviar' } = Astro.props;
 ---
 
-<>
-  <div>
-    <h2>
-      Descubre cómo la Academia de Inglés Georgetown puede ayudarte a conseguir tus objetivos.
-    </h2>
-    <p>
-      Uno de nuestros expertos se pondrá en contacto contigo para identificar tus necesidades o
-      solucionar cualquier duda a través de la dirección y teléfono que nos facilites en el siguiente
-      formulario.
-    </p>
-    <p class="ag-phone">Teléfono: {phone}</p>
+<form class="ag-form-card js-lead-form" data-source={source}>
+  <input type="hidden" name="source" value={source} />
+  <input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off" />
+
+  <label class="sr-only" for={`name-${source}`}>Nombre y Apellidos</label>
+  <input class="input" id={`name-${source}`} name="name" required placeholder="Nombre y Apellidos" />
+
+  <label class="sr-only" for={`phone-${source}`}>Teléfono Movil</label>
+  <input class="input" id={`phone-${source}`} name="phone" required placeholder="Teléfono Movil" />
+
+  <label class="sr-only" for={`dob-${source}`}>Fecha de Nacimiento DD/MM/AA</label>
+  <input class="input" id={`dob-${source}`} name="dob" placeholder="Fecha de Nacimiento DD/MM/AA" />
+
+  <label class="sr-only" for={`email-${source}`}>Correo electrónico</label>
+  <input class="input" id={`email-${source}`} name="email" type="email" required placeholder="Correo electrónico" />
+
+  <label class="sr-only" for={`occupation-${source}`}>Ocupación</label>
+  <input class="input" id={`occupation-${source}`} name="occupation" placeholder="Ocupación" />
+
+  {extraFields.includes('discount') && (
+    <input class="input" name="discount" placeholder="Código de descuento" />
+  )}
+  {extraFields.includes('dni') && <input class="input" name="dni" placeholder="DNI" />}
+  {extraFields.includes('company') && (
+    <input class="input" name="company" placeholder="Empresa [SOLO EMPLEADOS]" />
+  )}
+  {extraFields.includes('address') && (
+    <>
+      <input class="input" name="address" placeholder="Dirección" />
+      <input class="input" name="postalCode" placeholder="Código Postal" />
+      <input class="input" name="city" placeholder="Localidad" />
+    </>
+  )}
+  {extraFields.includes('course') && (
+    <select class="input" name="course">
+      <option value="">Curso</option>
+      <option>B2</option>
+      <option>B2 ONLINE</option>
+      <option>C1</option>
+      <option>C1 ONLINE</option>
+    </select>
+  )}
+
+  <label class="sr-only" for={`message-${source}`}>Mensaje</label>
+  <textarea class="input" id={`message-${source}`} name="message" placeholder="Mensaje" rows="5"></textarea>
+
+  <div class="ag-form-submit">
+    <button class="ag-enviar" type="submit">{submitLabel}</button>
   </div>
-  <form class:list={['js-lead-form grid gap-3', dark && 'ag-form-dark']} data-source={source}>
-    <input type="hidden" name="source" value={source} />
-    <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
-    <label class="sr-only" for={`name-${source}`}>Nombre y Apellidos</label>
-    <input class="input" id={`name-${source}`} name="name" required placeholder="Nombre y Apellidos" />
-    <label class="sr-only" for={`occupation-${source}`}>Ocupación</label>
-    <input class="input" id={`occupation-${source}`} name="occupation" placeholder="Ocupación" />
-    <label class="sr-only" for={`dob-${source}`}>Fecha de Nacimiento</label>
-    <input class="input" id={`dob-${source}`} name="dob" placeholder="Fecha de Nacimiento DD/MM/AA" />
-    <label class="sr-only" for={`email-${source}`}>Correo electrónico</label>
-    <input class="input" id={`email-${source}`} name="email" type="email" required placeholder="Correo electrónico" />
-    <label class="sr-only" for={`phone-${source}`}>Teléfono Móvil</label>
-    <input class="input" id={`phone-${source}`} name="phone" required placeholder="Teléfono Movil" />
-    {extraFields.includes('discount') && (
-      <input class="input" name="discount" placeholder="Código de descuento" />
-    )}
-    {extraFields.includes('dni') && <input class="input" name="dni" placeholder="DNI" />}
-    {extraFields.includes('company') && (
-      <input class="input" name="company" placeholder="Empresa [SOLO EMPLEADOS]" />
-    )}
-    {extraFields.includes('address') && (
-      <>
-        <input class="input" name="address" placeholder="Dirección" />
-        <input class="input" name="postalCode" placeholder="Código Postal" />
-        <input class="input" name="city" placeholder="Localidad" />
-      </>
-    )}
-    {extraFields.includes('course') && (
-      <select class="input" name="course">
-        <option value="">Curso</option>
-        <option>B2</option>
-        <option>B2 ONLINE</option>
-        <option>C1</option>
-        <option>C1 ONLINE</option>
-      </select>
-    )}
-    <textarea class="input min-h-28" name="message" placeholder="Mensaje"></textarea>
-    <p class:list={['text-xs', dark ? 'text-white/80' : 'text-muted']}>
-      Al enviar aceptas el tratamiento de tus datos por {site.legalName} para atender tu solicitud.
-      Consulta la <a href="/politica-privacidad/">política de privacidad</a>.
-    </p>
-    {dark ? (
-      <button class="btn-submit" type="submit">{submitLabel}</button>
-    ) : (
-      <button class="btn btn-solid w-full" type="submit">{submitLabel}</button>
-    )}
-    <p class="js-form-status hidden text-sm"></p>
-  </form>
-</>
+  <p class="js-form-status hidden text-sm"></p>
+</form>
 <script>
   import { initLeadForms } from '../scripts/forms';
   initLeadForms();

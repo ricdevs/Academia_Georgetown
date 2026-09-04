@@ -1,0 +1,58 @@
+---
+interface Props {
+  kicker?: string;
+  titleLines: string[];
+  lede?: string;
+  image: string;
+  imageAlt?: string;
+  primary?: { href: string; label: string };
+  secondary?: { href: string; label: string };
+}
+
+const {
+  kicker = 'Academia de inglés en Pamplona y online',
+  titleLines,
+  lede,
+  image,
+  imageAlt = '',
+  primary = { href: '/prueba-de-nivel/', label: 'Realiza tu prueba de nivel' },
+  secondary = { href: '/contacto/', label: 'Solicita más información' },
+} = Astro.props;
+---
+
+<section class="ag-split">
+  <div class="ag-split-inner">
+    <div class="ag-split-copy" data-reveal="left">
+      {kicker && (
+        <p class="ag-kicker-line">
+          <span class="ag-kicker-rule"></span>
+          {kicker}
+        </p>
+      )}
+      <h1>
+        {titleLines.map((line) => (
+          <span>{line}</span>
+        ))}
+      </h1>
+      {lede && <p class="ag-lede">{lede}</p>}
+      <div class="ag-hero-actions">
+        {primary && (
+          <a class="btn btn-primary" href={primary.href}>
+            {primary.label}
+          </a>
+        )}
+        {secondary && (
+          <a class="btn btn-muted" href={secondary.href}>
+            {secondary.label}
+          </a>
+        )}
+      </div>
+    </div>
+    <div class="ag-split-media">
+      <img src={image} alt={imageAlt} width="960" height="1400" />
+    </div>
+  </div>
+  <div class="ag-wave" aria-hidden="true">
+    <img src="/images/hero-wave.svg" alt="" />
+  </div>
+</section>
