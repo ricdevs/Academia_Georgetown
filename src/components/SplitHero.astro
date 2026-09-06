@@ -23,7 +23,7 @@ const {
 ---
 
 <section class="ag-split">
-  <div class="container-ag ag-split-inner">
+  <div class="container-ag-1080 ag-split-inner">
     <div class="ag-split-copy" data-reveal="left">
       {kicker && (
         <p class="ag-kicker-line">
@@ -51,10 +51,10 @@ const {
       </div>
     </div>
     <div class:list={['ag-split-media', imageShape === 'soft' && 'is-soft']}>
-      <img src={image} alt={imageAlt} width="960" height="1400" />
+      <div class="ag-split-media-wrap">
+        <img src={image} alt={imageAlt} width="1707" height="2560" />
+      </div>
     </div>
   </div>
-  <div class="ag-wave" aria-hidden="true">
-    <img src="/images/hero-wave.svg" alt="" />
-  </div>
+  <div class="ag-wave" aria-hidden="true"></div>
 </section>
