@@ -404,9 +404,10 @@ a {
 }
 
 .ag-hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.15rem;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  column-gap: 3%;
+  justify-content: start;
   margin-top: 2.6rem;
 }
 
