@@ -5,6 +5,7 @@ interface Props {
   lede?: string;
   image: string;
   imageAlt?: string;
+  imageShape?: 'stadium' | 'soft';
   primary?: { href: string; label: string };
   secondary?: { href: string; label: string };
 }
@@ -15,7 +16,8 @@ const {
   lede,
   image,
   imageAlt = '',
-  primary = { href: '/prueba-de-nivel/', label: 'Realiza tu prueba de nivel' },
+  imageShape = 'stadium',
+  primary = { href: '/prueba-de-nivel/', label: 'Realiza una prueba de nivel' },
   secondary = { href: '/contacto/', label: 'Solicita más información' },
 } = Astro.props;
 ---
@@ -48,7 +50,7 @@ const {
         )}
       </div>
     </div>
-    <div class="ag-split-media">
+    <div class:list={['ag-split-media', imageShape === 'soft' && 'is-soft']}>
       <img src={image} alt={imageAlt} width="960" height="1400" />
     </div>
   </div>

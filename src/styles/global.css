@@ -7,7 +7,7 @@
   --color-navy: #071048;
   --color-navy-deep: #010621;
   --color-navy-light: #1b1470;
-  --color-accent: #2462a4;
+  --color-accent: #0162a9;
   --color-gold: #ffa301;
   --color-gold-soft: #fbb433;
   --color-ink: #000000;
@@ -78,15 +78,15 @@ a {
   border: 0;
   border-radius: 999px;
   min-height: 3.35rem;
-  padding: 0.95rem 1.7rem;
-  font-family: var(--font-sans);
-  font-size: 0.68rem;
+  padding: 20px 24px;
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 2px;
   text-transform: uppercase;
   text-decoration: none;
   color: #fff;
-  box-shadow: 0 16px 28px rgb(36 98 164 / 0.28);
+  box-shadow: 0 12px 28px -10px rgb(0 122 255 / 0.33);
   transition: transform 0.15s ease, background 0.15s ease, filter 0.15s ease;
   cursor: pointer;
 }
@@ -101,7 +101,7 @@ a {
 }
 
 .btn-primary:hover {
-  background: #1e5691;
+  background: #01528d;
 }
 
 .btn-muted {
@@ -372,10 +372,11 @@ a {
   align-items: center;
   gap: 0.85rem;
   margin: 0 0 1.05rem;
-  color: var(--color-accent);
+  color: #0162a9;
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-weight: 700;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 
@@ -383,7 +384,7 @@ a {
   display: block;
   width: 42px;
   height: 1px;
-  background: var(--color-accent);
+  background: #0162a9;
   flex: 0 0 auto;
 }
 
@@ -391,10 +392,10 @@ a {
   margin: 0;
   color: #000;
   font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: clamp(2.35rem, 4.2vw, 3.35rem);
-  line-height: 1.12;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  font-size: clamp(2.5rem, 4.2vw, 60px);
+  line-height: 1.1;
+  letter-spacing: 0;
 }
 
 .ag-split-copy h1 span {
@@ -405,8 +406,8 @@ a {
   margin: 1.7rem 0 0;
   max-width: 32.5rem;
   color: #555;
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 17px;
+  font-weight: 300;
   line-height: 1.7;
 }
 
@@ -433,6 +434,12 @@ a {
   object-position: center;
   border-radius: 999px;
   display: block;
+}
+
+.ag-split-media.is-soft img {
+  max-height: 720px;
+  height: 720px;
+  border-radius: 15%;
 }
 
 .ag-wave {

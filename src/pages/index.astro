@@ -19,16 +19,13 @@ const pecItems = pecPrograms.map((p, i) => ({
   <SplitHero
     kicker="Academia de inglés en Pamplona y online"
     titleLines={['Academia', 'Georgetown']}
-    lede="Cursos de inglés para estudiantes universitarios y docentes con altas expectativas en mejorar su nivel de inglés y obtener los certificados deseados para su desarrollo tanto académico como profesional."
-    image="/images/hero-academico.jpg"
-    imageAlt="Gafas sobre un cuaderno abierto junto a un ordenador portátil"
+    lede="Tu Centro Preparador y Examinador de Certificados de Inglés en Pamplona: Certificados Cambridge, TOEFL iBT®, APTIS by British Council, IELTS y Georgetown PEC."
+    image="/images/hero-home.jpg"
+    imageAlt="Estudiantes colaborando alrededor de un portátil"
+    imageShape="soft"
+    primary={{ href: '/prueba-de-nivel/', label: 'Realiza una prueba de nivel' }}
+    secondary={{ href: '/contacto/', label: 'Solicita más información' }}
   />
-
-  <section class="ag-afterwave">
-    <div class="container-ag">
-      <h2>Academia de Inglés Georgetown</h2>
-    </div>
-  </section>
 
   <section class="ag-section ag-center" data-reveal>
     <div class="container-ag">
@@ -43,6 +40,12 @@ const pecItems = pecPrograms.map((p, i) => ({
         personalizada del profesorado, conseguirás los resultados que deseas para cumplir tus
         objetivos.
       </p>
+    </div>
+  </section>
+
+  <section class="ag-afterwave">
+    <div class="container-ag">
+      <h2>Academia de Inglés Georgetown</h2>
     </div>
   </section>
 
@@ -162,5 +165,5 @@ const pecItems = pecPrograms.map((p, i) => ({
   </div>
 
   <FaqAccordion />
-  <ContactSection source="home" />
+  <ContactSection source="home" phone={site.phone} fieldOrder="home" />
 </BaseLayout>

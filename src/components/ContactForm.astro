@@ -5,9 +5,11 @@ interface Props {
   source?: string;
   extraFields?: Array<'discount' | 'dni' | 'address' | 'company' | 'course'>;
   submitLabel?: string;
+  fieldOrder?: 'default' | 'home';
 }
 
-const { source = 'contacto', extraFields = [], submitLabel = 'Enviar' } = Astro.props;
+const { source = 'contacto', extraFields = [], submitLabel = 'Enviar', fieldOrder = 'default' } = Astro.props;
+const homeOrder = fieldOrder === 'home';
 ---
 
 <form class="ag-form-card js-lead-form" data-source={source}>
@@ -17,17 +19,35 @@ const { source = 'contacto', extraFields = [], submitLabel = 'Enviar' } = Astro.
   <label class="sr-only" for={`name-${source}`}>Nombre y Apellidos</label>
   <input class="input" id={`name-${source}`} name="name" required placeholder="Nombre y Apellidos" />
 
-  <label class="sr-only" for={`phone-${source}`}>Teléfono Movil</label>
-  <input class="input" id={`phone-${source}`} name="phone" required placeholder="Teléfono Movil" />
+  {homeOrder ? (
+    <>
+      <label class="sr-only" for={`occupation-${source}`}>Ocupación</label>
+      <input class="input" id={`occupation-${source}`} name="occupation" placeholder="Ocupación" />
 
-  <label class="sr-only" for={`dob-${source}`}>Fecha de Nacimiento DD/MM/AA</label>
-  <input class="input" id={`dob-${source}`} name="dob" placeholder="Fecha de Nacimiento DD/MM/AA" />
+      <label class="sr-only" for={`dob-${source}`}>Fecha de Nacimiento DD/MM/AA</label>
+      <input class="input" id={`dob-${source}`} name="dob" placeholder="Fecha de Nacimiento DD/MM/AA" />
 
-  <label class="sr-only" for={`email-${source}`}>Correo electrónico</label>
-  <input class="input" id={`email-${source}`} name="email" type="email" required placeholder="Correo electrónico" />
+      <label class="sr-only" for={`email-${source}`}>Correo electrónico</label>
+      <input class="input" id={`email-${source}`} name="email" type="email" required placeholder="Correo electrónico" />
 
-  <label class="sr-only" for={`occupation-${source}`}>Ocupación</label>
-  <input class="input" id={`occupation-${source}`} name="occupation" placeholder="Ocupación" />
+      <label class="sr-only" for={`phone-${source}`}>Teléfono Movil</label>
+      <input class="input" id={`phone-${source}`} name="phone" required placeholder="Teléfono Movil" />
+    </>
+  ) : (
+    <>
+      <label class="sr-only" for={`phone-${source}`}>Teléfono Movil</label>
+      <input class="input" id={`phone-${source}`} name="phone" required placeholder="Teléfono Movil" />
+
+      <label class="sr-only" for={`dob-${source}`}>Fecha de Nacimiento DD/MM/AA</label>
+      <input class="input" id={`dob-${source}`} name="dob" placeholder="Fecha de Nacimiento DD/MM/AA" />
+
+      <label class="sr-only" for={`email-${source}`}>Correo electrónico</label>
+      <input class="input" id={`email-${source}`} name="email" type="email" required placeholder="Correo electrónico" />
+
+      <label class="sr-only" for={`occupation-${source}`}>Ocupación</label>
+      <input class="input" id={`occupation-${source}`} name="occupation" placeholder="Ocupación" />
+    </>
+  )}
 
   {extraFields.includes('discount') && (
     <input class="input" name="discount" placeholder="Código de descuento" />
