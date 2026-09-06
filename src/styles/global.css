@@ -3,6 +3,7 @@
 @theme {
   --font-sans: "Open Sans", Arial, Helvetica, sans-serif;
   --font-display: "Poppins", Helvetica, Arial, sans-serif;
+  --font-nivel: "Montserrat", Helvetica, Arial, sans-serif;
   --color-navy: #071048;
   --color-navy-deep: #010621;
   --color-navy-light: #1b1470;
@@ -55,8 +56,16 @@ a {
   margin-inline: auto;
 }
 
+/* Live Divi content rows: width 80% with max-width 1080px (Prueba card + quiz) */
+.container-ag-1080 {
+  width: 80%;
+  max-width: 1080px;
+  margin-inline: auto;
+}
+
 @media (max-width: 980px) {
-  .container-ag {
+  .container-ag,
+  .container-ag-1080 {
     width: calc(100% - 2rem);
   }
 }
@@ -495,8 +504,8 @@ a {
 
 /* Prueba de Nivel — live desktop form page */
 .ag-nivel {
-  padding: 3.25rem 0 5rem;
-  background: #f4f5f8;
+  padding: 4% 0;
+  background: #fff;
 }
 
 .ag-nivel-card {
@@ -519,34 +528,44 @@ a {
 }
 
 .ag-nivel-kicker {
-  margin: 0 0 0.85rem;
-  color: #4aa8d8;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  margin: 0 0 10px;
+  font-family: var(--font-nivel);
+  font-size: 14px;
+  font-weight: 400;
+  color: #0077b6;
+  letter-spacing: 1px;
+  line-height: 1.4em;
   text-transform: uppercase;
+}
+
+.ag-nivel-heading {
+  margin-bottom: 10px;
 }
 
 .ag-nivel-heading h1 {
   margin: 0;
-  max-width: 18ch;
-  color: #222;
-  font-family: var(--font-sans);
+  color: #0e0c19;
+  font-family: var(--font-nivel);
   font-weight: 300;
-  font-size: clamp(1.85rem, 3.2vw, 2.55rem);
-  line-height: 1.25;
+  font-size: 50px;
+  line-height: 1.2em;
 }
 
 .ag-nivel-copy p {
-  margin: 0;
-  color: #333;
-  font-size: 16px;
+  margin: 0 0 1em;
+  color: #3c3a47;
+  font-family: var(--font-nivel);
+  font-size: 15px;
   font-weight: 400;
-  line-height: 1.75;
+  line-height: 1.77em;
+}
+
+.ag-nivel-copy p:last-of-type {
+  margin-bottom: 0;
 }
 
 .ag-nivel-duration {
-  margin-top: 2.15rem !important;
+  margin-top: 1.15rem !important;
 }
 
 .ag-quiz {
@@ -584,8 +603,8 @@ a {
 .ag-quiz-opt {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
-  color: #666;
+  gap: 6px;
+  color: #939393;
   font-size: 15px;
   font-weight: 400;
   cursor: pointer;
@@ -594,38 +613,47 @@ a {
 .ag-quiz-opt input[type="radio"] {
   appearance: none;
   flex: 0 0 auto;
-  width: 15px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
   margin: 0;
-  border: 1px solid #cfcfcf;
+  border: 0;
   border-radius: 50%;
-  background: #fff;
+  background: #eee;
   cursor: pointer;
 }
 
 .ag-quiz-opt input[type="radio"]:checked {
-  border-color: var(--color-accent);
-  box-shadow: inset 0 0 0 4px var(--color-accent);
+  background:
+    radial-gradient(circle, #939393 0 3px, #eee 3.5px 100%);
 }
 
 .ag-nivel-form .input {
-  background-color: #f2f4f7;
+  background-color: #f6f7f8;
   background-image: none;
-  border-radius: 6px;
+  border-radius: 10px;
+  padding: 18px 20px;
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 21px;
+}
+
+.ag-nivel-form .input::placeholder {
+  color: #939393;
+  font-size: 15px;
 }
 
 .ag-nivel-essay {
   display: block;
   width: 100%;
-  min-height: 11.5rem;
-  margin-bottom: 1.15rem;
+  min-height: 270px;
   resize: both;
 }
 
 .ag-nivel-fields {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.05rem;
+  column-gap: 3%;
+  row-gap: 0;
 }
 
 .ag-nivel-fields .ag-span-2 {
@@ -634,7 +662,7 @@ a {
 
 .ag-nivel-form select.input {
   appearance: none;
-  background-color: #f2f4f7;
+  background-color: #f6f7f8;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%23666' d='M1 1l5 5 5-5'/></svg>");
   background-repeat: no-repeat;
   background-position: right 1rem center;
@@ -642,12 +670,38 @@ a {
 }
 
 .ag-nivel-form .ag-form-submit {
-  margin-top: 1.5rem;
+  margin-top: 10px;
+}
+
+.ag-nivel-form .ag-enviar {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #000;
+  background: #fff;
+  border: 1px solid #a5a5a5;
+  padding: 12px 24px;
+  transition: background-color 300ms ease, border 300ms ease;
+}
+
+.ag-nivel-form .ag-enviar:hover {
+  background: #fff;
+  color: #000;
+  border-color: #ffa301;
 }
 
 @media (max-width: 980px) {
   .ag-nivel-card {
     padding: 30px;
+  }
+
+  .ag-nivel-kicker {
+    font-size: 13px;
+  }
+
+  .ag-nivel-heading h1 {
+    font-size: 28px;
   }
 
   .ag-nivel-intro,
@@ -656,9 +710,15 @@ a {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
+}
+
+@media (max-width: 767px) {
+  .ag-nivel-card {
+    padding: 20px;
+  }
 
   .ag-nivel-heading h1 {
-    max-width: none;
+    font-size: 20px;
   }
 }
 
