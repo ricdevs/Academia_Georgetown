@@ -6,6 +6,7 @@ import CardCarousel from '../components/CardCarousel.astro';
 import ContactSection from '../components/ContactSection.astro';
 import { mission, pillars, site } from '../data/site';
 import { pecPrograms } from '../data/catalog';
+import ExamLogos from '../components/ExamLogos.astro';
 import { certCardMedia, missionIcons, pecImage } from '../data/media';
 
 const pecItems = pecPrograms.map((p, i) => ({
@@ -95,36 +96,7 @@ const pecItems = pecPrograms.map((p, i) => ({
     </div>
   </section>
 
-  <section class="ag-section-tight" data-reveal>
-    <div class="container-ag-1080">
-      <div class="ag-grid-3">
-        <article class="ag-blurb ag-logo-blurb">
-          <img src="/images/cambridge.jpg" alt="University of Cambridge" width="180" height="90" />
-          <h2>Cambridge</h2>
-          <p>
-            Obtén con el método GEORGETOWN los certificados CAMBRIDGE en el mínimo tiempo y avala tu
-            dominio del inglés.
-          </p>
-        </article>
-        <article class="ag-blurb ag-logo-blurb">
-          <img src="/images/toefl.jpg" alt="TOEFL iBT" width="200" height="62" />
-          <h2>TOEFL iBT®</h2>
-          <p>
-            Prepárate y examínate en tu centro examinador Georgetown del TOEFL iBT® y obtén la máxima
-            puntuación, con la mejor preparación y en el mínimo tiempo.
-          </p>
-        </article>
-        <article class="ag-blurb ag-logo-blurb">
-          <img src="/images/aptis.jpg" alt="APTIS" width="160" height="56" />
-          <h2>APTIS®</h2>
-          <p>
-            Prepara y Certifica tu nivel desde A1 hasta C1 (MCER) en tu centro examinador Georgetown,
-            y obtén los resultados en 3 días.
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
+  <ExamLogos />
 
   <div data-reveal="fade">
     <CardCarousel title="Certificados de Inglés Más Demandados" items={[...certCardMedia]} show={3} scroll={1} />

@@ -4,9 +4,13 @@ import FaqAccordion from '../components/FaqAccordion.astro';
 import CardCarousel from '../components/CardCarousel.astro';
 import ContactSection from '../components/ContactSection.astro';
 import SplitHero from '../components/SplitHero.astro';
+import ExamLogos from '../components/ExamLogos.astro';
+import BenefitPoints from '../components/BenefitPoints.astro';
+import QuoteBlock from '../components/QuoteBlock.astro';
 import { pillars, site } from '../data/site';
 import { pecPrograms } from '../data/catalog';
 import { certCardMedia, pecImage } from '../data/media';
+import { benefitPoints } from '../data/landings';
 
 const pecItems = pecPrograms.map((p, i) => ({
   href: `/${p.slug}/`,
@@ -20,35 +24,46 @@ const pecItems = pecPrograms.map((p, i) => ({
     kicker="Academia de inglés en Pamplona y online"
     titleLines={['Inglés para', 'Universitarios']}
     lede="Cursos de inglés para estudiantes universitarios y docentes con altas expectativas en mejorar su nivel de inglés y obtener los certificados deseados para su desarrollo tanto académico como profesional."
-    image="/images/hero-academico.jpg"
+    image="/images/hero-academico.webp"
     imageAlt="Gafas sobre un cuaderno abierto junto a un ordenador portátil"
+    imageShape="soft"
+    tall
     primary={{ href: '/prueba-de-nivel/', label: 'Realiza tu prueba de nivel' }}
     secondary={{ href: '/contacto/', label: 'Solicita más información' }}
   />
+
+  <section class="ag-afterwave">
+    <div class="container-ag-1080">
+      <h2>Academia de Inglés Georgetown</h2>
+    </div>
+  </section>
+
   <section class="ag-section-tight">
-    <div class="container-ag">
+    <div class="container-ag-1080">
+      <h2 class="ag-subtitle" style="font-size: 22px; color: #444;">
+        Los Cursos de Academia de Inglés Georgetown permiten Aprender rápidamente. Con nuestras
+        soluciones Avanzadas para la Capacitación en Inglés que se adaptan a cada alumno.
+      </h2>
       <div class="ag-grid-4">
         {pillars.map((item) => (
-          <article class="ag-blurb" data-reveal>
-            <h2>{item.title}</h2>
+          <article class="ag-blurb">
+            <h4>{item.title}</h4>
             <p>{item.text}</p>
           </article>
         ))}
       </div>
     </div>
   </section>
-  <section class="ag-section-tight">
-    <div class="container-ag">
-      <div class="ag-grid-2">
-        <p class="ag-body">Prepara y certifica tu nivel de inglés con tu centro examinador en Pamplona de TOEFL iBT® y APTIS en colaboración con el British Council.</p>
-        <p class="ag-body">Los cursos Georgetown te capacitan de manera eficiente y personalizada gracias a la plataforma Georgetown ALTEA y nuestro profesorado experto.</p>
-        <p class="ag-body">El objetivo es prepararte en el menor tiempo posible para certificar tu nivel y destacar en tu entorno académico.</p>
-        <p class="ag-body">Aumenta tus opciones de éxito; multiplica las oportunidades de estudiar o trabajar en el extranjero.</p>
-      </div>
-    </div>
-  </section>
-  <CardCarousel title="Certificados de Inglés Más Demandados" items={[...certCardMedia]} show={3} />
+
+  <BenefitPoints items={benefitPoints} />
+  <ExamLogos />
+  <CardCarousel title="Certificados Más Demandados" items={[...certCardMedia]} show={3} />
   <CardCarousel title="Programas Georgetown PEC – Inglés Específico" items={pecItems} show={4} scroll={4} gap={18} />
+  <QuoteBlock
+    quote="Georgetown tiene un método único. Durante los 6 meses en los que acudí a la academia pude hacer compatible la carrera de medicina con el Proficiency, con resultados sorprendentes por ambas partes. Lo más importante es el esfuerzo personal, pero la atención personalizada de los profesores no tiene precio."
+    cite="Julio Herrero"
+    role="Medicina. Universidad de Navarra"
+  />
   <FaqAccordion />
-  <ContactSection source="universitarios" />
+  <ContactSection source="universitarios" phone={site.phone} />
 </BaseLayout>

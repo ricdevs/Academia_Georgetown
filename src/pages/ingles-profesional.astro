@@ -4,41 +4,69 @@ import FaqAccordion from '../components/FaqAccordion.astro';
 import CardCarousel from '../components/CardCarousel.astro';
 import ContactSection from '../components/ContactSection.astro';
 import SplitHero from '../components/SplitHero.astro';
-import { pillars, site } from '../data/site';
+import ExamLogos from '../components/ExamLogos.astro';
+import BenefitPoints from '../components/BenefitPoints.astro';
+import QuoteBlock from '../components/QuoteBlock.astro';
+import { site } from '../data/site';
 import { pecPrograms } from '../data/catalog';
 import { certCardMedia, pecImage } from '../data/media';
+import { profesionalFaqs, profesionalPillars, profesionalPoints } from '../data/landings';
 
 const pecItems = pecPrograms.map((p, i) => ({
   href: `/${p.slug}/`,
   title: p.shortTitle,
   image: pecImage(i),
 }));
+
+const profesionalCerts = certCardMedia.filter((item) => !item.href.includes('toefl'));
 ---
 
 <BaseLayout title={`Cursos de Inglés para el sector profesional - ${site.name}`}>
   <SplitHero
     kicker="Academia de inglés en Pamplona y online"
-    titleLines={['Inglés', 'profesional']}
-    lede="Cursos de inglés para cada etapa de tu carrera profesional. Demuestra tu competencia en entrevistas, domina el vocabulario y los conceptos clave que te abrirán las puertas del puesto que quieres."
-    image="/images/hero-academico.jpg"
-    imageAlt="Gafas sobre un cuaderno abierto junto a un ordenador portátil"
-    primary={{ href: '/prueba-de-nivel/', label: 'Realiza tu prueba de nivel' }}
+    titleLines={['Inglés', 'Profesional']}
+    subLines={['Prepárate para los momentos', 'clave de tu carrera profesional.']}
+    lede="Cursos de Inglés para cada etapa de tu carrera profesional. Demuestra tu competencia en tus entrevistas de trabajo, domina el vocabulario y los conceptos clave que te abrirán las puertas del trabajo o puesto que quieres."
+    image="/images/hero-profesional.jpg"
+    imageAlt="Profesional trabajando con un portátil"
+    imageShape="soft"
+    tall
+    primary={{ href: '/prueba-de-nivel/', label: 'Realiza una prueba de nivel' }}
     secondary={{ href: '/contacto/', label: 'Solicita más información' }}
   />
+
+  <section class="ag-afterwave">
+    <div class="container-ag-1080">
+      <h2>Academia Georgetown</h2>
+    </div>
+  </section>
+
   <section class="ag-section-tight">
-    <div class="container-ag">
+    <div class="container-ag-1080">
+      <h2 class="ag-subtitle" style="font-size: 22px; color: #444;">
+        Los Cursos de Academia Georgetown permiten Aprender rápidamente. Con nuestras soluciones
+        Avanzadas para la Capacitación en Inglés que se adaptan a cada alumno.
+      </h2>
       <div class="ag-grid-4">
-        {pillars.map((item) => (
-          <article class="ag-blurb" data-reveal>
-            <h2>{item.title}</h2>
+        {profesionalPillars.map((item) => (
+          <article class="ag-blurb">
+            <h4>{item.title}</h4>
             <p>{item.text}</p>
           </article>
         ))}
       </div>
     </div>
   </section>
-  <CardCarousel title="Certificados más demandados" items={[...certCardMedia]} show={3} />
+
+  <BenefitPoints items={profesionalPoints} />
   <CardCarousel title="Programas Georgetown PEC – Inglés Específico" items={pecItems} show={4} scroll={4} gap={18} />
-  <FaqAccordion />
-  <ContactSection source="profesional" phone={site.phoneAlt} />
+  <CardCarousel title="Certificados Más Demandados" items={[...profesionalCerts]} show={3} />
+  <ExamLogos />
+  <QuoteBlock
+    quote="He tenido la oportunidad de participar en uno de sus Programas intensivos de Inglés Profesional, concretamente: English for Pharma Industry & Biotechnology. Y ha sido una excelente oportunidad de mejorar mi inglés (Grammar, writings, vocabulary, technical terminology, presentations…). Un método fácil, sencillo y focalizado en mi sector, que combina las clases online con el grupo, junto a una plataforma que me ha permitido trabajar a mi ritmo según mi agenda y con la total disponibilidad de unos profesores muy accesibles. Una combinación que ha hecho de este training una de mis formaciones más provechosas."
+    cite="David Ramírez"
+    role="CONMED Corporation"
+  />
+  <FaqAccordion items={profesionalFaqs} />
+  <ContactSection source="profesional" phone={site.phone} />
 </BaseLayout>

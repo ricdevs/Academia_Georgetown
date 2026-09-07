@@ -2,10 +2,12 @@
 interface Props {
   kicker?: string;
   titleLines: string[];
+  subLines?: string[];
   lede?: string;
   image: string;
   imageAlt?: string;
   imageShape?: 'stadium' | 'soft';
+  tall?: boolean;
   primary?: { href: string; label: string };
   secondary?: { href: string; label: string };
 }
@@ -13,10 +15,12 @@ interface Props {
 const {
   kicker = 'Academia de inglés en Pamplona y online',
   titleLines,
+  subLines = [],
   lede,
   image,
   imageAlt = '',
   imageShape = 'stadium',
+  tall = false,
   primary = { href: '/prueba-de-nivel/', label: 'Realiza una prueba de nivel' },
   secondary = { href: '/contacto/', label: 'Solicita más información' },
 } = Astro.props;
@@ -36,6 +40,13 @@ const {
           <span>{line}</span>
         ))}
       </h1>
+      {subLines.length > 0 && (
+        <div class="ag-hero-sub">
+          {subLines.map((line) => (
+            <h3>{line}</h3>
+          ))}
+        </div>
+      )}
       {lede && <p class="ag-lede">{lede}</p>}
       <div class="ag-hero-actions">
         {primary && (
@@ -50,7 +61,7 @@ const {
         )}
       </div>
     </div>
-    <div class:list={['ag-split-media', imageShape === 'soft' && 'is-soft']}>
+    <div class:list={['ag-split-media', imageShape === 'soft' && 'is-soft', tall && 'is-tall']}>
       <div class="ag-split-media-wrap">
         <img src={image} alt={imageAlt} width="1707" height="2560" />
       </div>
