@@ -4,12 +4,22 @@ import { extractedPages } from '../data/catalog';
 import { site } from '../data/site';
 
 const lines = extractedPages['matricula-y-financiacion'];
+
+function isHeading(line: string) {
+  return (
+    line.length < 90 &&
+    !line.endsWith('.') &&
+    !line.endsWith(',') &&
+    /^[A-ZÁÉÍÓÚ¿]/.test(line) &&
+    line.split(' ').length < 14
+  );
+}
 ---
 
 <BaseLayout title={`Matrícula y Financiación - ${site.name}`}>
-  <article class="prose-ag container-ag max-w-3xl py-16">
+  <article class="prose-ag container-ag-1080 ag-content-page">
     <h1>Matrícula y financiación</h1>
-    {lines.map((line) => <p>{line}</p>)}
+    {lines.map((line) => (isHeading(line) ? <h2>{line}</h2> : <p>{line}</p>))}
     <p><a href="/contenido/">Contenido de los programas PEC</a></p>
   </article>
 </BaseLayout>

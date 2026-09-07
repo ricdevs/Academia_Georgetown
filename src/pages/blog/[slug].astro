@@ -16,7 +16,7 @@ const { Content } = await render(post);
 ---
 
 <BaseLayout title={`${post.data.title} - ${site.name}`} description={post.data.description}>
-  <article class="prose-ag container-ag max-w-3xl py-16">
+  <article class="prose-ag container-ag-1080 ag-content-page">
     <p class="text-sm text-muted">{post.data.pubDate.toISOString().slice(0, 10)}</p>
     <h1>{post.data.title}</h1>
     <Content />

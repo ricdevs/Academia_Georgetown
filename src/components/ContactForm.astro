@@ -1,6 +1,4 @@
 ---
-import { site } from '../data/site';
-
 interface Props {
   source?: string;
   extraFields?: Array<'discount' | 'dni' | 'address' | 'company' | 'course'>;
@@ -10,16 +8,52 @@ interface Props {
 
 const { source = 'contacto', extraFields = [], submitLabel = 'Enviar', fieldOrder = 'default' } = Astro.props;
 const homeOrder = fieldOrder === 'home';
+const funded = extraFields.includes('course');
 ---
 
 <form class="ag-form-card js-lead-form" data-source={source}>
   <input type="hidden" name="source" value={source} />
   <input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off" />
 
-  <label class="sr-only" for={`name-${source}`}>Nombre y Apellidos</label>
-  <input class="input" id={`name-${source}`} name="name" required placeholder="Nombre y Apellidos" />
+  {funded && (
+    <select class="input" name="course">
+      <option value="">Curso</option>
+      <option>B2</option>
+      <option>B2 ONLINE</option>
+      <option>C1</option>
+      <option>C1 ONLINE</option>
+    </select>
+  )}
 
-  {homeOrder ? (
+  <label class="sr-only" for={`name-${source}`}>Nombre y Apellidos</label>
+  <input class="input" id={`name-${source}`} name="name" required placeholder={funded ? 'Nombre' : 'Nombre y Apellidos'} />
+
+  {funded ? (
+    <>
+      <label class="sr-only" for={`email-${source}`}>Dirección de correo electrónico</label>
+      <input class="input" id={`email-${source}`} name="email" type="email" required placeholder="Dirección de correo electrónico" />
+
+      <label class="sr-only" for={`phone-${source}`}>Teléfono Móvil</label>
+      <input class="input" id={`phone-${source}`} name="phone" required placeholder="Teléfono Móvil" />
+
+      <label class="sr-only" for={`dob-${source}`}>Fecha de Nacimiento DD/MM/AA</label>
+      <input class="input" id={`dob-${source}`} name="dob" placeholder="Fecha de Nacimiento DD/MM/AA" />
+
+      <input class="input" name="dni" placeholder="DNI" />
+
+      <select class="input" name="occupation">
+        <option value="">Ocupación</option>
+        <option>Empleado</option>
+        <option>Desempleado</option>
+        <option>Trabajador de la Administración Pública</option>
+      </select>
+
+      <input class="input" name="company" placeholder="Empresa [SOLO EMPLEADOS]" />
+      <input class="input" name="address" placeholder="Dirección" />
+      <input class="input" name="postalCode" placeholder="Código Postal" />
+      <input class="input" name="city" placeholder="Localidad" />
+    </>
+  ) : homeOrder ? (
     <>
       <label class="sr-only" for={`occupation-${source}`}>Ocupación</label>
       <input class="input" id={`occupation-${source}`} name="occupation" placeholder="Ocupación" />
@@ -52,29 +86,24 @@ const homeOrder = fieldOrder === 'home';
   {extraFields.includes('discount') && (
     <input class="input" name="discount" placeholder="Código de descuento" />
   )}
-  {extraFields.includes('dni') && <input class="input" name="dni" placeholder="DNI" />}
-  {extraFields.includes('company') && (
+  {!funded && extraFields.includes('dni') && <input class="input" name="dni" placeholder="DNI" />}
+  {!funded && extraFields.includes('company') && (
     <input class="input" name="company" placeholder="Empresa [SOLO EMPLEADOS]" />
   )}
-  {extraFields.includes('address') && (
+  {!funded && extraFields.includes('address') && (
     <>
       <input class="input" name="address" placeholder="Dirección" />
       <input class="input" name="postalCode" placeholder="Código Postal" />
       <input class="input" name="city" placeholder="Localidad" />
     </>
   )}
-  {extraFields.includes('course') && (
-    <select class="input" name="course">
-      <option value="">Curso</option>
-      <option>B2</option>
-      <option>B2 ONLINE</option>
-      <option>C1</option>
-      <option>C1 ONLINE</option>
-    </select>
-  )}
 
-  <label class="sr-only" for={`message-${source}`}>Mensaje</label>
-  <textarea class="input" id={`message-${source}`} name="message" placeholder="Mensaje" rows="5"></textarea>
+  {!funded && (
+    <>
+      <label class="sr-only" for={`message-${source}`}>Mensaje</label>
+      <textarea class="input" id={`message-${source}`} name="message" placeholder="Mensaje" rows="5"></textarea>
+    </>
+  )}
 
   <div class="ag-form-submit">
     <button class="ag-enviar" type="submit">{submitLabel}</button>

@@ -10,6 +10,7 @@ import {
   seoLandings,
 } from '../data/catalog';
 import { site } from '../data/site';
+import { seoBodies } from '../data/landings';
 
 export function getStaticPaths() {
   const pec = pecPrograms.map((p) => ({ params: { slug: p.slug }, props: { kind: 'pec' as const } }));
@@ -27,24 +28,52 @@ const { kind } = Astro.props;
 const pec = kind === 'pec' ? pecBySlug[slug!] : undefined;
 const certLines = kind === 'cert' ? (extractedPages as Record<string, string[]>)[slug!] ?? [] : [];
 const landing = kind === 'landing' ? landingBySlug[slug!] : undefined;
+const seo = slug ? seoBodies[slug] : undefined;
 
 const title = pec?.title ?? certLines[0] ?? landing?.title ?? site.name;
 const description = pec?.description ?? site.description;
+
+function classifyCert(lines: string[]) {
+  const heading = lines[0] ?? '';
+  const express = lines[1] ?? '';
+  const body: { type: 'h2' | 'p' | 'quote' | 'cite'; text: string }[] = [];
+  const rest = lines.slice(2);
+  rest.forEach((line, i) => {
+    if (line.startsWith('¿') && line.endsWith('?')) body.push({ type: 'h2', text: line });
+    else if (i === rest.length - 1 && line.length < 90 && !line.endsWith('.')) body.push({ type: 'cite', text: line });
+    else if (i === rest.length - 2 && rest[rest.length - 1].length < 90 && line.length > 80)
+      body.push({ type: 'quote', text: line });
+    else body.push({ type: 'p', text: line });
+  });
+  return { heading, express, body };
+}
+
+const cert = kind === 'cert' ? classifyCert(certLines) : null;
+const defaultSeoIntro =
+  'La Academia Georgetown es tu centro especializado para aprender inglés en Pamplona. Ofrecemos programas personalizados y eficientes que te permitirán dominar el idioma en el menor tiempo posible. Con la plataforma Georgetown ALTEA y nuestro equipo de expertos lingüistas, garantizamos una formación de excelencia adaptada a tus necesidades. Prepárate para los certificados Cambridge, TOEFL iBT®, APTIS, IELTS y nuestros exclusivos Georgetown PEC y PASS.';
+const defaultSeoLinks = [
+  { href: '/academia-de-ingles-en-pamplona/', label: 'Academia de inglés en Pamplona' },
+  { href: '/sacarse-el-b1-de-ingles-en-pamplona/', label: 'Sacarse el B1 de inglés en Pamplona' },
+  { href: '/sacarse-el-b2-de-ingles-en-pamplona/', label: 'Sacarse el B2 de inglés en Pamplona' },
+  { href: '/sacarse-el-c1-de-ingles-en-pamplona/', label: 'Sacarse el C1 de inglés en Pamplona' },
+  { href: '/certificado-de-ingles-en-pamplona/', label: 'Certificado de inglés en Pamplona' },
+  { href: '/ingles-para-jovenes/', label: 'Clases de inglés para jóvenes en Pamplona' },
+];
 ---
 
 <BaseLayout title={`${title} - ${site.name}`} description={description}>
   {pec && (
-    <article class="container-ag ag-page-hero" style="padding-bottom: 0;">
-      <p class="ag-kicker">{pec.headline}</p>
-      <h1 data-reveal="left">{pec.title}</h1>
+    <article class="container-ag-1080 ag-pec">
+      <p class="ag-kicker">{pec.area}</p>
+      <h1 data-reveal="left">{pec.headline}</h1>
       <p class="ag-lede">{pec.subtitle}</p>
       <div class="ag-hero-actions">
-        <a class="btn btn-on-light" href="/contacto/">Solicite información</a>
-        <a class="btn btn-solid" href="/contenido/">Contenido</a>
-        <a class="btn btn-solid" href="/matricula-y-financiacion/">Matrícula y financiación</a>
+        <a class="btn btn-primary" href="/contacto/">Solicite Información</a>
+        <a class="btn btn-muted" href="/contenido/">Contenido</a>
+        <a class="btn btn-muted" href="/matricula-y-financiacion/">Matrícula Y Financiación</a>
       </div>
-      <h2 class="ag-title" style="margin-top: 3rem; font-size: 1.6rem;">Completar con éxito el presente curso le permitirá:</h2>
-      <ul class="mt-4 list-disc space-y-2 pl-5 ag-body">
+      <h2 class="ag-pec-allow">Completar con éxito el presente curso y obtener el certificado le permitirá:</h2>
+      <ul class="ag-pec-benefits">
         {pec.benefits.map((b) => <li>{b}</li>)}
       </ul>
       <div class="mt-10 ag-grid-3">
@@ -61,41 +90,49 @@ const description = pec?.description ?? site.description;
           <p>{pec.modality}</p>
         </div>
       </div>
-      <h2 class="ag-title" style="margin-top: 3rem; font-size: 1.6rem;">Materias incluidas</h2>
+      <h2 class="ag-title" style="margin-top: 3rem; font-size: 1.6rem;">Materias Incluidas</h2>
       <p class="ag-body">
-        Nuestro programa máster de Georgetown PEC – {pec.shortTitle} cubre las áreas sobre las que el
-        examen puede presentar preguntas.
+        Nuestro Programa Master de Georgetown PEC – {pec.area} cubre todas las áreas o especialidades
+        sobre las que el examen te pueda presentar preguntas.
       </p>
-      <ul class="mt-4 grid gap-2 sm:grid-cols-2 md:grid-cols-3">
-        {pec.subjects.map((s) => <li class="text-muted">{s}</li>)}
+      <ul class="ag-pec-subjects">
+        {pec.subjects.map((s) => <li>{s}</li>)}
       </ul>
     </article>
   )}
 
-  {kind === 'cert' && (
-    <article class="prose-ag container-ag max-w-3xl py-16">
-      {certLines.map((line, i) => (i === 0 ? <h1>{line}</h1> : <p>{line}</p>))}
-      <p><a class="btn btn-on-light mt-6 inline-flex" href="/prueba-de-nivel/">Realiza una prueba de nivel</a></p>
+  {cert && (
+    <article class="prose-ag container-ag-1080 ag-content-page">
+      <p class="ag-kicker">{cert.heading}</p>
+      <h1>{cert.express}</h1>
+      {cert.body.map((block) =>
+        block.type === 'h2' ? (
+          <h2>{block.text}</h2>
+        ) : block.type === 'quote' ? (
+          <blockquote class="ag-quote">
+            <p>{block.text}</p>
+          </blockquote>
+        ) : block.type === 'cite' ? (
+          <p class="ag-cert-cite">{block.text}</p>
+        ) : (
+          <p>{block.text}</p>
+        ),
+      )}
+      <p>
+        <a class="btn btn-primary mt-6 inline-flex" href="/prueba-de-nivel/">Realiza una prueba de nivel</a>
+      </p>
     </article>
   )}
 
   {landing && (
-    <article class="prose-ag container-ag max-w-3xl py-16">
+    <article class="prose-ag container-ag-1080 ag-content-page">
       <h1>{landing.h1}</h1>
-      <p>
-        La Academia Georgetown es tu centro especializado para aprender inglés en Pamplona. Ofrecemos
-        programas personalizados y eficientes que te permitirán dominar el idioma en el menor tiempo
-        posible. Con la plataforma Georgetown ALTEA y nuestro equipo de expertos lingüistas,
-        garantizamos una formación de excelencia adaptada a tus necesidades. Prepárate para los
-        certificados Cambridge, TOEFL iBT®, APTIS, IELTS y nuestros exclusivos Georgetown PEC y PASS.
-      </p>
+      <p>{seo?.intro ?? defaultSeoIntro}</p>
+      <p>A continuación, puedes ver un listado de servicios que podemos ofrecerte para mejorar tu nivel de inglés:</p>
       <ul>
-        <li><a href="/academia-de-ingles-en-pamplona/">Academia de inglés en Pamplona</a></li>
-        <li><a href="/sacarse-el-b1-de-ingles-en-pamplona/">Sacarse el B1 de inglés en Pamplona</a></li>
-        <li><a href="/sacarse-el-b2-de-ingles-en-pamplona/">Sacarse el B2 de inglés en Pamplona</a></li>
-        <li><a href="/sacarse-el-c1-de-ingles-en-pamplona/">Sacarse el C1 de inglés en Pamplona</a></li>
-        <li><a href="/certificado-de-ingles-en-pamplona/">Certificado de inglés en Pamplona</a></li>
-        <li><a href="/ingles-para-jovenes/">Clases de inglés para jóvenes en Pamplona</a></li>
+        {(seo?.links ?? defaultSeoLinks).map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
       </ul>
       <p>
         Si estás interesado, contacta a través del formulario o llama al {site.phoneAlt}.
@@ -103,5 +140,5 @@ const description = pec?.description ?? site.description;
     </article>
   )}
 
-  <ContactSection source={slug} phone={kind === 'landing' ? site.phoneAlt : site.phone} />
+  <ContactSection source={slug} phone={site.phone} />
 </BaseLayout>

@@ -1,16 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactSection from '../components/ContactSection.astro';
-import PageHero from '../components/PageHero.astro';
 import { site } from '../data/site';
 ---
 
 <BaseLayout title={`Contacto - ${site.name}`} description="Contacta con Academia Georgetown en Pamplona.">
-  <PageHero
-    title="Academia de inglés en Pamplona"
-    kicker="Contacto"
-    lede={site.address}
-    actions={[{ href: site.phoneHref, label: `Teléfono ${site.phone}` }]}
-  />
-  <ContactSection source="contacto" heading={false} />
+  <ContactSection source="contacto" phone={site.phone} />
 </BaseLayout>

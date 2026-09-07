@@ -5,8 +5,5 @@ import { site } from '../data/site';
 ---
 
 <BaseLayout title={`Contacto UPNA - ${site.name}`}>
-  <section class="container-ag py-8">
-    <h1 class="sr-only">Contacto UPNA</h1>
-  </section>
-  <ContactSection source="contacto-upna" extraFields={['discount']} />
+  <ContactSection source="contacto-upna" extraFields={['discount']} phone={site.phone} />
 </BaseLayout>

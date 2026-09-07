@@ -5,7 +5,7 @@ import { site } from '../data/site';
 ---
 
 <BaseLayout title={`Política de Privacidad - ${site.name}`}>
-  <article class="prose-ag container-ag max-w-3xl py-16">
+  <article class="prose-ag container-ag-1080 ag-content-page">
     {legal['politica-privacidad'].map((line, i) => (i === 0 ? <h1>{line}</h1> : <p>{line}</p>))}
   </article>
 </BaseLayout>

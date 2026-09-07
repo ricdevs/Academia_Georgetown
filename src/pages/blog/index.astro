@@ -7,22 +7,46 @@ import { site } from '../../data/site';
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const featuredIds = [
+  'ingles-y-fisica-alvaro-habla',
+  'economia-e-internacionalizacion-espana',
+  'el-paradigma-de-la-globalizacion',
+];
+const featured = featuredIds
+  .map((id) => posts.find((p) => p.id === id))
+  .filter((p): p is (typeof posts)[number] => Boolean(p));
+const featuredSet = new Set(featured.map((p) => p.id));
+const more = posts.filter((p) => !featuredSet.has(p.id));
 ---
 
 <BaseLayout title={`Blog Georgetown - ${site.name}`} description="Artículos sobre inglés, internacionalización y empleabilidad.">
-  <section class="container-ag max-w-3xl py-16">
-    <p class="ag-kicker" style="color: var(--color-navy);">Misión y visión</p>
-    <h1 class="ag-title">{intro.title}</h1>
-    <div class="prose-ag mt-8">
-      {intro.body.split('\n\n').map((p) => <p>{p}</p>)}
+  <section class="container-ag-1080 ag-content-page">
+    <h1 class="ag-title">Blog Georgetown</h1>
+    <h2 class="ag-blog-kicker">Misión Y Visión</h2>
+    <div class="prose-ag mt-6">
+      {intro.body.split('\n\n').map((p) => <p>{p.trim()}</p>)}
     </div>
   </section>
-  <section class="container-ag grid gap-8 pb-16 md:grid-cols-2 lg:grid-cols-3">
-    {posts.map((post) => (
-      <a href={`/blog/${post.id}/`} class="block border border-line p-6 no-underline hover:border-navy">
-        <h2 class="text-xl font-semibold text-navy">{post.data.title}</h2>
-        <p class="mt-2 text-sm text-muted">{post.data.description}</p>
-      </a>
-    ))}
+  <section class="container-ag-1080 ag-content-page" style="padding-top: 0;">
+    <h2 class="ag-title" style="font-size: 28px; margin-bottom: 1.5rem;">Le puede interesar…</h2>
+    <div class="ag-blog-grid">
+      {featured.map((post) => (
+        <a href={`/blog/${post.id}/`} class="ag-blog-card">
+          <h3>{post.data.title}</h3>
+          <p>{post.data.description}</p>
+        </a>
+      ))}
+    </div>
+    {more.length > 0 && (
+      <div class="ag-blog-grid" style="margin-top: 2.5rem;">
+        {more.map((post) => (
+          <a href={`/blog/${post.id}/`} class="ag-blog-card">
+            <h3>{post.data.title}</h3>
+            <p>{post.data.description}</p>
+          </a>
+        ))}
+      </div>
+    )}
   </section>
 </BaseLayout>
