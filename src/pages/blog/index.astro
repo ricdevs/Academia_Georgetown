@@ -16,8 +16,6 @@ const featuredIds = [
 const featured = featuredIds
   .map((id) => posts.find((p) => p.id === id))
   .filter((p): p is (typeof posts)[number] => Boolean(p));
-const featuredSet = new Set(featured.map((p) => p.id));
-const more = posts.filter((p) => !featuredSet.has(p.id));
 ---
 
 <BaseLayout title={`Blog Georgetown - ${site.name}`} description="Artículos sobre inglés, internacionalización y empleabilidad.">
@@ -38,15 +36,5 @@ const more = posts.filter((p) => !featuredSet.has(p.id));
         </a>
       ))}
     </div>
-    {more.length > 0 && (
-      <div class="ag-blog-grid" style="margin-top: 2.5rem;">
-        {more.map((post) => (
-          <a href={`/blog/${post.id}/`} class="ag-blog-card">
-            <h3>{post.data.title}</h3>
-            <p>{post.data.description}</p>
-          </a>
-        ))}
-      </div>
-    )}
   </section>
 </BaseLayout>
