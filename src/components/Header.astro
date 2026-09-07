@@ -1,20 +1,21 @@
 ---
 import { nav, site } from '../data/site';
+import { stripBase, withBase } from '../lib/url';
 
-const path = Astro.url.pathname;
+const path = stripBase(Astro.url.pathname);
 ---
 
 <header class="ag-header">
   <div class="container-ag ag-header-inner">
-    <a href="/" class="ag-logo" aria-label={site.name}>
-      <img src="/images/logo.png" alt={site.name} width="457" height="75" />
+    <a href={withBase('/')} class="ag-logo" aria-label={site.name}>
+      <img src={withBase('/images/logo.png')} alt={site.name} width="457" height="75" />
     </a>
     <nav aria-label="Principal">
       <ul class="ag-nav">
         {nav.map((item) => (
           <li>
             <a
-              href={item.href}
+              href={withBase(item.href)}
               class={path === item.href ? 'is-current' : undefined}
             >
               {item.label}
@@ -36,7 +37,7 @@ const path = Astro.url.pathname;
   </div>
   <nav id="mobile-nav" class="container-ag ag-mobile-nav" aria-label="Móvil">
     {nav.map((item) => (
-      <a href={item.href}>{item.label}</a>
+      <a href={withBase(item.href)}>{item.label}</a>
     ))}
   </nav>
 </header>

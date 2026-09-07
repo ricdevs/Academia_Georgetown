@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/url';
+
 interface Props {
   title?: string;
   show?: number;
@@ -22,9 +24,9 @@ const { title, show = 3, scroll = 1, gap = 15, items } = Astro.props;
       <div class="ag-carousel-viewport" data-viewport>
         <div class="ag-carousel-track" data-track>
           {items.map((item) => (
-            <a class="ag-card" href={item.href}>
+            <a class="ag-card" href={withBase(item.href)}>
               <figure>
-                <img src={item.image} alt="" width="520" height="292" loading="lazy" />
+                <img src={withBase(item.image)} alt="" width="520" height="292" loading="lazy" />
               </figure>
               <h4>{item.title}</h4>
             </a>

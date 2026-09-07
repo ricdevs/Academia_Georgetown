@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/url';
+
 interface Props {
   kicker?: string;
   title: string;
@@ -25,7 +27,7 @@ const {
     {actions.length > 0 && (
       <div class="ag-hero-actions">
         {actions.map((a, i) => (
-          <a class:list={['btn', i === 0 ? 'btn-on-light' : 'btn-solid']} href={a.href}>
+          <a class:list={['btn', i === 0 ? 'btn-on-light' : 'btn-solid']} href={withBase(a.href)}>
             {a.label}
           </a>
         ))}

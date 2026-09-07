@@ -8,6 +8,7 @@ import { mission, pillars, site } from '../data/site';
 import { pecPrograms } from '../data/catalog';
 import ExamLogos from '../components/ExamLogos.astro';
 import { certCardMedia, missionIcons, pecImage } from '../data/media';
+import { withBase } from '../lib/url';
 
 const pecItems = pecPrograms.map((p, i) => ({
   href: `/${p.slug}/`,
@@ -73,7 +74,7 @@ const pecItems = pecPrograms.map((p, i) => ({
       <div class="ag-grid-3" style="margin-top: 2rem;">
         {mission.slice(0, 3).map((item, i) => (
           <article class="ag-blurb icon-sm">
-            <img src={missionIcons[i]} alt="" width="54" height="70" />
+            <img src={withBase(missionIcons[i])} alt="" width="54" height="70" />
             <h2>{item.title}</h2>
             <p>{item.text}</p>
           </article>
@@ -87,7 +88,7 @@ const pecItems = pecPrograms.map((p, i) => ({
       <div class="ag-grid-3">
         {mission.slice(3).map((item, i) => (
           <article class="ag-blurb icon-md">
-            <img src={missionIcons[i + 3]} alt="" width="93" height="70" />
+            <img src={withBase(missionIcons[i + 3])} alt="" width="93" height="70" />
             <h2>{item.title}</h2>
             <p>{item.text}</p>
           </article>

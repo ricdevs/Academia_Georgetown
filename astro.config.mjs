@@ -23,8 +23,13 @@ for (const path of legacyHome) {
   redirects[path] = '/';
 }
 
+const githubPages = process.env.GITHUB_PAGES === 'true';
+const githubRepo = process.env.GITHUB_REPOSITORY || 'rloria/Academia_Georgetown';
+const [githubOwner, githubName] = githubRepo.split('/');
+
 export default defineConfig({
-  site: 'https://www.academiageorgetown.com',
+  site: githubPages ? `https://${githubOwner}.github.io` : 'https://www.academiageorgetown.com',
+  base: githubPages ? `/${githubName}/` : '/',
   trailingSlash: 'always',
   output: 'static',
   integrations: [sitemap()],

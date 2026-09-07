@@ -19,7 +19,9 @@ npm install
 npm run dev
 ```
 
-`npm run build` genera `dist/` listo para subir a SiteGround o Azure Static Web Apps.
+`npm run build` genera `dist/` listo para SiteGround o Azure Static Web Apps.
+
+`npm run build:pages` genera el mismo sitio con `base` `/Academia_Georgetown/` para GitHub Pages.
 
 ## Hosting
 
@@ -38,7 +40,24 @@ npm run dev
 4. Apunta `www.academiageorgetown.com` con CNAME al host de SWA
 5. El flujo de GitHub Actions está en `.github/workflows/azure-static-web-apps.yml`
 
-El mismo `dist/` sirve en ambos sitios (`output: 'static'`).
+### GitHub Pages (preview para comparaciones)
+
+Publica una copia estática en `https://rloria.github.io/Academia_Georgetown/` (noindex) para comparar con producción.
+
+1. En GitHub: **Settings → Pages → Source: GitHub Actions**
+2. El flujo `.github/workflows/github-pages.yml` construye con `npm run build:pages` y despliega `dist/`
+3. También puedes lanzarlo a mano: **Actions → Deploy GitHub Pages → Run workflow**
+
+Vista previa local del build de Pages:
+
+```bash
+npm run build:pages
+npm run preview:pages
+```
+
+El build de producción (`npm run build`) sigue usando `site` `https://www.academiageorgetown.com` y `base` `/`.
+
+El mismo `dist/` de producción sirve en SiteGround y Azure (`output: 'static'`).
 
 ## Cutover DNS
 

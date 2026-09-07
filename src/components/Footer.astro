@@ -1,5 +1,6 @@
 ---
 import { footerCols, site } from '../data/site';
+import { withBase } from '../lib/url';
 
 const year = new Date().getFullYear();
 ---
@@ -12,7 +13,7 @@ const year = new Date().getFullYear();
         <div class="ag-footer-rule"></div>
         {col.links.map((item) => (
           <a
-            href={item.href}
+            href={item.external ? item.href : withBase(item.href)}
             target={item.external ? '_blank' : undefined}
             rel={item.external ? 'noopener noreferrer' : undefined}
           >

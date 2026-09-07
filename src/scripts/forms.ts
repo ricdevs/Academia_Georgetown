@@ -1,3 +1,5 @@
+import { withBase } from '../lib/url';
+
 export function initLeadForms() {
   const key = (import.meta as ImportMeta & { env: Record<string, string> }).env
     ?.PUBLIC_RECAPTCHA_SITE_KEY || '6LdkAjQcAAAAACkQdK9O5RzVo8kMLnRgHUOwgiAv';
@@ -19,7 +21,7 @@ export function initLeadForms() {
             });
           });
         }
-        const res = await fetch('/api/submit', {
+        const res = await fetch(withBase('/api/submit'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ...data, recaptchaToken }),

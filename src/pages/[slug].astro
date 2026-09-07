@@ -11,6 +11,7 @@ import {
 } from '../data/catalog';
 import { site } from '../data/site';
 import { seoBodies } from '../data/landings';
+import { withBase } from '../lib/url';
 
 export function getStaticPaths() {
   const pec = pecPrograms.map((p) => ({ params: { slug: p.slug }, props: { kind: 'pec' as const } }));
@@ -68,9 +69,9 @@ const defaultSeoLinks = [
       <h1 data-reveal="left">{pec.headline}</h1>
       <p class="ag-lede">{pec.subtitle}</p>
       <div class="ag-hero-actions">
-        <a class="btn btn-primary" href="/contacto/">Solicite Información</a>
-        <a class="btn btn-muted" href="/contenido/">Contenido</a>
-        <a class="btn btn-muted" href="/matricula-y-financiacion/">Matrícula Y Financiación</a>
+        <a class="btn btn-primary" href={withBase('/contacto/')}>Solicite Información</a>
+        <a class="btn btn-muted" href={withBase('/contenido/')}>Contenido</a>
+        <a class="btn btn-muted" href={withBase('/matricula-y-financiacion/')}>Matrícula Y Financiación</a>
       </div>
       <h2 class="ag-pec-allow">Completar con éxito el presente curso y obtener el certificado le permitirá:</h2>
       <ul class="ag-pec-benefits">
@@ -119,7 +120,7 @@ const defaultSeoLinks = [
         ),
       )}
       <p>
-        <a class="btn btn-primary mt-6 inline-flex" href="/prueba-de-nivel/">Realiza una prueba de nivel</a>
+        <a class="btn btn-primary mt-6 inline-flex" href={withBase('/prueba-de-nivel/')}>Realiza una prueba de nivel</a>
       </p>
     </article>
   )}
@@ -131,7 +132,7 @@ const defaultSeoLinks = [
       <p>A continuación, puedes ver un listado de servicios que podemos ofrecerte para mejorar tu nivel de inglés:</p>
       <ul>
         {(seo?.links ?? defaultSeoLinks).map((item) => (
-          <li><a href={item.href}>{item.label}</a></li>
+          <li><a href={withBase(item.href)}>{item.label}</a></li>
         ))}
       </ul>
       <p>

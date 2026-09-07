@@ -2,6 +2,7 @@
 import Recaptcha from './Recaptcha.astro';
 import ContactForm from './ContactForm.astro';
 import { site } from '../data/site';
+import { withBase } from '../lib/url';
 
 interface Props {
   source?: string;
@@ -22,7 +23,7 @@ const { heading = false, phone = site.phoneAlt, fieldOrder = 'default', ...formP
     </div>
   </section>
 )}
-<section class="ag-contact" id="contacto" style="background-image: url('/images/contact-bg.jpg')">
+<section class="ag-contact" id="contacto" style={`background-image: url('${withBase('/images/contact-bg.jpg')}')`}>
   <div class="container-ag-1080 ag-contact-inner">
     <div class="ag-contact-copy" data-reveal>
       <h2>Descubre cómo la Academia de Inglés Georgetown puede ayudarte a conseguir tus objetivos.</h2>

@@ -16,7 +16,6 @@ const lines = legal[slug] ?? [];
   <article class="prose-ag container-ag-1080 ag-content-page">
     <h1>{title}</h1>
     {lines.map((line) => {
-      const heading = line.length < 80 && !line.endsWith('.') && !line.includes(':') && line === line;
       const isHeading =
         line.length < 90 &&
         !line.endsWith('.') &&
