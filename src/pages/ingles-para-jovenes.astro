@@ -1,56 +1,100 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
+import CardCarousel from '../components/CardCarousel.astro';
 import ContactSection from '../components/ContactSection.astro';
+import SplitHero from '../components/SplitHero.astro';
+import ExamLogos from '../components/ExamLogos.astro';
+import BenefitPoints from '../components/BenefitPoints.astro';
 import { pillars, site } from '../data/site';
 import { youthCertCards } from '../data/catalog';
+import { jovenesPoints } from '../data/landings';
+
+const youthImages: Record<string, string> = {
+  '/a2-ket/': '/images/certs/a2-ket.jpg',
+  '/b1-preliminary/': '/images/certs/b1-preliminary.jpg',
+  '/b2-first-certificate/': '/images/certs/b2-first.jpg',
+  '/c1-advanced/': '/images/certs/c1-advanced.jpg',
+};
 ---
 
 <BaseLayout title={`Cursos de Inglés para Jóvenes - ${site.name}`}>
-  <section class="container-ag py-16">
-    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-navy">Academia de inglés en Pamplona y online</p>
-    <h1 class="mt-3 text-5xl font-semibold">Inglés para escolares</h1>
-    <p class="mt-6 max-w-2xl text-lg text-muted">
-      Cursos de inglés y certificados para multiplicar las opciones académicas y forjar un futuro
-      profesional.
-    </p>
-    <div class="mt-8 flex flex-wrap gap-3">
-      <a class="btn btn-primary" href="/prueba-de-nivel/">Realiza una prueba de nivel</a>
-      <a class="btn btn-secondary" href="/contacto/">Solicita más información</a>
+  <SplitHero
+    kicker="Academia de inglés en Pamplona y online"
+    titleLines={['Inglés para', 'Escolares']}
+    lede="Cursos de Inglés y Certificados para Multiplicar las Opciones Académicas y forjar un Futuro Profesional."
+    image="/images/hero-jovenes.webp"
+    imageAlt="Estudiantes jóvenes en clase"
+    imageShape="soft"
+    tall
+    primary={{ href: '/prueba-de-nivel/', label: 'Realiza una prueba de nivel' }}
+    secondary={{ href: '/contacto/', label: 'Solicita más información' }}
+  />
+
+  <section class="ag-section-tight">
+    <div class="container-ag-1080">
+      <div class="ag-grid-3">
+        <article class="ag-blurb" data-reveal>
+          <h2>Método de enseñanza líder en el mercado</h2>
+          <p>
+            Si tus objetivos son aprender y mejorar el inglés de una manera rápida y eficaz, en
+            Georgetown podrás descubrir el método para conseguirlo.
+          </p>
+        </article>
+        <article class="ag-blurb" data-reveal>
+          <h2>Cursos adaptados a tus necesidades</h2>
+          <p>
+            El contenido específico de nuestros cursos permite a los alumnos y profesores controlar y
+            ver su progreso. De esta manera se optimizan los recursos y se aprovecha el tiempo al
+            máximo.
+          </p>
+        </article>
+        <article class="ag-blurb" data-reveal>
+          <h2>Plataforma para el Dominio del Inglés</h2>
+          <p>
+            Todo estudiante, para tener un futuro profesional exitoso necesita dominar el inglés. Por
+            eso, gracias al método Georgetown y el profesorado experto, los alumnos consiguen un
+            éxito tanto académico como profesional.
+          </p>
+        </article>
+      </div>
     </div>
   </section>
-  <section class="container-ag grid gap-8 py-8 md:grid-cols-3">
-    <article>
-      <h2 class="text-xl font-semibold text-navy">Método de enseñanza líder</h2>
-      <p class="mt-3 text-muted">Si tus objetivos son aprender y mejorar el inglés de una manera rápida y eficaz, en Georgetown descubrirás el método para conseguirlo.</p>
-    </article>
-    <article>
-      <h2 class="text-xl font-semibold text-navy">Cursos adaptados</h2>
-      <p class="mt-3 text-muted">El contenido específico de nuestros cursos permite controlar el progreso, optimizar recursos y aprovechar el tiempo al máximo.</p>
-    </article>
-    <article>
-      <h2 class="text-xl font-semibold text-navy">Plataforma para el dominio del inglés</h2>
-      <p class="mt-3 text-muted">Gracias al método Georgetown y el profesorado experto, los alumnos consiguen éxito académico y profesional.</p>
-    </article>
-  </section>
-  <section class="container-ag grid gap-8 py-8 md:grid-cols-2 lg:grid-cols-4">
-    {pillars.map((item) => (
-      <article>
-        <h2 class="text-xl font-semibold text-navy">{item.title}</h2>
-        <p class="mt-3 text-sm text-muted">{item.text}</p>
-      </article>
-    ))}
-  </section>
-  <section class="container-ag py-8">
-    <h2 class="mb-6 text-3xl font-light">Certificados más demandados</h2>
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {youthCertCards.map((item) => (
-        <a href={item.href} class="rounded-md bg-navy p-8 text-center text-white no-underline">
-          <h3 class="text-xl font-semibold">{item.title}</h3>
-        </a>
-      ))}
+
+  <BenefitPoints items={jovenesPoints} />
+  <ExamLogos />
+
+  <section class="ag-afterwave">
+    <div class="container-ag-1080">
+      <h2>Academia de Inglés Georgetown</h2>
     </div>
   </section>
+
+  <section class="ag-section-tight">
+    <div class="container-ag-1080">
+      <h2 class="ag-subtitle" style="font-size: 22px; color: #444;">
+        Los Cursos de Academia de Inglés Georgetown permiten Aprender rápidamente. Con nuestras
+        soluciones Avanzadas para la Capacitación en Inglés que se adaptan a cada alumno.
+      </h2>
+      <div class="ag-grid-4">
+        {pillars.map((item) => (
+          <article class="ag-blurb">
+            <h4>{item.title}</h4>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CardCarousel
+    title="Certificados Más Demandados"
+    items={youthCertCards.map((item) => ({
+      ...item,
+      image: youthImages[item.href] ?? '/images/certs/b2-first.jpg',
+    }))}
+    show={4}
+  />
   <FaqAccordion />
-  <ContactSection source="jovenes" phone={site.phoneAlt} />
+  <ContactSection source="jovenes" phone={site.phone} />
 </BaseLayout>

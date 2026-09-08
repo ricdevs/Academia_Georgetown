@@ -1,0 +1,21 @@
+---
+interface Props {
+  quote: string;
+  cite: string;
+  role?: string;
+}
+
+const { quote, cite, role } = Astro.props;
+---
+
+<section class="ag-section-tight">
+  <div class="container-ag-1080">
+    <blockquote class="ag-quote">
+      <p>{quote}</p>
+      <footer>
+        <cite>{cite}</cite>
+        {role && <div class="ag-role">{role}</div>}
+      </footer>
+    </blockquote>
+  </div>
+</section>

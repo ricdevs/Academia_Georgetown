@@ -1,0 +1,26 @@
+---
+interface Props {
+  items: string[];
+}
+
+const { items } = Astro.props;
+const columns = [items.slice(0, 2), items.slice(2, 4), items.slice(4, 6)];
+const icons = ['/images/plus-1.png', '/images/plus-2.png', '/images/plus-1.png'];
+---
+
+<section class="ag-section-tight">
+  <div class="container-ag-1080">
+    <div class="ag-grid-3 ag-points">
+      {columns.map((col, i) => (
+        <article class="ag-point" data-reveal>
+          <img src={icons[i]} alt="" width="72" height="72" />
+          <ul>
+            {col.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -5,12 +5,12 @@ import { site } from '../data/site';
 ---
 
 <BaseLayout title={`Programa de referidos - ${site.name}`}>
-  <section class="container-ag max-w-3xl py-16">
-    <h1 class="text-4xl font-light">Gana ventajas y descuentos invitando a tus amigos</h1>
-    <p class="mt-6 text-muted leading-relaxed">
-      Descubre cómo puedes obtener ventajas invitando a tus amigos. Además de conseguir descuentos
-      exclusivos para las personas que se unan con tu código.
+  <section class="container-ag-1080 ag-content-page">
+    <h1 class="ag-title">Gana ventajas y descuentos invitando a tus amigos</h1>
+    <p class="ag-lede" style="max-width: none; margin-top: 1.25rem;">
+      Descubre como puedes obtener la cuenta Profesional invitando a tus amigos. Además de conseguir
+      descuentos exclusivos para las personas que se unan con tu código.
     </p>
   </section>
-  <ContactSection source="referidos" extraFields={['discount']} />
+  <ContactSection source="referidos" extraFields={['discount']} phone={site.phone} />
 </BaseLayout>

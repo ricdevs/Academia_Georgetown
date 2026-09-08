@@ -1,38 +1,39 @@
 ---
-import { footerLinks, site } from '../data/site';
+import { footerCols, site } from '../data/site';
+
+const year = new Date().getFullYear();
 ---
 
-<footer class="mt-16 border-t border-line bg-white">
-  <div class="container-ag grid gap-10 py-14 md:grid-cols-2">
-    <div>
-      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-navy">Enlaces</p>
-      <ul class="space-y-2">
-        {footerLinks.enlaces.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              class="text-muted no-underline hover:text-navy"
-              target={item.external ? '_blank' : undefined}
-              rel={item.external ? 'noopener noreferrer' : undefined}
-            >
-              {item.label}
-            </a>
-          </li>
+<footer class="ag-footer">
+  <div class="container-ag ag-footer-grid">
+    {footerCols.map((col) => (
+      <div>
+        <h2>{col.title}</h2>
+        <div class="ag-footer-rule"></div>
+        {col.links.map((item) => (
+          <a
+            href={item.href}
+            target={item.external ? '_blank' : undefined}
+            rel={item.external ? 'noopener noreferrer' : undefined}
+          >
+            {item.label}
+          </a>
         ))}
-      </ul>
-    </div>
+      </div>
+    ))}
     <div>
-      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-navy">Contactar</p>
-      <ul class="space-y-2">
-        {footerLinks.contactar.map((item) => (
-          <li>
-            <a href={item.href} class="text-muted no-underline hover:text-navy">{item.label}</a>
-          </li>
-        ))}
-      </ul>
+      <div class="ag-social">
+        <a href="https://www.facebook.com/" aria-label="Facebook" rel="noopener noreferrer" target="_blank">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3c-2.8 0-5 2.2-5 5v2H6v4h3v8h4v-8h3.2l.8-4H13V9c0-.6.4-1 1-1z"/></svg>
+        </a>
+        <a href="https://x.com/" aria-label="X" rel="noopener noreferrer" target="_blank">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M17.2 4H20l-6.3 7.2L21 20h-5.6l-4.4-5.7L6.2 20H3.4l6.7-7.7L3 4h5.7l4 5.2L17.2 4zm-1 14.4h1.6L7.9 5.5H6.2l10 12.9z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/" aria-label="Instagram" rel="noopener noreferrer" target="_blank">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm10 2H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm-5 3.2A3.8 3.8 0 1 1 8.2 12 3.8 3.8 0 0 1 12 8.2zm0 2A1.8 1.8 0 1 0 13.8 12 1.8 1.8 0 0 0 12 10.2zM17.4 6.6a.9.9 0 1 1-.9.9.9.9 0 0 1 .9-.9z"/></svg>
+        </a>
+      </div>
+      <p class="ag-copy">Copyright © {year} | All Rights Reserved</p>
     </div>
-  </div>
-  <div class="border-t border-line py-6 text-center text-sm text-muted">
-    Copyright © {new Date().getFullYear()} {site.legalName} | All Rights Reserved
   </div>
 </footer>
