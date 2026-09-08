@@ -24,7 +24,7 @@ for (const path of legacyHome) {
 }
 
 const githubPages = process.env.GITHUB_PAGES === 'true';
-const githubRepo = process.env.GITHUB_REPOSITORY || 'rloria/Academia_Georgetown';
+const githubRepo = process.env.GITHUB_REPOSITORY || 'ricdevs/Academia_Georgetown';
 const [githubOwner, githubName] = githubRepo.split('/');
 
 export default defineConfig({

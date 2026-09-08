@@ -42,7 +42,7 @@ npm run dev
 
 ### GitHub Pages (preview para comparaciones)
 
-Publica una copia estática en `https://rloria.github.io/Academia_Georgetown/` (noindex) para comparar con producción.
+Publica una copia estática en `https://ricdevs.github.io/Academia_Georgetown/` (noindex) para comparar con producción.
 
 1. En GitHub: **Settings → Pages → Source: GitHub Actions**
 2. El flujo `.github/workflows/github-pages.yml` construye con `npm run build:pages` y despliega `dist/`
