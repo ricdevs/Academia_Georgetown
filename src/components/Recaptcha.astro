@@ -1,5 +1,10 @@
 ---
 import { site } from '../data/site';
+import { isPagesPreview } from '../lib/url';
+
+/** Production key is bound to academiageorgetown.com — skip it on GitHub Pages. */
+const enabled = !isPagesPreview();
 const src = `https://www.google.com/recaptcha/api.js?render=${site.recaptchaSiteKey}`;
 ---
-<script is:inline src={src}></script>
+
+{enabled && <script is:inline src={src}></script>}
