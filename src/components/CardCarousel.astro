@@ -6,16 +6,24 @@ interface Props {
   show?: number;
   scroll?: number;
   gap?: number;
+  autoplay?: number;
   items: { href: string; title: string; image: string }[];
 }
 
-const { title, show = 3, scroll = 1, gap = 15, items } = Astro.props;
+const { title, show = 3, scroll = 1, gap = 15, autoplay = 0, items } = Astro.props;
 ---
 
 <section class="ag-section">
   <div class="container-ag-1080">
     {title && <h2 class="ag-title ag-center" style="margin-bottom: 1.75rem;">{title}</h2>}
-    <div class="ag-carousel" data-carousel data-show={String(show)} data-scroll={String(scroll)} data-gap={String(gap)}>
+    <div
+      class="ag-carousel"
+      data-carousel
+      data-show={String(show)}
+      data-scroll={String(scroll)}
+      data-gap={String(gap)}
+      {...(autoplay > 0 ? { 'data-autoplay': String(autoplay) } : {})}
+    >
       <button class="ag-carousel-btn" type="button" data-prev aria-label="Anterior">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M15 18l-6-6 6-6"></path>
