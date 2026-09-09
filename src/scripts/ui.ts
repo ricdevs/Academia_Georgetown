@@ -66,6 +66,22 @@ function cloneLoopSlides(source: HTMLElement[], start: number, n: number) {
   return out;
 }
 
+const CAROUSEL_SLIDE_MS = 1500;
+const CAROUSEL_SLIDE_EASE = 'ease';
+
+function readTranslateX(el: HTMLElement) {
+  const t = getComputedStyle(el).transform;
+  if (!t || t === 'none') return 0;
+  try {
+    return new DOMMatrixReadOnly(t).m41;
+  } catch {
+    const m = t.match(/matrix(3d)?\(([^)]+)\)/);
+    if (!m) return 0;
+    const parts = m[2].split(',').map(Number);
+    return m[1] ? parts[12] : parts[4];
+  }
+}
+
 function initCarousels() {
   document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
     if (root.dataset.carouselReady === '1') return;
@@ -80,7 +96,6 @@ function initCarousels() {
     const desktopScroll = Number(root.dataset.scroll || 1);
     const gap = Number(root.dataset.gap || 15);
     const autoplayMs = Number(root.dataset.autoplay || 0);
-    const reduced = prefersReducedMotion();
     const originals = [...track.children] as HTMLElement[];
     const realCount = originals.length;
     const offset = Math.max(desktopShow, 1) + Math.max(desktopScroll, 1);
@@ -105,24 +120,59 @@ function initCarousels() {
     let moving = false;
     let pendingResize = false;
     let hovered = false;
+    let inView = autoplayMs <= 0;
     let autoplayTimer = 0;
     let unlockTimer = 0;
+    let slideAnim: Animation | null = null;
 
-    function xform() {
-      return `translate3d(-${index * (slideW + gap)}px, 0, 0)`;
+    function targetX() {
+      return -(index * (slideW + gap));
+    }
+
+    function applyX(px: number) {
+      track!.style.transform = `translate3d(${px}px, 0, 0)`;
+    }
+
+    function stopSlideAnim() {
+      if (!slideAnim) return;
+      try {
+        slideAnim.commitStyles();
+      } catch {
+        applyX(readTranslateX(track!));
+      }
+      slideAnim.cancel();
+      slideAnim = null;
     }
 
     function setTransform(animate: boolean) {
-      const next = xform();
-      if (reduced || !animate) {
-        track!.style.transition = 'none';
-        track!.style.transform = next;
-        void track!.offsetWidth;
-        track!.style.removeProperty('transition');
-        return;
+      const to = targetX();
+      stopSlideAnim();
+      track!.style.transition = 'none';
+      if (!animate || typeof track!.animate !== 'function') {
+        applyX(to);
+        return false;
       }
-      track!.style.removeProperty('transition');
-      track!.style.transform = next;
+      const from = readTranslateX(track!);
+      applyX(from);
+      if (Math.abs(from - to) < 0.5) {
+        applyX(to);
+        return false;
+      }
+      slideAnim = track!.animate(
+        [{ transform: `translate3d(${from}px, 0, 0)` }, { transform: `translate3d(${to}px, 0, 0)` }],
+        { duration: CAROUSEL_SLIDE_MS, easing: CAROUSEL_SLIDE_EASE, fill: 'forwards' },
+      );
+      slideAnim.finished
+        .then(() => {
+          applyX(to);
+          slideAnim?.cancel();
+          slideAnim = null;
+          finishMove();
+        })
+        .catch(() => {
+          slideAnim = null;
+        });
+      return true;
     }
 
     function measure() {
@@ -155,7 +205,7 @@ function initCarousels() {
 
     function armAutoplay() {
       window.clearTimeout(autoplayTimer);
-      if (reduced || autoplayMs <= 0 || hovered || document.hidden || moving) return;
+      if (autoplayMs <= 0 || hovered || document.hidden || moving || !inView) return;
       autoplayTimer = window.setTimeout(() => go(1), autoplayMs);
     }
 
@@ -190,15 +240,12 @@ function initCarousels() {
       }
       window.clearTimeout(autoplayTimer);
       window.clearTimeout(unlockTimer);
-      if (reduced) {
-        moving = false;
-        normalize();
-        setTransform(false);
+      moving = true;
+      if (!setTransform(true)) {
+        finishMove();
         return;
       }
-      moving = true;
-      setTransform(true);
-      unlockTimer = window.setTimeout(finishMove, 1650);
+      unlockTimer = window.setTimeout(finishMove, CAROUSEL_SLIDE_MS + 150);
     }
 
     function onResize() {
@@ -214,16 +261,12 @@ function initCarousels() {
 
     prev?.addEventListener('click', () => go(-1));
     next?.addEventListener('click', () => go(1));
-    track.addEventListener('transitionend', (e) => {
-      if (e.target !== track || e.propertyName !== 'transform') return;
-      finishMove();
-    });
     window.addEventListener('resize', onResize);
     if (typeof ResizeObserver !== 'undefined') {
       new ResizeObserver(onResize).observe(viewport);
     }
 
-    if (autoplayMs > 0 && !reduced) {
+    if (autoplayMs > 0) {
       root.addEventListener('mouseenter', () => {
         hovered = true;
         window.clearTimeout(autoplayTimer);
@@ -236,6 +279,19 @@ function initCarousels() {
         if (document.hidden) window.clearTimeout(autoplayTimer);
         else armAutoplay();
       });
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            inView = entries.some((entry) => entry.isIntersecting);
+            if (inView) armAutoplay();
+            else window.clearTimeout(autoplayTimer);
+          },
+          { threshold: 0.35 },
+        );
+        io.observe(root);
+      } else {
+        inView = true;
+      }
     }
 
     measure();
