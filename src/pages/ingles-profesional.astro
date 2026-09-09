@@ -59,7 +59,7 @@ const profesionalCerts = certCardMedia.filter((item) => !item.href.includes('toe
   </section>
 
   <BenefitPoints items={profesionalPoints} />
-  <CardCarousel title="Programas Georgetown PEC – Inglés Específico" items={pecItems} show={4} scroll={4} gap={18} />
+  <CardCarousel title="Programas Georgetown PEC – Inglés Específico" items={pecItems} show={4} scroll={4} gap={18} autoplay={6000} />
   <CardCarousel title="Certificados Más Demandados" items={[...profesionalCerts]} show={3} />
   <ExamLogos />
   <QuoteBlock
