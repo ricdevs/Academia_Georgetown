@@ -902,6 +902,8 @@ a {
 
 .ag-blurb.icon-md img {
   width: 93px;
+  height: 70px;
+  object-fit: contain;
 }
 
 .ag-logo-blurb img {
