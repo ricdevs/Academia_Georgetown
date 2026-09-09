@@ -136,4 +136,98 @@ const pecItems = pecPrograms.map((p, i) => ({
 
   <FaqAccordion />
   <ContactSection source="home" phone={site.phone} fieldOrder="home" />
+
+  {/* #region agent log */}
+  <script>
+    function logMissionIcons(phase) {
+      const imgs = document.querySelectorAll('.ag-blurb img');
+      const rows = [];
+      imgs.forEach((img, index) => {
+        const cs = getComputedStyle(img);
+        const rect = img.getBoundingClientRect();
+        const article = img.closest('.ag-blurb');
+        const src = img.getAttribute('src') || '';
+        let hypothesisId = 'E';
+        if (src.includes('mission-4')) hypothesisId = 'A';
+        else if (src.includes('mission-5') || src.includes('mission-6')) hypothesisId = 'D';
+        else if (src.includes('mission-')) hypothesisId = 'B';
+        rows.push({
+          hypothesisId,
+          location: 'index.astro:mission-icons',
+          message: 'ag-blurb img runtime size',
+          timestamp: Date.now(),
+          data: {
+            phase,
+            index,
+            src,
+            parentClass: article ? article.className : '',
+            attrWidth: img.getAttribute('width'),
+            attrHeight: img.getAttribute('height'),
+            complete: img.complete,
+            clientWidth: img.clientWidth,
+            clientHeight: img.clientHeight,
+            offsetWidth: img.offsetWidth,
+            offsetHeight: img.offsetHeight,
+            naturalWidth: img.naturalWidth,
+            naturalHeight: img.naturalHeight,
+            rectW: rect.width,
+            rectH: rect.height,
+            computedWidth: cs.width,
+            computedHeight: cs.height,
+            computedMaxWidth: cs.maxWidth,
+            computedMaxHeight: cs.maxHeight,
+            computedObjectFit: cs.objectFit,
+            computedAspectRatio: cs.aspectRatio,
+            renderedAspect: img.clientHeight ? img.clientWidth / img.clientHeight : null,
+            naturalAspect: img.naturalHeight ? img.naturalWidth / img.naturalHeight : null,
+          },
+        });
+      });
+      fetch('/__agent_debug_log', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(rows),
+      }).catch(() => {});
+    }
+
+    function logCssConstraints() {
+      const sample = document.querySelector('.ag-blurb.icon-md img');
+      const globalImg = getComputedStyle(document.createElement('img'));
+      const cs = sample ? getComputedStyle(sample) : null;
+      fetch('/__agent_debug_log', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          hypothesisId: 'C',
+          location: 'index.astro:css-constraints',
+          message: 'computed img height constraints',
+          timestamp: Date.now(),
+          data: {
+            iconMdWidth: cs && cs.width,
+            iconMdHeight: cs && cs.height,
+            iconMdMaxWidth: cs && cs.maxWidth,
+            iconMdMaxHeight: cs && cs.maxHeight,
+            iconMdObjectFit: cs && cs.objectFit,
+            detachedImgHeight: globalImg.height,
+            detachedImgMaxWidth: globalImg.maxWidth,
+          },
+        }),
+      }).catch(() => {});
+    }
+
+    function run() {
+      logCssConstraints();
+      logMissionIcons('dom');
+      const imgs = [...document.querySelectorAll('.ag-blurb img')];
+      Promise.all(
+        imgs.map((img) =>
+          img.decode ? img.decode().catch(() => {}) : Promise.resolve(),
+        ),
+      ).then(() => logMissionIcons('decoded'));
+    }
+
+    if (document.readyState === 'complete') run();
+    else window.addEventListener('load', run);
+  </script>
+  {/* #endregion */}
 </BaseLayout>

@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import fs from 'node:fs';
 
 const legacyHome = [
   '/login/',
@@ -51,6 +52,30 @@ export default defineConfig({
           });
         },
       },
+      // #region agent log
+      {
+        name: 'agent-debug-log',
+        configureServer(server) {
+          server.middlewares.use('/__agent_debug_log', (req, res, next) => {
+            if (req.method !== 'POST') return next();
+            const chunks = [];
+            req.on('data', (c) => chunks.push(c));
+            req.on('end', () => {
+              try {
+                const raw = Buffer.concat(chunks).toString('utf8');
+                const parsed = JSON.parse(raw);
+                const lines = Array.isArray(parsed) ? parsed : [parsed];
+                for (const line of lines) {
+                  fs.appendFileSync('/opt/cursor/logs/debug.log', JSON.stringify(line) + '\n');
+                }
+              } catch {}
+              res.statusCode = 204;
+              res.end();
+            });
+          });
+        },
+      },
+      // #endregion
     ],
   },
 });
