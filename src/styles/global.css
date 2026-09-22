@@ -16,6 +16,15 @@
   --color-line: #e6e6ea;
 }
 
+/* Divi testimonial mark: the "|" codepoint in ETmodules is the quote icon. */
+@font-face {
+  font-family: ETmodules;
+  src: url("../assets/fonts/etmodules.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -1137,11 +1146,18 @@ a {
   left: 50%;
   z-index: 2;
   margin-left: -16px;
+  font-family: ETmodules, sans-serif;
   font-size: 32px;
+  font-weight: 400;
+  font-style: normal;
+  font-variant: normal;
   line-height: 1;
-  color: #666;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #000;
   background: #f5f5f5;
   border-radius: 31px;
+  -webkit-font-smoothing: antialiased;
 }
 
 .ag-cert-quote p {
