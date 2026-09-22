@@ -1,5 +1,5 @@
 {
-  "trailingSlash": "always",
+  "trailingSlash": "auto",
   "platform": {
     "apiRuntime": "node:22"
   },
@@ -17,6 +17,6 @@
   ],
   "navigationFallback": {
     "rewrite": "/404.html",
-    "exclude": ["/images/*", "/api/*"]
+    "exclude": ["/images/*", "/api/*", "/_astro/*"]
   }
 }
