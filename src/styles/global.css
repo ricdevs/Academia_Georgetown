@@ -347,7 +347,8 @@ a {
 .ag-split {
   position: relative;
   background: #f8f9fa;
-  padding: 0;
+  /* Live specialty section: 4% of the viewport, capped at 54px. */
+  padding: min(4%, 54px) 0 0;
   overflow: hidden;
 }
 
@@ -362,7 +363,8 @@ a {
 }
 
 .ag-split-copy {
-  padding-top: 50px;
+  /* Column padding 50px plus the inner row padding, 5.82% of this column. */
+  padding-top: calc(50px + 5.82%);
   padding-bottom: 8rem;
 }
 
@@ -437,7 +439,8 @@ a {
   position: relative;
   z-index: 3;
   min-width: 0;
-  padding-top: 50px;
+  /* 2.855% of the row, expressed against this column's width. */
+  padding-top: 6.045%;
 }
 
 .ag-split-media-wrap {
@@ -455,7 +458,7 @@ a {
 }
 
 .ag-split-media.is-soft {
-  padding-top: 0;
+  padding-top: 6.045%;
 }
 
 .ag-split-media.is-soft .ag-split-media-wrap {
@@ -519,8 +522,12 @@ a {
     padding: 0 0 4rem;
   }
 
+  .ag-split {
+    padding-top: 50px;
+  }
+
   .ag-split-copy {
-    padding-top: 28px;
+    padding-top: 29px;
     padding-bottom: 2rem;
   }
 
@@ -534,7 +541,8 @@ a {
     row-gap: 0.85rem;
   }
 
-  .ag-split-media {
+  .ag-split-media,
+  .ag-split-media.is-soft {
     justify-content: center;
     padding-top: 0;
   }
