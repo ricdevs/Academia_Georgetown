@@ -63,13 +63,6 @@ a {
   margin-inline: auto;
 }
 
-@media (max-width: 980px) {
-  .container-ag,
-  .container-ag-1080 {
-    width: calc(100% - 2rem);
-  }
-}
-
 /* Live-site pills: accent-blue primary, silver secondary */
 .btn {
   display: inline-flex;
@@ -309,16 +302,18 @@ a {
 
 @media (max-width: 980px) {
   .ag-header-inner {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 9px;
+    padding-bottom: 9px;
   }
 
   .ag-logo {
     margin-right: 0;
+    max-width: calc(100% - 48px);
   }
 
   .ag-logo img {
     width: 275px;
+    max-width: 100%;
   }
 
   @media (max-width: 767px) {
@@ -1070,7 +1065,7 @@ a {
 
 .ag-cert-block p {
   margin: 0;
-  padding-bottom: 1em;
+  padding: 0;
   color: #666;
 }
 
@@ -1089,11 +1084,11 @@ a {
 .ag-cert-block ol {
   list-style: decimal;
   list-style-position: inside;
-  padding: 0 0 23px;
+  padding: 0 0 1em;
 }
 
 .ag-cert-block li {
-  margin: 0 0 0.5em 15px;
+  margin: 0;
 }
 
 .ag-cert-block ol li {
@@ -1104,14 +1099,31 @@ a {
   position: relative;
   width: 81%;
   margin: 0 auto 6%;
-  padding: 10% 30px 30px;
+  padding: 30px;
   background: #fff;
   border: 0;
   font-family: "Open Sans", Arial, sans-serif;
-  font-size: 17.3px;
+  font-size: 14px;
   font-weight: 300;
   line-height: 1.5;
-  color: #666;
+  color: #000;
+  display: flow-root;
+}
+
+.ag-cert-portrait {
+  float: left;
+  width: 120px;
+  height: 120px;
+  margin: 0 30px 0 0;
+  border-radius: 90px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.ag-cert-quote-body {
+  display: block;
+  overflow: hidden;
 }
 
 .ag-cert-quote::before {
@@ -1131,19 +1143,22 @@ a {
 .ag-cert-quote p {
   margin: 0;
   padding-bottom: 1em;
+  color: #000;
+  font-weight: 300;
 }
 
 .ag-cert-author {
   display: block;
   margin-top: 32px;
   font-weight: 700;
-  color: #666;
+  color: #000;
 }
 
 .ag-cert-meta {
   margin: 0;
   padding-bottom: 0 !important;
-  color: #666;
+  font-weight: 500;
+  color: #000;
 }
 
 .ag-cert-actions {
@@ -1204,6 +1219,25 @@ a {
 
   .ag-cert-media {
     display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .ag-cert-portrait {
+    float: none;
+    display: block;
+    margin: 0 auto 20px;
+  }
+
+  .ag-cert-quote-body {
+    width: 100%;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 479px) {
+  .ag-cert-quote {
+    padding-top: 10%;
   }
 }
 

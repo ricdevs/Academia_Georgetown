@@ -6,6 +6,7 @@ interface Quote {
   text: string;
   author: string;
   meta: string;
+  portrait?: string;
 }
 
 interface Section {
@@ -106,9 +107,14 @@ const share = [
     ))}
     {quote && (
       <blockquote class="ag-cert-quote">
-        <p>{quote.text}</p>
-        <span class="ag-cert-author">{quote.author}</span>
-        {quote.meta && <p class="ag-cert-meta">{quote.meta}</p>}
+        {quote.portrait && (
+          <div class="ag-cert-portrait" style={`background-image: url('${withBase(quote.portrait)}')`} aria-hidden="true"></div>
+        )}
+        <div class="ag-cert-quote-body">
+          <p>{quote.text}</p>
+          <span class="ag-cert-author">{quote.author}</span>
+          {quote.meta && <p class="ag-cert-meta">{quote.meta}</p>}
+        </div>
       </blockquote>
     )}
     <div class="ag-cert-actions">
