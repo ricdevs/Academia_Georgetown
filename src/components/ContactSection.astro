@@ -40,3 +40,81 @@ const { heading = false, phone = site.phoneAlt, fieldOrder = 'default', ...formP
   </div>
   <Recaptcha />
 </section>
+
+<style>
+  /* Live Divi section: full-bleed keyboard, no dark overlay. */
+  .ag-contact::before {
+    content: none;
+    display: none;
+    background: none;
+  }
+
+  .ag-contact-inner {
+    align-items: start;
+  }
+
+  .ag-contact-copy {
+    max-width: none;
+    padding-top: 40px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.8em;
+  }
+
+  .ag-contact-copy h2 {
+    margin: 0;
+    padding: 0 0 10px;
+    color: #fff;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 27px;
+    line-height: 1.3em;
+  }
+
+  .ag-contact-copy p {
+    margin: 0;
+    padding: 0 0 1em;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.8em;
+  }
+
+  .ag-contact-copy .ag-phone {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28.8px;
+  }
+
+  /* Desktop copy sits mid-card: 250px column pad + Divi 5.82% inner-row pad. */
+  @media (min-width: 981px) {
+    .ag-contact-copy {
+      max-width: 36vw;
+      padding-top: calc(250px + 5.82%);
+    }
+  }
+
+  @media (max-width: 980px) {
+    .ag-contact {
+      padding-bottom: 48px;
+    }
+
+    .ag-contact-inner {
+      grid-template-columns: 1fr;
+      row-gap: 1.75rem;
+    }
+
+    .ag-contact-copy {
+      max-width: none;
+      padding-top: 40px;
+    }
+
+    .ag-contact-copy h2 {
+      font-size: 24px;
+      line-height: 1.3em;
+    }
+  }
+</style>
