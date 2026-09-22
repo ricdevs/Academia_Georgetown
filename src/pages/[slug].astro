@@ -12,6 +12,8 @@ import {
 import { site } from '../data/site';
 import { seoBodies } from '../data/landings';
 import { withBase } from '../lib/url';
+import certificatePages from '../data/certificate-pages.json';
+import CertificatePage from '../components/CertificatePage.astro';
 
 export function getStaticPaths() {
   const pec = pecPrograms.map((p) => ({ params: { slug: p.slug }, props: { kind: 'pec' as const } }));
@@ -31,8 +33,10 @@ const certLines = kind === 'cert' ? (extractedPages as Record<string, string[]>)
 const landing = kind === 'landing' ? landingBySlug[slug!] : undefined;
 const seo = slug ? seoBodies[slug] : undefined;
 
+const certificate = kind === 'cert' ? certificatePages[slug as keyof typeof certificatePages] : undefined;
 const title = pec?.title ?? certLines[0] ?? landing?.title ?? site.name;
-const description = pec?.description ?? site.description;
+const description = certificate?.description || pec?.description || site.description;
+const documentTitle = certificate?.documentTitle ?? `${title} - ${site.name}`;
 
 function classifyCert(lines: string[]) {
   const heading = lines[0] ?? '';
@@ -62,7 +66,7 @@ const defaultSeoLinks = [
 ];
 ---
 
-<BaseLayout title={`${title} - ${site.name}`} description={description}>
+<BaseLayout title={documentTitle} description={description}>
   {pec && (
     <article class="container-ag-1080 ag-pec">
       <p class="ag-kicker">{pec.area}</p>
@@ -102,7 +106,9 @@ const defaultSeoLinks = [
     </article>
   )}
 
-  {cert && (
+  {certificate && <CertificatePage slug={slug!} {...certificate} />}
+
+  {cert && !certificate && (
     <article class="prose-ag container-ag-1080 ag-content-page">
       <p class="ag-kicker">{cert.heading}</p>
       <h1>{cert.express}</h1>
@@ -141,5 +147,5 @@ const defaultSeoLinks = [
     </article>
   )}
 
-  <ContactSection source={slug} phone={site.phone} />
+  {!certificate && <ContactSection source={slug} phone={site.phone} />}
 </BaseLayout>
