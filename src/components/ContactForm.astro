@@ -202,6 +202,13 @@ const funded = extraFields.includes('course');
       margin-top: 0;
     }
   }
+
+  /* Narrow phones: 15px card inset so the date placeholder stays fully visible. */
+  @media (max-width: 420px) {
+    .ag-form-card {
+      padding: 24px 15px;
+    }
+  }
 </style>
 
 <script>
