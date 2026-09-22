@@ -32,11 +32,13 @@ npm run dev
 
 ### Azure Static Web Apps
 
-1. Crea un Static Web App y conecta este repositorio
-2. Añade el secreto `AZURE_STATIC_WEB_APPS_API_TOKEN`
-3. Configura las variables de la Function: `CONTACT_TO`, `RECAPTCHA_SECRET`, `CLIENTIFY_WEBHOOK_URL`, y opcionalmente Azure Communication Services (`AZURE_COMMUNICATION_CONNECTION_STRING`, `MAIL_FROM`)
-4. Apunta `www.academiageorgetown.com` con CNAME al host de SWA
-5. El flujo de GitHub Actions está en `.github/workflows/azure-static-web-apps.yml`
+The live site is the Static Web App `academiageorgetown` in resource group `AcademiaGeorgetown` (West Europe), subscription `pec`:
+
+https://ambitious-sky-01938c103.6.azurestaticapps.net
+
+That group also holds Communication Services `academiageorgetown-acs` and Email `academiageorgetown-email`. The Function reads `CONTACT_TO`, `MAIL_FROM`, and `AZURE_COMMUNICATION_CONNECTION_STRING` from the Static Web App application settings. `MAIL_FROM` is the Azure-managed sender `DoNotReply@9895f60a-83d8-4bdb-ad60-7e3225f391fd.azurecomm.net`. Add `RECAPTCHA_SECRET` and `CLIENTIFY_WEBHOOK_URL` there when those values are available.
+
+GitHub Actions (`.github/workflows/azure-static-web-apps.yml`) deploys only after the repository secret `AZURE_STATIC_WEB_APPS_API_TOKEN` is set to this app's deployment token. Custom domain `www.academiageorgetown.com` is not attached yet.
 
 El mismo `dist/` sirve en ambos sitios (`output: 'static'`).
 
