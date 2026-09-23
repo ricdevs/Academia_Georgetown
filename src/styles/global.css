@@ -528,6 +528,10 @@ a {
   margin-top: 27px;
 }
 
+.ag-excelencia .ag-body {
+  color: #000;
+}
+
 .ag-excelencia .ag-title,
 .ag-section-title.is-home-banner {
   font-family: var(--font-sans);
