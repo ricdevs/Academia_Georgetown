@@ -73,7 +73,7 @@ Mantén WordPress como respaldo hasta verificar:
 ## Contenido
 
 - Páginas peculiares: `src/pages/`
-- Programas PEC: `src/data/pec-programs.json`
+- Programas de inglés técnico: `src/data/pec-programs.json`
 - Certificados y copy extraído: `src/data/extracted-pages.json`
 - Blog: `src/content/blog/*.md`
 - Preguntas de nivel: `src/data/level-test.json`

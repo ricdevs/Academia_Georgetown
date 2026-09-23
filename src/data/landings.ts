@@ -47,7 +47,7 @@ export const profesionalPillars = [
 export const profesionalFaqs = [
   {
     q: '¿Por qué una didáctica específica?',
-    a: '«Ha llegado la hora de dejar de perder tiempo, dinero y esfuerzo en aprender Inglés en un contexto de banalidades que nada tienen que ver con el Producto y Servicios que Usted produce u ofrece”. El acceso a un mercado de trabajo internacional es clave para tener éxito, por eso los cursos Georgetown PEC de especialidad garantizan que ningún miembro de su equipo pierda ni un minuto en aprender algo que no le hace falta ni le ayuda en el desempeño óptimo de sus funciones.',
+    a: '«Ha llegado la hora de dejar de perder tiempo, dinero y esfuerzo en aprender Inglés en un contexto de banalidades que nada tienen que ver con el Producto y Servicios que Usted produce u ofrece”. El acceso a un mercado de trabajo internacional es clave para tener éxito, por eso los cursos de inglés técnico de especialidad garantizan que ningún miembro de su equipo pierda ni un minuto en aprender algo que no le hace falta ni le ayuda en el desempeño óptimo de sus funciones.',
   },
   {
     q: '¿Quién desarrolla los contenidos?',
@@ -55,10 +55,10 @@ export const profesionalFaqs = [
   },
   {
     q: '¿Se ajusta a mis necesidades?',
-    a: 'Si usted quiere aprender lo que verdaderamente encuentran útil o necesita para el desempeño óptimo de sus funciones, solo un programa Georgetown PEC diseñado a medida les ayudará a hacerlo en el mínimo tiempo y con la mayor precisión.',
+    a: 'Si usted quiere aprender lo que verdaderamente encuentran útil o necesita para el desempeño óptimo de sus funciones, solo un programa de inglés técnico diseñado a medida les ayudará a hacerlo en el mínimo tiempo y con la mayor precisión.',
   },
   {
-    q: '¿Qué incluye un Programa PEC diseñado a medida?',
+    q: '¿Qué incluye un programa de inglés técnico diseñado a medida?',
     a: 'El mayor banco de Vocabulario, terminología y conceptos de lenguaje y jerga particular del dominio de conocimiento técnico-científico característico de la Actividad de su área profesional. Así como una plataforma de gramática desarrollada, con dicho lenguaje como contexto, para depurar de errores de Comunicación oral o escrita de quienes representan su servicio.',
   },
   {
@@ -74,7 +74,7 @@ export const profesionalFaqs = [
 export const seoBodies: Record<string, { intro: string; links: { href: string; label: string }[] }> = {
   'curso-de-ingles-en-pamplona': {
     intro:
-      'La Academia Georgetown es tu centro especializado para aprender inglés en Pamplona. Ofrecemos programas personalizados y eficientes que te permitirán dominar el idioma en el menor tiempo posible. Con la plataforma Georgetown ALTEA y nuestro equipo de expertos lingüistas, garantizamos una formación de excelencia adaptada a tus necesidades. Prepárate para los certificados Cambridge, TOEFL iBT®, APTIS, IELTS y nuestros exclusivos Georgetown PEC y PASS.',
+      'La Academia Georgetown es tu centro especializado para aprender inglés en Pamplona. Ofrecemos programas personalizados y eficientes que te permitirán dominar el idioma en el menor tiempo posible. Con la plataforma Georgetown ALTEA y nuestro equipo de expertos lingüistas, garantizamos una formación de excelencia adaptada a tus necesidades. Prepárate para los certificados Cambridge, TOEFL iBT®, APTIS e IELTS.',
     links: [
       { href: '/academia-de-ingles-en-pamplona/', label: 'Academia de inglés en Pamplona' },
       { href: '/sacarse-el-b1-de-ingles-en-pamplona/', label: 'Sacarse el B1 de inglés en Pamplona' },
