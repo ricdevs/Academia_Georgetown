@@ -24,6 +24,7 @@ if (!empty($data['website'])) {
 }
 
 $to = getenv('CONTACT_TO') ?: 'info@academiageorgetown.es';
+$to = implode(', ', array_filter(array_map('trim', preg_split('/[,;]/', $to))));
 $secret = getenv('RECAPTCHA_SECRET') ?: '';
 $token = $data['recaptchaToken'] ?? '';
 

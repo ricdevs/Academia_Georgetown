@@ -1,3 +1,11 @@
+function parseRecipients(value) {
+  return String(value || '')
+    .split(/[,;]/)
+    .map((address) => address.trim())
+    .filter(Boolean)
+    .map((address) => ({ address }));
+}
+
 module.exports = async function (context, req) {
   if (req.method === 'OPTIONS') {
     context.res = {
@@ -43,13 +51,29 @@ module.exports = async function (context, req) {
 
   const connection = process.env.AZURE_COMMUNICATION_CONNECTION_STRING;
   if (connection) {
-    const { EmailClient } = require('@azure/communication-email');
-    const client = new EmailClient(connection);
-    await client.beginSend({
-      senderAddress: process.env.MAIL_FROM || 'DoNotReply@academiageorgetown.com',
-      content: { subject, plainText: body },
-      recipients: { to: [{ address: to }] },
-    });
+    try {
+      const { EmailClient } = require('@azure/communication-email');
+      const recipients = parseRecipients(to);
+      if (!recipients.length) {
+        throw new Error('no-recipients');
+      }
+      const client = new EmailClient(connection);
+      const poller = await client.beginSend({
+        senderAddress: process.env.MAIL_FROM || 'DoNotReply@academiageorgetown.com',
+        content: { subject, plainText: body },
+        recipients: { to: recipients },
+      });
+      const result = await poller.pollUntilDone();
+      if (result.status && result.status !== 'Succeeded') {
+        context.log('email status', result.status);
+        context.res = { status: 502, body: { ok: false, error: 'email-status' } };
+        return;
+      }
+    } catch (error) {
+      context.log('email send failed', error && error.message);
+      context.res = { status: 502, body: { ok: false, error: 'email' } };
+      return;
+    }
   } else {
     context.log(subject);
     context.log(body);
