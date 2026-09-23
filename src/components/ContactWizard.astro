@@ -26,35 +26,40 @@ const phoneHref = phone.replace(/\s/g, '').startsWith('+') ? `tel:${phone.replac
 
 const goals = [
   {
-    value: 'Grado Universitario',
-    title: 'Grado Universitario',
-    text: 'Cierre de expediente (UPNA, UN, UV) y acreditación urgente B1/B2.',
-    icon: 'grad',
-  },
-  {
-    value: 'Cambridge B2 / C1 / C2',
-    title: 'Cambridge B2 / C1 / C2',
+    value: 'Cambridge',
+    title: 'Cambridge',
     text: 'First, Advanced o Proficiency con centro examinador oficial.',
     icon: 'cert',
   },
   {
-    value: 'Oposiciones y méritos',
-    title: 'Oposiciones & Méritos',
-    text: 'Puntos baremables para Educación, Sanidad o Función Pública Navarra.',
-    icon: 'civic',
+    value: 'Aptis',
+    title: 'Aptis',
+    text: 'Aptis General o Advanced by British Council.',
+    icon: 'badge',
   },
   {
-    value: 'Empresas y negociación',
-    title: 'Empresas & Negociación',
-    text: 'Fluidez ejecutiva, presentaciones multinacionales e entrevistas.',
+    value: 'TOEFL',
+    title: 'TOEFL',
+    text: 'TOEFL iBT® para universidad y movilidad internacional.',
+    icon: 'globe',
+  },
+  {
+    value: 'Empresa y Negociación',
+    title: 'Empresa y Negociación',
+    text: 'Fluidez ejecutiva, presentaciones e entrevistas.',
     icon: 'chart',
   },
   {
-    value: 'ESO, Bachillerato Internacional y refuerzo jóvenes',
-    title: 'ESO, Bachillerato Internacional & Refuerzo Jóvenes',
-    text: 'Metodología adaptada para adolescentes con garantía de resultados académicos y preparación temprana de títulos.',
+    value: 'Escolares',
+    title: 'Escolares',
+    text: 'ESO, Bachillerato y refuerzo para jóvenes.',
     icon: 'book',
-    wide: true,
+  },
+  {
+    value: 'Otro',
+    title: 'Otro',
+    text: 'Cuéntanos tu objetivo y te preparamos un itinerario.',
+    icon: 'other',
   },
 ];
 
@@ -112,13 +117,14 @@ const reasons = [
               <legend>¿Para qué necesitas acreditar o perfeccionar tu inglés? *</legend>
               <div class="ag-lead-goals">
                 {goals.map((goal) => (
-                  <label class:list={['ag-lead-goal', goal.wide && 'is-wide']}>
+                  <label class="ag-lead-goal">
                     <input type="radio" name="englishGoal" value={goal.value} required />
                     <span class="ag-lead-goal-icon" aria-hidden="true" data-icon={goal.icon}></span>
-                    <span>
+                    <span class="ag-lead-goal-copy">
                       <strong>{goal.title}</strong>
                       <em>{goal.text}</em>
                     </span>
+                    <span class="ag-lead-radio" aria-hidden="true"></span>
                   </label>
                 ))}
               </div>
@@ -386,7 +392,7 @@ const reasons = [
   }
 
   .ag-lead-fieldset {
-    margin: 0 0 28px;
+    margin: 0 0 20px;
     padding: 0;
     border: 0;
   }
@@ -398,28 +404,47 @@ const reasons = [
     font-weight: 600;
   }
 
-  .ag-lead-goals,
-  .ag-lead-levels {
+  .ag-lead-goals {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 10px;
+  }
+
+  .ag-lead-levels {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
   }
 
   .ag-lead-goal,
   .ag-lead-level {
     position: relative;
-    display: flex;
-    gap: 12px;
-    min-height: 100%;
-    padding: 16px 16px 16px 18px;
-    border: 1px solid #e6eaf1;
-    border-radius: 16px;
-    background: #fbfcfe;
     cursor: pointer;
   }
 
-  .ag-lead-goal.is-wide {
-    grid-column: 1 / -1;
+  .ag-lead-goal {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr) 16px;
+    align-items: center;
+    gap: 10px;
+    min-height: 72px;
+    padding: 12px 14px;
+    border: 1px solid #eceff4;
+    border-radius: 12px;
+    background: #fff;
+  }
+
+  .ag-lead-level {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 58px;
+    padding: 8px 6px;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    background: #f7f8fb;
+    text-align: center;
   }
 
   .ag-lead-goal input,
@@ -432,69 +457,115 @@ const reasons = [
   .ag-lead-goal:has(input:checked),
   .ag-lead-level:has(input:checked) {
     border-color: #0b1028;
-    background: #fff;
-    box-shadow: 0 0 0 1px #0b1028;
+    background: #fff8e6;
   }
 
   .ag-lead-goal-icon {
-    flex: 0 0 28px;
-    width: 28px;
-    height: 28px;
-    margin-top: 2px;
-    background: currentColor;
-    color: #0b1028;
-    -webkit-mask: no-repeat center / 22px;
-    mask: no-repeat center / 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #0b1028;
   }
 
-  .ag-lead-goal-icon[data-icon='grad'] {
-    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M12 3 1 9l11 6 9-4.91V17h2V9L12 3zm-5 12.18v2.32c0 1.54 2.83 2.5 5 2.5s5-.96 5-2.5v-2.32l-5 2.73-5-2.73z'/></svg>");
-    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M12 3 1 9l11 6 9-4.91V17h2V9L12 3zm-5 12.18v2.32c0 1.54 2.83 2.5 5 2.5s5-.96 5-2.5v-2.32l-5 2.73-5-2.73z'/></svg>");
+  .ag-lead-goal-icon::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    -webkit-mask: no-repeat center / contain;
+    mask: no-repeat center / contain;
   }
 
-  .ag-lead-goal-icon[data-icon='cert'] {
+  .ag-lead-goal-icon[data-icon='cert']::before {
     -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11zm-6.5-5.5 1.5 3 1.5-3 3-.5-2.2-2.1.7-3.4-2.5 1.5-2.5-1.5.7 3.4L8 14.5l3.5.5z'/></svg>");
     mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11zm-6.5-5.5 1.5 3 1.5-3 3-.5-2.2-2.1.7-3.4-2.5 1.5-2.5-1.5.7 3.4L8 14.5l3.5.5z'/></svg>");
   }
 
-  .ag-lead-goal-icon[data-icon='civic'] {
-    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M12 3 2 8v2h20V8L12 3zm-7 9h2v7H5v-7zm5 0h2v7h-2v-7zm5 0h2v7h-2v-7zM2 20h20v2H2v-2z'/></svg>");
-    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M12 3 2 8v2h20V8L12 3zm-7 9h2v7H5v-7zm5 0h2v7h-2v-7zm5 0h2v7h-2v-7zM2 20h20v2H2v-2z'/></svg>");
+  .ag-lead-goal-icon[data-icon='badge']::before {
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M12 2 8.5 8.5 2 9.3l5 4.9L5.8 21 12 17.8 18.2 21 17 14.2l5-4.9-6.5-.8L12 2zm0 4.2 1.6 3.2 3.5.4-2.6 2.5.7 3.5L12 14.4 8.8 16l.7-3.5-2.6-2.5 3.5-.4L12 6.2z'/></svg>");
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M12 2 8.5 8.5 2 9.3l5 4.9L5.8 21 12 17.8 18.2 21 17 14.2l5-4.9-6.5-.8L12 2zm0 4.2 1.6 3.2 3.5.4-2.6 2.5.7 3.5L12 14.4 8.8 16l.7-3.5-2.6-2.5 3.5-.4L12 6.2z'/></svg>");
   }
 
-  .ag-lead-goal-icon[data-icon='chart'] {
+  .ag-lead-goal-icon[data-icon='globe']::before {
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 6h-3.2a15.7 15.7 0 0 0-1.4-3.8A8 8 0 0 1 18.9 8zM12 4c.7 1.1 1.6 2.7 2.1 4H9.9C10.4 6.7 11.3 5.1 12 4zM4.3 14a8 8 0 0 1 0-4h3.7a16 16 0 0 0 0 4H4.3zM8.9 16h3.2c-.5 1.3-1.4 2.9-2.1 4A8 8 0 0 1 5.1 16h3.8zm1.1 0h4c.5 1.3 1.4 2.9 2.1 4A8 8 0 0 1 8.9 16zm5.1 0h3.8a8 8 0 0 1-4.9 4c.7-1.1 1.6-2.7 2.1-4zM16 14h3.7a8 8 0 0 0 0-4H16a16 16 0 0 1 0 4zm-1.1-6h-5.8a16 16 0 0 0 0 4h5.8a16 16 0 0 0 0-4z'/></svg>");
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 6h-3.2a15.7 15.7 0 0 0-1.4-3.8A8 8 0 0 1 18.9 8zM12 4c.7 1.1 1.6 2.7 2.1 4H9.9C10.4 6.7 11.3 5.1 12 4zM4.3 14a8 8 0 0 1 0-4h3.7a16 16 0 0 0 0 4H4.3zM8.9 16h3.2c-.5 1.3-1.4 2.9-2.1 4A8 8 0 0 1 5.1 16h3.8zm1.1 0h4c.5 1.3 1.4 2.9 2.1 4A8 8 0 0 1 8.9 16zm5.1 0h3.8a8 8 0 0 1-4.9 4c.7-1.1 1.6-2.7 2.1-4zM16 14h3.7a8 8 0 0 0 0-4H16a16 16 0 0 1 0 4zm-1.1-6h-5.8a16 16 0 0 0 0 4h5.8a16 16 0 0 0 0-4z'/></svg>");
+  }
+
+  .ag-lead-goal-icon[data-icon='chart']::before {
     -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M3 3h2v16h16v2H3V3zm14 6 4 4-1.4 1.4-2.6-2.58V17h-2v-5.18l-2.6 2.58L11 13l6-6z'/></svg>");
     mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M3 3h2v16h16v2H3V3zm14 6 4 4-1.4 1.4-2.6-2.58V17h-2v-5.18l-2.6 2.58L11 13l6-6z'/></svg>");
   }
 
-  .ag-lead-goal-icon[data-icon='book'] {
+  .ag-lead-goal-icon[data-icon='book']::before {
     -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M18 2H8a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h12V4a2 2 0 0 0-2-2zm0 18H8a1 1 0 0 1 0-2h10v2zM8 4h10v12H8a3 3 0 0 0-1 .17V5a1 1 0 0 1 1-1z'/></svg>");
     mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M18 2H8a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h12V4a2 2 0 0 0-2-2zm0 18H8a1 1 0 0 1 0-2h10v2zM8 4h10v12H8a3 3 0 0 0-1 .17V5a1 1 0 0 1 1-1z'/></svg>");
+  }
+
+  .ag-lead-goal-icon[data-icon='other']::before {
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M12 2a10 10 0 1 0 .01 20.01A10 10 0 0 0 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/></svg>");
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M12 2a10 10 0 1 0 .01 20.01A10 10 0 0 0 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/></svg>");
+  }
+
+  .ag-lead-goal-copy {
+    min-width: 0;
   }
 
   .ag-lead-goal strong,
   .ag-lead-level strong {
     display: block;
     color: #0b1028;
-    font-size: 15px;
     font-style: normal;
     font-weight: 700;
+  }
+
+  .ag-lead-goal strong {
+    font-size: 14px;
+    line-height: 1.2;
   }
 
   .ag-lead-goal em,
   .ag-lead-level em {
     display: block;
-    margin-top: 4px;
     color: #667085;
-    font-size: 13px;
     font-style: normal;
-    line-height: 1.45;
   }
 
-  .ag-lead-level {
-    flex-direction: column;
-    gap: 4px;
-    text-align: center;
+  .ag-lead-goal em {
+    margin-top: 2px;
+    font-size: 12px;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .ag-lead-level strong {
+    font-size: 13px;
+    line-height: 1.2;
+  }
+
+  .ag-lead-level em {
+    margin-top: 2px;
+    font-size: 11px;
+    line-height: 1.2;
+  }
+
+  .ag-lead-radio {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid #c5cad6;
+    border-radius: 50%;
+    background: #fff;
+  }
+
+  .ag-lead-goal:has(input:checked) .ag-lead-radio {
+    border-color: #0b1028;
+    background: #0b1028;
+    box-shadow: inset 0 0 0 3px #fff8e6;
   }
 
   .ag-lead-form .input {
@@ -643,9 +714,12 @@ const reasons = [
     }
 
     .ag-lead-grid,
-    .ag-lead-goals,
-    .ag-lead-levels {
+    .ag-lead-goals {
       grid-template-columns: 1fr;
+    }
+
+    .ag-lead-levels {
+      grid-template-columns: 1fr 1fr;
     }
 
     .ag-lead-step-title {
