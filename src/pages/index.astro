@@ -4,6 +4,7 @@ import SplitHero from '../components/SplitHero.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import CardCarousel from '../components/CardCarousel.astro';
 import AlteaTalentSection from '../components/AlteaTalentSection.astro';
+import QuoteBlock from '../components/QuoteBlock.astro';
 import ContactSection from '../components/ContactSection.astro';
 import { mission, pillars, site } from '../data/site';
 import ExamLogos from '../components/ExamLogos.astro';
@@ -97,26 +98,12 @@ import { withBase } from '../lib/url';
     <CardCarousel title="Certificados de Inglés Más Demandados" items={[...certCardMedia]} show={3} scroll={1} />
   </div>
 
-  <section class="ag-section-tight">
-    <div class="container-ag-1080">
-      <blockquote class="ag-quote">
-        <p>
-          Desde el primer día me di cuenta de lo positivo y enriquecedor que iba a ser el curso para
-          la vida profesional. En primer lugar lo enfocado que está en lo importante: vocabulario y
-          conversación (temas clave para el día a día). Durante todo el curso se enfatiza el aprender
-          vocabulario técnico y ponerlo en práctica en ejercicios de conversación. Por otro lado los
-          ejercicios se basan en situaciones reales: entrevistas, presentación de proyectos… Todo
-          ello a través de una plataforma que hace todo más fácil y que hace que tengas más ganas de
-          seguir haciendo ejercicios. Muy recomendable hacer el curso para mejorar y perfeccionar el
-          inglés del sector del automóvil.
-        </p>
-        <footer>
-          <cite>Adrián Manías Silva</cite>
-          <div class="ag-role">Ciencias Económicas, UPNA</div>
-        </footer>
-      </blockquote>
-    </div>
-  </section>
+  <QuoteBlock
+    quote="Desde el primer día me di cuenta de lo positivo y enriquecedor que iba a ser el curso para la vida profesional. En primer lugar lo enfocado que está en lo importante: vocabulario y conversación (temas clave para el día a día). Durante todo el curso se enfatiza el aprender vocabulario técnico y ponerlo en práctica en ejercicios de conversación. Por otro lado los ejercicios se basan en situaciones reales: entrevistas, presentación de proyectos… Todo ello a través de una plataforma que hace todo más fácil y que hace que tengas más ganas de seguir haciendo ejercicios. Muy recomendable hacer el curso para mejorar y perfeccionar el inglés del sector del automóvil."
+    cite="Adrián Manías Silva"
+    role="Ciencias Económicas, UPNA"
+    portrait="/images/certs/portraits/adrian.jpg"
+  />
 
   <AlteaTalentSection />
 

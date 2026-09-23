@@ -1,21 +1,37 @@
 ---
+import { withBase } from '../lib/url';
+
 interface Props {
   quote: string;
   cite: string;
   role?: string;
+  portrait?: string;
+  portraitSize?: 120 | 150;
+  muted?: boolean;
 }
 
-const { quote, cite, role } = Astro.props;
+const { quote, cite, role, portrait, portraitSize = 120, muted = false } = Astro.props;
 ---
 
 <section class="ag-section-tight">
   <div class="container-ag-1080">
-    <blockquote class="ag-quote">
-      <p>{quote}</p>
-      <footer>
-        <cite>{cite}</cite>
-        {role && <div class="ag-role">{role}</div>}
-      </footer>
+    <blockquote class:list={['ag-quote', muted && 'is-muted']}>
+      {
+        portrait && (
+          <div
+            class:list={['ag-quote-portrait', portraitSize === 150 && 'is-lg']}
+            style={`background-image: url('${withBase(portrait)}')`}
+            aria-hidden="true"
+          />
+        )
+      }
+      <div class="ag-quote-body">
+        <p>{quote}</p>
+        <footer>
+          <cite>{cite}</cite>
+          {role && <div class="ag-role">{role}</div>}
+        </footer>
+      </div>
     </blockquote>
   </div>
 </section>

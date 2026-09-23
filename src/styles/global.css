@@ -1293,8 +1293,8 @@ a {
   border: 0;
   font-family: "Open Sans", Arial, sans-serif;
   font-size: 14px;
-  font-weight: 300;
-  line-height: 1.5;
+  font-weight: 500;
+  line-height: 21px;
   color: #000;
   display: flow-root;
 }
@@ -1340,7 +1340,7 @@ a {
   margin: 0;
   padding-bottom: 1em;
   color: #000;
-  font-weight: 300;
+  font-weight: 500;
 }
 
 .ag-cert-author {
@@ -1614,28 +1614,98 @@ a {
   }
 }
 
-/* Testimonial */
+/* Testimonial — live Divi et_pb_testimonial */
 .ag-quote {
+  position: relative;
+  margin: 16px 0 0;
+  padding: 30px;
+  background: #fff;
+  font-family: "Open Sans", Arial, sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 21px;
   color: #000;
-  max-width: 52rem;
+  max-width: none;
+}
+
+.ag-quote.is-muted {
+  background: #f5f5f5;
+}
+
+.ag-quote::before {
+  content: "|";
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  z-index: 2;
+  margin-left: -16px;
+  font-family: ETmodules, sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #000;
+  background: #f5f5f5;
+  border-radius: 31px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ag-quote-portrait {
+  float: left;
+  width: 120px;
+  height: 120px;
+  margin: 0 30px 0 0;
+  border-radius: 90px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.ag-quote-portrait.is-lg {
+  width: 150px;
+  height: 150px;
+}
+
+.ag-quote-body {
+  display: block;
+  overflow: hidden;
+}
+
+.ag-quote p {
+  margin: 0;
+  padding-bottom: 1em;
 }
 
 .ag-quote footer {
-  margin-top: 1.25rem;
+  margin-top: 32px;
 }
 
 .ag-quote cite {
+  display: block;
   font-style: normal;
   font-weight: 700;
-  color: var(--color-ink);
+  color: #000;
 }
 
 .ag-quote .ag-role {
-  font-weight: 300;
-  color: #666;
+  font-weight: 500;
+  color: #000;
+}
+
+@media (max-width: 767px) {
+  .ag-quote-portrait,
+  .ag-quote-portrait.is-lg {
+    float: none;
+    display: block;
+    margin: 0 auto 20px;
+  }
+
+  .ag-quote-body {
+    overflow: visible;
+  }
 }
 
 /* FAQ toggles */
