@@ -6,16 +6,9 @@ import CardCarousel from '../components/CardCarousel.astro';
 import AlteaTalentSection from '../components/AlteaTalentSection.astro';
 import ContactSection from '../components/ContactSection.astro';
 import { mission, pillars, site } from '../data/site';
-import { pecPrograms } from '../data/catalog';
 import ExamLogos from '../components/ExamLogos.astro';
-import { certCardMedia, missionIcons, pecImage } from '../data/media';
+import { certCardMedia, missionIcons } from '../data/media';
 import { withBase } from '../lib/url';
-
-const pecItems = pecPrograms.map((p, i) => ({
-  href: `/${p.slug}/`,
-  title: p.shortTitle,
-  image: pecImage(i),
-}));
 ---
 
 <BaseLayout title={`${site.name} - Academia de Inglés en Pamplona`}>
@@ -124,17 +117,6 @@ const pecItems = pecPrograms.map((p, i) => ({
       </blockquote>
     </div>
   </section>
-
-  <div data-reveal="fade">
-    <CardCarousel
-      title="Programas Georgetown PEC – Inglés Específico"
-      items={pecItems}
-      show={4}
-      scroll={4}
-      gap={18}
-      autoplay={6000}
-    />
-  </div>
 
   <AlteaTalentSection />
 

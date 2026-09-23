@@ -972,10 +972,6 @@ a {
   line-height: 1.7;
 }
 
-.ag-altea-copy a {
-  color: var(--color-accent);
-  text-decoration: underline;
-}
 
 .ag-subtitle {
   font-weight: 300;
