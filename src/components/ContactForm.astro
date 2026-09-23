@@ -110,6 +110,107 @@ const funded = extraFields.includes('course');
   </div>
   <p class="js-form-status hidden text-sm"></p>
 </form>
+
+<style>
+  /* White card matches live .et_pb_column_26; fields match .et_pb_contact_form_0. */
+  .ag-form-card {
+    gap: 0;
+    margin-top: 75px;
+    padding: 40px 30px;
+    border-radius: 0;
+    background: #fff;
+    color: #222;
+    box-shadow: 0 2px 18px 0 rgb(0 0 0 / 0.3);
+  }
+
+  .ag-form-card .input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 0;
+    height: auto;
+    margin: 0 0 21px;
+    padding: 18px 20px;
+    border: 0;
+    border-radius: 10px;
+    background: #f6f7f8;
+    box-shadow: none;
+    color: #939393;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .ag-form-card .input::placeholder {
+    color: #939393;
+    opacity: 1;
+  }
+
+  .ag-form-card .input:focus {
+    outline: none;
+    background: #f6f7f8;
+    color: #000;
+  }
+
+  .ag-form-card .input:focus::placeholder {
+    color: #000;
+  }
+
+  .ag-form-card textarea.input {
+    height: 150px;
+    min-height: 150px;
+    margin-bottom: 14px;
+    resize: vertical;
+  }
+
+  .ag-form-submit {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+
+  .ag-form-card .ag-enviar {
+    appearance: none;
+    margin: 0 0 0 18px;
+    padding: 12px 24px;
+    border: 1px solid #a5a5a5;
+    border-radius: 3px;
+    background: #fff;
+    box-shadow: inset 0 0 0 2px #fff;
+    color: #000;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 20.4px;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 300ms ease, border 300ms ease;
+  }
+
+  .ag-form-card .ag-enviar:hover {
+    background: transparent;
+    border-color: #ffa301;
+    box-shadow: inset 0 0 0 6px #fff;
+    color: #000;
+  }
+
+  @media (max-width: 980px) {
+    .ag-form-card {
+      margin-top: 0;
+    }
+  }
+
+  /* Narrow phones: 15px card inset so the date placeholder stays fully visible. */
+  @media (max-width: 420px) {
+    .ag-form-card {
+      padding: 24px 15px;
+    }
+  }
+</style>
+
 <script>
   import { initLeadForms } from '../scripts/forms';
   initLeadForms();

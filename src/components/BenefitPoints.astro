@@ -1,11 +1,17 @@
 ---
+import { withBase } from '../lib/url';
+
 interface Props {
   items: string[];
 }
 
 const { items } = Astro.props;
 const columns = [items.slice(0, 2), items.slice(2, 4), items.slice(4, 6)];
-const icons = ['/images/plus-1.png', '/images/plus-2.png', '/images/plus-1.png'];
+const icons = [
+  withBase('/images/plus-1.png'),
+  withBase('/images/plus-2.png'),
+  withBase('/images/plus-1.png'),
+];
 ---
 
 <section class="ag-section-tight">

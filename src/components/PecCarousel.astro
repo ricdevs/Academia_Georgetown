@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/url';
+
 interface Props {
   title?: string;
   items: { href: string; title: string }[];
@@ -13,7 +15,7 @@ const { title = 'Programas Georgetown PEC – Inglés Específico', items } = As
     <div class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory" data-carousel>
       {items.map((item) => (
         <a
-          href={item.href}
+          href={withBase(item.href)}
           class="snap-start min-w-[240px] rounded-md bg-navy p-6 text-white no-underline shadow-lg"
         >
           <h3 class="text-lg font-semibold leading-snug">{item.title}</h3>

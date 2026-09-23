@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { extractedPages } from '../data/catalog';
 import { site } from '../data/site';
+import { withBase } from '../lib/url';
 
 const lines = extractedPages['matricula-y-financiacion'];
 
@@ -20,6 +21,6 @@ function isHeading(line: string) {
   <article class="prose-ag container-ag-1080 ag-content-page">
     <h1>Matrícula y financiación</h1>
     {lines.map((line) => (isHeading(line) ? <h2>{line}</h2> : <p>{line}</p>))}
-    <p><a href="/contenido/">Contenido de los programas PEC</a></p>
+    <p><a href={withBase('/contenido/')}>Contenido de los programas PEC</a></p>
   </article>
 </BaseLayout>

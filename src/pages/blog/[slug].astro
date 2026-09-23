@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { site } from '../../data/site';
+import { withBase } from '../../lib/url';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -20,6 +21,6 @@ const { Content } = await render(post);
     <p class="text-sm text-muted">{post.data.pubDate.toISOString().slice(0, 10)}</p>
     <h1>{post.data.title}</h1>
     <Content />
-    <p class="mt-10"><a href="/blog/">← Blog Georgetown</a></p>
+    <p class="mt-10"><a href={withBase('/blog/')}>← Blog Georgetown</a></p>
   </article>
 </BaseLayout>

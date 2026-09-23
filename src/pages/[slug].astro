@@ -11,6 +11,9 @@ import {
 } from '../data/catalog';
 import { site } from '../data/site';
 import { seoBodies } from '../data/landings';
+import { withBase } from '../lib/url';
+import certificatePages from '../data/certificate-pages.json';
+import CertificatePage from '../components/CertificatePage.astro';
 
 export function getStaticPaths() {
   const pec = pecPrograms.map((p) => ({ params: { slug: p.slug }, props: { kind: 'pec' as const } }));
@@ -30,8 +33,10 @@ const certLines = kind === 'cert' ? (extractedPages as Record<string, string[]>)
 const landing = kind === 'landing' ? landingBySlug[slug!] : undefined;
 const seo = slug ? seoBodies[slug] : undefined;
 
+const certificate = kind === 'cert' ? certificatePages[slug as keyof typeof certificatePages] : undefined;
 const title = pec?.title ?? certLines[0] ?? landing?.title ?? site.name;
-const description = pec?.description ?? site.description;
+const description = certificate?.description || pec?.description || site.description;
+const documentTitle = certificate?.documentTitle ?? `${title} - ${site.name}`;
 
 function classifyCert(lines: string[]) {
   const heading = lines[0] ?? '';
@@ -61,16 +66,16 @@ const defaultSeoLinks = [
 ];
 ---
 
-<BaseLayout title={`${title} - ${site.name}`} description={description}>
+<BaseLayout title={documentTitle} description={description}>
   {pec && (
     <article class="container-ag-1080 ag-pec">
       <p class="ag-kicker">{pec.area}</p>
       <h1 data-reveal="left">{pec.headline}</h1>
       <p class="ag-lede">{pec.subtitle}</p>
       <div class="ag-hero-actions">
-        <a class="btn btn-primary" href="/contacto/">Solicite Información</a>
-        <a class="btn btn-muted" href="/contenido/">Contenido</a>
-        <a class="btn btn-muted" href="/matricula-y-financiacion/">Matrícula Y Financiación</a>
+        <a class="btn btn-primary" href={withBase('/contacto/')}>Solicite Información</a>
+        <a class="btn btn-muted" href={withBase('/contenido/')}>Contenido</a>
+        <a class="btn btn-muted" href={withBase('/matricula-y-financiacion/')}>Matrícula Y Financiación</a>
       </div>
       <h2 class="ag-pec-allow">Completar con éxito el presente curso y obtener el certificado le permitirá:</h2>
       <ul class="ag-pec-benefits">
@@ -101,7 +106,9 @@ const defaultSeoLinks = [
     </article>
   )}
 
-  {cert && (
+  {certificate && <CertificatePage slug={slug!} {...certificate} />}
+
+  {cert && !certificate && (
     <article class="prose-ag container-ag-1080 ag-content-page">
       <p class="ag-kicker">{cert.heading}</p>
       <h1>{cert.express}</h1>
@@ -119,7 +126,7 @@ const defaultSeoLinks = [
         ),
       )}
       <p>
-        <a class="btn btn-primary mt-6 inline-flex" href="/prueba-de-nivel/">Realiza una prueba de nivel</a>
+        <a class="btn btn-primary mt-6 inline-flex" href={withBase('/prueba-de-nivel/')}>Realiza una prueba de nivel</a>
       </p>
     </article>
   )}
@@ -131,7 +138,7 @@ const defaultSeoLinks = [
       <p>A continuación, puedes ver un listado de servicios que podemos ofrecerte para mejorar tu nivel de inglés:</p>
       <ul>
         {(seo?.links ?? defaultSeoLinks).map((item) => (
-          <li><a href={item.href}>{item.label}</a></li>
+          <li><a href={withBase(item.href)}>{item.label}</a></li>
         ))}
       </ul>
       <p>
@@ -140,5 +147,5 @@ const defaultSeoLinks = [
     </article>
   )}
 
-  <ContactSection source={slug} phone={site.phone} />
+  {!certificate && <ContactSection source={slug} phone={site.phone} />}
 </BaseLayout>

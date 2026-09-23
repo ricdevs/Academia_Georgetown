@@ -1,0 +1,131 @@
+---
+import { site } from '../data/site';
+import { withBase } from '../lib/url';
+
+interface Quote {
+  text: string;
+  author: string;
+  meta: string;
+  portrait?: string;
+}
+
+interface Section {
+  heading: string;
+  kind: 'p' | 'ul' | 'ol';
+  text?: string;
+  items?: string[];
+}
+
+interface Props {
+  slug: string;
+  image: string;
+  titleTag: 'h1' | 'h3';
+  title: string;
+  intro: string[];
+  sections: Section[];
+  quote?: Quote | null;
+}
+
+const { slug, image, titleTag, title, intro, sections, quote } = Astro.props;
+const origin = Astro.site ?? new URL(site.url);
+const shareUrl = new URL(withBase(`/${slug}/`), origin).href;
+const encoded = encodeURIComponent(shareUrl);
+const share = [
+  {
+    href: `https://www.facebook.com/sharer/sharer.php?u=${encoded}`,
+    label: 'Facebook',
+    icon: '/images/certs/heroes/facebook.jpg',
+    width: 25,
+    height: 27,
+    nudge: '-1px',
+  },
+  {
+    href: `https://api.whatsapp.com/send?text=${encoded}`,
+    label: 'Whatsapp',
+    icon: '/images/certs/heroes/whatsapp.jpg',
+    width: 24,
+    height: 24,
+    nudge: '0',
+  },
+  {
+    href: `https://twitter.com/intent/tweet?url=${encoded}`,
+    label: 'Twitter',
+    icon: '/images/certs/heroes/twitter.jpg',
+    width: 24,
+    height: 24,
+    nudge: '3px',
+  },
+  {
+    href: `https://www.linkedin.com/shareArticle?mini=true&url=${encoded}`,
+    label: 'LinkedIn',
+    icon: '/images/certs/heroes/linkeao.png',
+    width: 21,
+    height: 21,
+    nudge: '0',
+  },
+  {
+    href: `mailto:?subject=${encodeURIComponent(title)}&body=${encoded}`,
+    label: 'Email',
+    icon: '/images/certs/heroes/email.png',
+    width: 26,
+    height: 24,
+    nudge: '0',
+  },
+];
+---
+
+<section class="ag-cert">
+  <div class="ag-cert-media" style={`background-image: url('${withBase(image)}')`} aria-hidden="true"></div>
+  <div class="ag-cert-main">
+    <div class="ag-cert-block ag-cert-title">
+      {titleTag === 'h1' ? <h1>{title}</h1> : <h3>{title}</h3>}
+    </div>
+    <div class="ag-cert-block ag-cert-intro">
+      <ul>
+        {intro.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+    {sections.map((section, index) => (
+      <>
+        <div class="ag-cert-block ag-cert-heading">
+          <h3>{section.heading}</h3>
+        </div>
+        <div class:list={['ag-cert-block', 'ag-cert-body', { 'ag-cert-last': index === sections.length - 1 }]}>
+          {section.kind === 'p' ? (
+            <p>{section.text}</p>
+          ) : section.kind === 'ol' ? (
+            <ol>
+              {section.items?.map((item) => <li>{item}</li>)}
+            </ol>
+          ) : (
+            <ul>
+              {section.items?.map((item) => <li>{item}</li>)}
+            </ul>
+          )}
+        </div>
+      </>
+    ))}
+    {quote && (
+      <blockquote class="ag-cert-quote">
+        {quote.portrait && (
+          <div class="ag-cert-portrait" style={`background-image: url('${withBase(quote.portrait)}')`} aria-hidden="true"></div>
+        )}
+        <div class="ag-cert-quote-body">
+          <p>{quote.text}</p>
+          <span class="ag-cert-author">{quote.author}</span>
+          {quote.meta && <p class="ag-cert-meta">{quote.meta}</p>}
+        </div>
+      </blockquote>
+    )}
+    <div class="ag-cert-actions">
+      <a class="ag-cert-contact" href={withBase('/contacto/')}>Contacto</a>
+    </div>
+    <div class="ag-cert-share">
+      {share.map((item) => (
+        <a href={item.href} target="_blank" rel="noopener noreferrer" aria-label={item.label} style={`margin-top:${item.nudge}`}>
+          <img src={withBase(item.icon)} alt="" width={item.width} height={item.height} style={`width:${item.width}px;height:${item.height}px`} />
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { extractedPages } from '../data/catalog';
 import { site } from '../data/site';
+import { withBase } from '../lib/url';
 
 const lines = extractedPages.contenido;
 ---
@@ -10,6 +11,6 @@ const lines = extractedPages.contenido;
   <article class="prose-ag container-ag-1080 ag-content-page">
     <h1>Contenido</h1>
     {lines.map((line) => <p>{line}</p>)}
-    <p><a href="/matricula-y-financiacion/">Matrícula y financiación</a></p>
+    <p><a href={withBase('/matricula-y-financiacion/')}>Matrícula y financiación</a></p>
   </article>
 </BaseLayout>
