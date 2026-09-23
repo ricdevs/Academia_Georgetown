@@ -32,6 +32,7 @@ html {
 body {
   font-family: var(--font-sans);
   font-size: 14px;
+  font-weight: 500;
   color: var(--color-ink);
   background: #fff;
   line-height: 1.7;
@@ -221,7 +222,7 @@ a {
   display: inline-flex;
   align-items: flex-end;
   font-size: 13.5px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 14px;
   color: #080d4b;
   text-decoration: none;
@@ -374,10 +375,11 @@ a {
   gap: 10px;
   margin: 0 0 1.05rem;
   color: #0162a9;
-  font-family: "PT Sans", Helvetica, Arial, sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 23.8px;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -431,6 +433,16 @@ a {
   column-gap: 3%;
   justify-content: start;
   margin-top: 2.6rem;
+}
+
+.ag-hero-actions .btn {
+  width: 239px;
+  min-height: 81px;
+  padding: 16px 22px;
+  box-sizing: border-box;
+  line-height: 1.35;
+  white-space: normal;
+  text-align: center;
 }
 
 .ag-split-media {
@@ -504,9 +516,10 @@ a {
 .ag-afterwave h2 {
   margin: 0;
   font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
-  color: #222;
+  font-weight: 300;
+  font-size: 26px;
+  line-height: 1;
+  color: #000;
   letter-spacing: 0;
 }
 
@@ -825,6 +838,20 @@ a {
   margin: 0 0 1rem;
 }
 
+.ag-section-title {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--color-ink);
+  margin: 0 0 1rem;
+}
+
+.ag-section-title.is-faq,
+.ag-section-title.is-contact {
+  font-weight: 500;
+}
+
 .ag-subtitle {
   font-weight: 300;
   font-size: 18px;
@@ -890,7 +917,8 @@ a {
 .ag-blurb h2,
 .ag-blurb h4 {
   font-weight: 300;
-  font-size: 22px;
+  font-size: 18px;
+  line-height: 1;
   margin: 0.65rem 0 0.5rem;
   color: var(--color-ink);
   text-align: left;
@@ -929,7 +957,8 @@ a {
 
 .ag-logo-blurb h2 {
   font-weight: 300;
-  font-size: 26px;
+  font-size: 23px;
+  line-height: 1;
   margin: 1rem 0 0.5rem;
 }
 
@@ -1377,8 +1406,9 @@ a {
 
 .ag-card h3,
 .ag-card h4 {
-  font-weight: 300;
+  font-weight: 500;
   font-size: 18px;
+  line-height: 1.4;
   padding: 1rem 0.35rem 0.35rem;
   margin: 0;
   color: var(--color-ink);
@@ -1557,7 +1587,7 @@ a {
 
 .ag-contact-copy h2 {
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 27px;
   line-height: 1.3em;
   color: #fff;
@@ -1692,6 +1722,7 @@ a {
   font-family: var(--font-display);
   font-weight: 300;
   font-size: 15px;
+  line-height: 23.8px;
   color: #fff;
   text-decoration: none;
   display: block;
