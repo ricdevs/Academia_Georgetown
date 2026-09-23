@@ -375,11 +375,11 @@ a {
   gap: 10px;
   margin: 0 0 1.05rem;
   color: #0162a9;
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 23.8px;
-  letter-spacing: 0;
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 11px;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 
@@ -408,7 +408,7 @@ a {
 .ag-split-copy .ag-lede {
   margin: 1.7rem 0 0;
   max-width: 32.5rem;
-  color: #555;
+  color: #000;
   font-size: 17px;
   font-weight: 300;
   line-height: 1.7em;
@@ -440,7 +440,7 @@ a {
   min-height: 81px;
   padding: 16px 22px;
   box-sizing: border-box;
-  line-height: 1.35;
+  line-height: 20.4px;
   white-space: normal;
   text-align: center;
 }
@@ -517,7 +517,7 @@ a {
   margin: 0;
   font-family: var(--font-sans);
   font-weight: 300;
-  font-size: 26px;
+  font-size: 30px;
   line-height: 1;
   color: #000;
   letter-spacing: 0;
@@ -526,6 +526,15 @@ a {
 .ag-excelencia {
   padding: 45px 0 32px;
   margin-top: 27px;
+}
+
+.ag-excelencia .ag-title,
+.ag-section-title.is-home-banner {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 1;
+  color: #000;
 }
 
 @media (max-width: 980px) {
@@ -861,6 +870,16 @@ a {
   margin: 0 auto 2rem;
 }
 
+.ag-cursos-sub {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #000;
+  max-width: none;
+  margin: 0 0 2rem;
+}
+
 .ag-body {
   font-weight: 300;
   font-size: 16px;
@@ -914,10 +933,18 @@ a {
 }
 
 .ag-blurb h3,
-.ag-blurb h2,
 .ag-blurb h4 {
   font-weight: 300;
   font-size: 18px;
+  line-height: 1;
+  margin: 0.65rem 0 0.5rem;
+  color: var(--color-ink);
+  text-align: left;
+}
+
+.ag-blurb h2 {
+  font-weight: 300;
+  font-size: 23px;
   line-height: 1;
   margin: 0.65rem 0 0.5rem;
   color: var(--color-ink);
@@ -1465,10 +1492,10 @@ a {
 
 /* Testimonial */
 .ag-quote {
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 1.85;
-  color: #444;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000;
   max-width: 52rem;
 }
 
@@ -1706,6 +1733,7 @@ a {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 17px;
+  line-height: 23.8px;
   margin: 10px 0 12px;
   color: #fff;
 }

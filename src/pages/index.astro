@@ -53,7 +53,7 @@ const pecItems = pecPrograms.map((p, i) => ({
 
   <section class="ag-section-tight">
     <div class="container-ag-1080">
-      <h2 class="ag-subtitle" style="font-size: 22px; color: #444;">
+      <h2 class="ag-cursos-sub">
         Los Cursos de Academia de Inglés Georgetown permiten Aprender en el mínimo tiempo. Con
         nuestras soluciones Avanzadas para la Capacitación en Inglés que se adaptan a cada alumno.
       </h2>
@@ -70,7 +70,7 @@ const pecItems = pecPrograms.map((p, i) => ({
 
   <section class="ag-section-tight" data-reveal>
     <div class="container-ag-1080">
-      <h2 class="ag-section-title ag-center">Misión de la Academia de Inglés Georgetown</h2>
+      <h2 class="ag-section-title is-home-banner ag-center">Misión de la Academia de Inglés Georgetown</h2>
       <div class="ag-grid-3" style="margin-top: 2rem;">
         {mission.slice(0, 3).map((item, i) => (
           <article class="ag-blurb icon-sm">
@@ -136,5 +136,10 @@ const pecItems = pecPrograms.map((p, i) => ({
   </div>
 
   <FaqAccordion />
-  <ContactSection source="home" phone={site.phone} fieldOrder="home" />
+  <ContactSection
+    source="home"
+    phone={site.phone}
+    fieldOrder="home"
+    copyHeading="Descubre cómo la Academia de Inglés Georgetown puede ayudarte a conseguir tus objetivos."
+  />
 </BaseLayout>
