@@ -64,10 +64,9 @@ const goals = [
 ];
 
 const levels = [
-  { value: 'A1-A2', title: 'A1 – A2', text: 'Básico / Nulo' },
-  { value: 'B1-B2', title: 'B1 – B2', text: 'Intermedio fluido' },
-  { value: 'C1-C2', title: 'C1 – C2', text: 'Avanzado / Nativo' },
-  { value: 'Duda / Test', title: 'Duda / Test', text: 'Hacer test oral' },
+  { value: 'Básico', title: 'Básico' },
+  { value: 'Intermedio', title: 'Intermedio' },
+  { value: 'Avanzado', title: 'Avanzado' },
 ];
 
 const reasons = [
@@ -137,7 +136,6 @@ const reasons = [
                   <label class="ag-lead-level">
                     <input type="radio" name="startingLevel" value={level.value} required />
                     <strong>{level.title}</strong>
-                    <em>{level.text}</em>
                   </label>
                 ))}
               </div>
@@ -412,7 +410,7 @@ const reasons = [
 
   .ag-lead-levels {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
   }
 
@@ -439,8 +437,8 @@ const reasons = [
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 58px;
-    padding: 8px 6px;
+    min-height: 44px;
+    padding: 8px 14px;
     border: 1px solid transparent;
     border-radius: 14px;
     background: #f7f8fb;
@@ -544,13 +542,7 @@ const reasons = [
   }
 
   .ag-lead-level strong {
-    font-size: 13px;
-    line-height: 1.2;
-  }
-
-  .ag-lead-level em {
-    margin-top: 2px;
-    font-size: 11px;
+    font-size: 14px;
     line-height: 1.2;
   }
 
@@ -719,7 +711,7 @@ const reasons = [
     }
 
     .ag-lead-levels {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .ag-lead-step-title {
