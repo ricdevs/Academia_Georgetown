@@ -70,8 +70,21 @@ module.exports = async function (context, req) {
         return;
       }
     } catch (error) {
-      context.log('email send failed', error && error.message);
-      context.res = { status: 502, body: { ok: false, error: 'email' } };
+      const message = String((error && error.message) || error);
+      context.log('email send failed', message.slice(0, 200));
+      const kind = /Cannot find module/.test(message)
+        ? 'email-module'
+        : /no-recipients/.test(message)
+          ? 'email-recipients'
+          : 'email-send';
+      context.res = {
+        status: 502,
+        body: {
+          ok: false,
+          error: kind,
+          detail: `${error && error.name ? error.name : 'Error'}: ${message.replace(/[A-Za-z0-9+/=]{20,}/g, '[redacted]').slice(0, 160)}`,
+        },
+      };
       return;
     }
   } else {
