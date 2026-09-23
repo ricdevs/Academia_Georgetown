@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import CardCarousel from '../components/CardCarousel.astro';
+import AlteaTalentSection from '../components/AlteaTalentSection.astro';
 import ContactSection from '../components/ContactSection.astro';
 import SplitHero from '../components/SplitHero.astro';
 import ExamLogos from '../components/ExamLogos.astro';
@@ -60,6 +61,7 @@ const profesionalCerts = certCardMedia.filter((item) => !item.href.includes('toe
 
   <BenefitPoints items={profesionalPoints} />
   <CardCarousel title="Programas Georgetown PEC – Inglés Específico" items={pecItems} show={4} scroll={4} gap={18} autoplay={6000} />
+  <AlteaTalentSection />
   <CardCarousel title="Certificados Más Demandados" items={[...profesionalCerts]} show={3} />
   <ExamLogos />
   <QuoteBlock

@@ -1,0 +1,26 @@
+---
+import CardCarousel from './CardCarousel.astro';
+import { alteaCarouselItems } from '../data/altea-talent';
+---
+
+<section class="ag-altea-intro" data-reveal>
+  <div class="container-ag-1080">
+    <h2 class="ag-section-title ag-center">Cursos ALTEA TALENT</h2>
+    <p class="ag-altea-copy">
+      Academia Georgetown ha alcanzado un acuerdo con la plataforma
+      <a href="https://alteatalent.com/courses" target="_blank" rel="noopener noreferrer">ALTEA TALENT</a>
+      para ofrecer estos cursos de inglés técnico. Cada ficha abre el flyer oficial del programa en
+      ALTEA TALENT, donde puedes consultar el contenido y los detalles de la formación.
+    </p>
+  </div>
+</section>
+
+<div data-reveal="fade">
+  <CardCarousel
+    items={alteaCarouselItems}
+    show={4}
+    scroll={4}
+    gap={18}
+    autoplay={6000}
+  />
+</div>

@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SplitHero from '../components/SplitHero.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import CardCarousel from '../components/CardCarousel.astro';
+import AlteaTalentSection from '../components/AlteaTalentSection.astro';
 import ContactSection from '../components/ContactSection.astro';
 import { mission, pillars, site } from '../data/site';
 import { pecPrograms } from '../data/catalog';
@@ -134,6 +135,8 @@ const pecItems = pecPrograms.map((p, i) => ({
       autoplay={6000}
     />
   </div>
+
+  <AlteaTalentSection />
 
   <FaqAccordion />
   <ContactSection
