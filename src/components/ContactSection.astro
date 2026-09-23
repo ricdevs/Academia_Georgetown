@@ -1,8 +1,7 @@
 ---
 import Recaptcha from './Recaptcha.astro';
-import ContactForm from './ContactForm.astro';
+import ContactWizard from './ContactWizard.astro';
 import { site } from '../data/site';
-import { withBase } from '../lib/url';
 
 interface Props {
   source?: string;
@@ -12,116 +11,17 @@ interface Props {
   heading?: boolean;
   fieldOrder?: 'default' | 'home';
   copyHeading?: string;
+  titleTag?: 'h1' | 'h2';
 }
 
 const {
-  heading = false,
-  phone = site.phoneAlt,
-  fieldOrder = 'default',
-  copyHeading = 'Descubre cómo la Academia Georgetown puede ayudarte a conseguir tus objetivos.',
+  heading: _heading,
+  copyHeading: _copyHeading,
+  phone = site.phone,
+  titleTag = 'h2',
   ...formProps
 } = Astro.props;
 ---
 
-{heading && (
-  <section class="ag-section-tight">
-    <div class="container-ag-1080">
-      <h2 class="ag-section-title is-contact">Formulario de contacto</h2>
-    </div>
-  </section>
-)}
-<section class="ag-contact" id="contacto" style={`background-image: url('${withBase('/images/contact-bg.jpg')}')`}>
-  <div class="container-ag-1080 ag-contact-inner">
-    <div class="ag-contact-copy" data-reveal>
-      <h2>{copyHeading}</h2>
-      <p>
-        Uno de nuestros expertos se pondrá en contacto contigo para identificar tus necesidades o
-        solucionar cualquier duda a través de la dirección y teléfono que nos facilites en el
-        siguiente formulario.
-      </p>
-      <p class="ag-phone">Teléfono: {phone}</p>
-    </div>
-    <div data-reveal>
-      <ContactForm {...formProps} fieldOrder={fieldOrder} />
-    </div>
-  </div>
-  <Recaptcha />
-</section>
-
-<style>
-  /* Live Divi section: full-bleed keyboard, no dark overlay. */
-  .ag-contact::before {
-    content: none;
-    display: none;
-    background: none;
-  }
-
-  .ag-contact-inner {
-    align-items: start;
-  }
-
-  .ag-contact-copy {
-    max-width: none;
-    padding-top: 40px;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.8em;
-  }
-
-  .ag-contact-copy h2 {
-    margin: 0;
-    padding: 0 0 10px;
-    color: #fff;
-    font-family: "Open Sans", Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    font-size: 27px;
-    line-height: 1.3em;
-  }
-
-  .ag-contact-copy p {
-    margin: 0;
-    padding: 0 0 1em;
-    color: #fff;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.8em;
-  }
-
-  .ag-contact-copy .ag-phone {
-    margin: 0;
-    padding: 0;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 28.8px;
-  }
-
-  /* Desktop copy sits mid-card: 250px column pad + Divi 5.82% inner-row pad. */
-  @media (min-width: 981px) {
-    .ag-contact-copy {
-      max-width: 36vw;
-      padding-top: calc(250px + 5.82%);
-    }
-  }
-
-  @media (max-width: 980px) {
-    .ag-contact {
-      padding-bottom: 48px;
-    }
-
-    .ag-contact-inner {
-      grid-template-columns: 1fr;
-      row-gap: 1.75rem;
-    }
-
-    .ag-contact-copy {
-      max-width: none;
-      padding-top: 40px;
-    }
-
-    .ag-contact-copy h2 {
-      font-size: 24px;
-      line-height: 1.3em;
-    }
-  }
-</style>
+<ContactWizard {...formProps} phone={phone} titleTag={titleTag} />
+<Recaptcha />
