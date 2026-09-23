@@ -14,7 +14,7 @@ const {
   lede,
   actions = [
     { href: '/prueba-de-nivel/', label: 'Realiza una prueba de nivel' },
-    { href: '/contacto/', label: 'Solicita más información' },
+    { href: '/contacto/', label: 'Solicitar Información' },
   ],
 } = Astro.props;
 ---
@@ -27,7 +27,7 @@ const {
     {actions.length > 0 && (
       <div class="ag-hero-actions">
         {actions.map((a, i) => (
-          <a class:list={['btn', i === 0 ? 'btn-on-light' : 'btn-solid']} href={withBase(a.href)}>
+          <a class:list={['btn', i === 0 ? 'btn-muted' : 'btn-primary']} href={withBase(a.href)}>
             {a.label}
           </a>
         ))}

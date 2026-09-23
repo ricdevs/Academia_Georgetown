@@ -73,7 +73,7 @@ a {
   margin-inline: auto;
 }
 
-/* Live-site pills: accent-blue primary, silver secondary */
+/* Landing pills: silver for prueba de nivel, accent-blue for solicitar información */
 .btn {
   display: inline-flex;
   align-items: center;

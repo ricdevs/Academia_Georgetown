@@ -24,7 +24,7 @@ const {
   imageShape = 'stadium',
   tall = false,
   primary = { href: '/prueba-de-nivel/', label: 'Realiza una prueba de nivel' },
-  secondary = { href: '/contacto/', label: 'Solicita más información' },
+  secondary = { href: '/contacto/', label: 'Solicitar Información' },
 } = Astro.props;
 ---
 
@@ -52,12 +52,12 @@ const {
       {lede && <p class="ag-lede">{lede}</p>}
       <div class="ag-hero-actions">
         {primary && (
-          <a class="btn btn-primary" href={withBase(primary.href)}>
+          <a class="btn btn-muted" href={withBase(primary.href)}>
             {primary.label}
           </a>
         )}
         {secondary && (
-          <a class="btn btn-muted" href={withBase(secondary.href)}>
+          <a class="btn btn-primary" href={withBase(secondary.href)}>
             {secondary.label}
           </a>
         )}
