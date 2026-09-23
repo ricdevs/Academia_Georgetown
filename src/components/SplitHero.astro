@@ -51,14 +51,14 @@ const {
       )}
       {lede && <p class="ag-lede">{lede}</p>}
       <div class="ag-hero-actions">
-        {primary && (
-          <a class="btn btn-muted" href={withBase(primary.href)}>
-            {primary.label}
-          </a>
-        )}
         {secondary && (
           <a class="btn btn-primary" href={withBase(secondary.href)}>
             {secondary.label}
+          </a>
+        )}
+        {primary && (
+          <a class="btn btn-muted" href={withBase(primary.href)}>
+            {primary.label}
           </a>
         )}
       </div>
