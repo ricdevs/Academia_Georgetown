@@ -1,5 +1,6 @@
 ---
 import Recaptcha from './Recaptcha.astro';
+import BookingCalendar from './BookingCalendar.astro';
 import quiz from '../data/level-test.json';
 ---
 
@@ -26,13 +27,7 @@ import quiz from '../data/level-test.json';
     }
   </div>
 
-  <textarea
-    id="essay"
-    name="essay"
-    class="input ag-nivel-essay"
-    placeholder={quiz.essayPrompt}
-    rows="7"
-  ></textarea>
+  <BookingCalendar />
 
   <div class="ag-nivel-fields">
     <input class="input ag-span-2" name="name" required placeholder="Nombre y Apellidos" />

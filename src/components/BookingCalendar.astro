@@ -1,0 +1,120 @@
+---
+import { site } from '../data/site';
+import { BOOKING_SLOTS } from '../lib/booking';
+---
+
+<div class="ag-booking" data-booking data-location={site.address} data-phone={site.phone}>
+  <h2 class="ag-booking-title">Reserva tu prueba de nivel en el centro</h2>
+  <p class="ag-booking-copy">
+    Ven a conocernos en {site.address}. Elige un día laborable y una hora para hacer la prueba de
+    nivel de forma presencial. Te confirmaremos la cita y podrás añadirla a tu Google Calendar.
+  </p>
+
+  <input type="hidden" name="bookingDate" value="" />
+  <input type="hidden" name="bookingTime" value="" />
+  <input type="hidden" name="bookingLocation" value={site.address} />
+
+  <p class="ag-booking-label">Día</p>
+  <div class="ag-booking-days" data-days></div>
+
+  <p class="ag-booking-label">Hora</p>
+  <div class="ag-booking-slots" data-slots>
+    {BOOKING_SLOTS.map((slot) => (
+      <button class="ag-booking-chip" type="button" data-time={slot}>{slot}</button>
+    ))}
+  </div>
+
+  <p class="ag-booking-summary" data-summary>Selecciona un día y una hora para reservar tu cita.</p>
+  <a class="ag-booking-gcal hidden" data-gcal href="#" target="_blank" rel="noopener noreferrer">
+    Añadir a Google Calendar
+  </a>
+  <p class="ag-booking-error hidden" data-error>Elige un día y una hora para la cita presencial.</p>
+</div>
+
+<script>
+  import { BOOKING_TITLE, googleCalendarUrl, weekdayDates } from '../lib/booking';
+
+  const root = document.querySelector<HTMLElement>('[data-booking]');
+  if (root && !root.dataset.ready) {
+    root.dataset.ready = '1';
+    const daysEl = root.querySelector<HTMLElement>('[data-days]');
+    const summary = root.querySelector<HTMLElement>('[data-summary]');
+    const gcal = root.querySelector<HTMLAnchorElement>('[data-gcal]');
+    const error = root.querySelector<HTMLElement>('[data-error]');
+    const dateInput = root.querySelector<HTMLInputElement>('input[name="bookingDate"]');
+    const timeInput = root.querySelector<HTMLInputElement>('input[name="bookingTime"]');
+    const location = root.dataset.location || '';
+    const form = root.closest('form');
+
+    const monthFmt = new Intl.DateTimeFormat('es-ES', { weekday: 'short', day: 'numeric', month: 'short' });
+
+    weekdayDates(15).forEach((iso) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'ag-booking-chip';
+      button.dataset.date = iso;
+      const [year, month, day] = iso.split('-').map(Number);
+      button.textContent = monthFmt.format(new Date(year, month - 1, day)).replace('.', '');
+      daysEl?.append(button);
+    });
+
+    const refresh = () => {
+      const date = dateInput?.value || '';
+      const time = timeInput?.value || '';
+      if (date && time && summary && gcal) {
+        const [year, month, day] = date.split('-').map(Number);
+        const when = new Intl.DateTimeFormat('es-ES', {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+        }).format(new Date(year, month - 1, day));
+        summary.textContent = `Cita reservada: ${when} a las ${time} (30 min) en ${location}.`;
+        gcal.href = googleCalendarUrl({
+          date,
+          time,
+          details: `${BOOKING_TITLE}. Prueba de nivel presencial en Academia Georgetown. Teléfono: ${root.dataset.phone || ''}.`,
+          location,
+        });
+        gcal.classList.remove('hidden');
+        error?.classList.add('hidden');
+      } else if (summary) {
+        summary.textContent = 'Selecciona un día y una hora para reservar tu cita.';
+        gcal?.classList.add('hidden');
+      }
+    };
+
+    daysEl?.addEventListener('click', (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-date]');
+      if (!button || !dateInput) return;
+      daysEl.querySelectorAll('[data-date]').forEach((el) => el.classList.remove('is-on'));
+      button.classList.add('is-on');
+      dateInput.value = button.dataset.date || '';
+      refresh();
+    });
+
+    root.querySelector('[data-slots]')?.addEventListener('click', (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-time]');
+      if (!button || !timeInput) return;
+      root.querySelectorAll('[data-time]').forEach((el) => el.classList.remove('is-on'));
+      button.classList.add('is-on');
+      timeInput.value = button.dataset.time || '';
+      refresh();
+    });
+
+    form?.addEventListener('submit', (event) => {
+      if (!dateInput?.value || !timeInput?.value) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        error?.classList.remove('hidden');
+        root.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, true);
+
+    form?.addEventListener('reset', () => {
+      if (dateInput) dateInput.value = '';
+      if (timeInput) timeInput.value = '';
+      root.querySelectorAll('.is-on').forEach((el) => el.classList.remove('is-on'));
+      refresh();
+    });
+  }
+</script>

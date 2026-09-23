@@ -1,4 +1,5 @@
 import { withBase } from '../lib/url';
+import { BOOKING_TITLE, googleCalendarUrl } from '../lib/booking';
 
 export function initLeadForms() {
   const key = (import.meta as ImportMeta & { env: Record<string, string> }).env
@@ -28,7 +29,22 @@ export function initLeadForms() {
         });
         if (!res.ok) throw new Error('fail');
         if (status) {
-          status.textContent = 'Gracias. Nos pondremos en contacto contigo.';
+          const date = String(data.bookingDate || '');
+          const time = String(data.bookingTime || '');
+          const location = String(data.bookingLocation || '');
+          if (date && time) {
+            const calendar = googleCalendarUrl({
+              date,
+              time,
+              details: `${BOOKING_TITLE}. Prueba de nivel presencial en Academia Georgetown.`,
+              location,
+            });
+            status.innerHTML =
+              'Reserva recibida. Nos pondremos en contacto contigo. ' +
+              `<a href="${calendar}" target="_blank" rel="noopener noreferrer">Añadir a Google Calendar</a>`;
+          } else {
+            status.textContent = 'Gracias. Nos pondremos en contacto contigo.';
+          }
           status.classList.remove('hidden');
           status.classList.add('text-navy');
         }
