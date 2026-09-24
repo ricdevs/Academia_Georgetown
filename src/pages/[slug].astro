@@ -54,16 +54,6 @@ function classifyCert(lines: string[]) {
 }
 
 const cert = kind === 'cert' ? classifyCert(certLines) : null;
-const defaultSeoIntro =
-  'La Academia Georgetown es tu centro especializado para aprender inglés en Pamplona. Ofrecemos programas personalizados y eficientes que te permitirán dominar el idioma en el menor tiempo posible. Con la plataforma Georgetown ALTEA y nuestro equipo de expertos lingüistas, garantizamos una formación de excelencia adaptada a tus necesidades. Prepárate para los certificados Cambridge, TOEFL iBT®, APTIS e IELTS.';
-const defaultSeoLinks = [
-  { href: '/academia-de-ingles-en-pamplona/', label: 'Academia de inglés en Pamplona' },
-  { href: '/sacarse-el-b1-de-ingles-en-pamplona/', label: 'Sacarse el B1 de inglés en Pamplona' },
-  { href: '/sacarse-el-b2-de-ingles-en-pamplona/', label: 'Sacarse el B2 de inglés en Pamplona' },
-  { href: '/sacarse-el-c1-de-ingles-en-pamplona/', label: 'Sacarse el C1 de inglés en Pamplona' },
-  { href: '/certificado-de-ingles-en-pamplona/', label: 'Certificado de inglés en Pamplona' },
-  { href: '/ingles-para-jovenes/', label: 'Clases de inglés para jóvenes en Pamplona' },
-];
 ---
 
 <BaseLayout
@@ -144,10 +134,10 @@ const defaultSeoLinks = [
   {landing && (
     <article class="prose-ag container-ag-1080 ag-content-page">
       <h1>{landing.h1}</h1>
-      <p>{seo?.intro ?? defaultSeoIntro}</p>
+      <p>{seo?.intro}</p>
       <p>A continuación, puedes ver un listado de servicios que podemos ofrecerte para mejorar tu nivel de inglés:</p>
       <ul>
-        {(seo?.links ?? defaultSeoLinks).map((item) => (
+        {(seo?.links ?? []).map((item) => (
           <li><a href={withBase(item.href)}>{item.label}</a></li>
         ))}
       </ul>

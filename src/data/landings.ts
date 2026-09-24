@@ -71,17 +71,44 @@ export const profesionalFaqs = [
   },
 ];
 
+const localServiceLinks = [
+  { href: '/academia-de-ingles-en-pamplona/', label: 'Academia de inglés en Pamplona' },
+  { href: '/sacarse-el-b1-de-ingles-en-pamplona/', label: 'Sacarse el B1 de inglés en Pamplona' },
+  { href: '/sacarse-el-b2-de-ingles-en-pamplona/', label: 'Sacarse el B2 de inglés en Pamplona' },
+  { href: '/sacarse-el-c1-de-ingles-en-pamplona/', label: 'Sacarse el C1 de inglés en Pamplona' },
+  { href: '/certificado-de-ingles-en-pamplona/', label: 'Certificado de inglés en Pamplona' },
+  { href: '/ingles-para-jovenes/', label: 'Clases de inglés para jóvenes en Pamplona' },
+];
+
 export const seoBodies: Record<string, { intro: string; links: { href: string; label: string }[] }> = {
+  'academia-de-ingles-en-pamplona': {
+    intro:
+      'Academia Georgetown es una academia de inglés en Pamplona, en Iturrama 8, entre la Universidad de Navarra y la UPNA. Damos clase presencial, online o combinando ambas, con grupos de 9 alumnos como máximo. El método Georgetown y ALTEA Labs organizan el trabajo para que cada alumno avance según su nivel y su objetivo.',
+    links: localServiceLinks,
+  },
   'curso-de-ingles-en-pamplona': {
     intro:
-      'La Academia Georgetown es tu centro especializado para aprender inglés en Pamplona. Ofrecemos programas personalizados y eficientes que te permitirán dominar el idioma en el menor tiempo posible. Con la plataforma Georgetown ALTEA y nuestro equipo de expertos lingüistas, garantizamos una formación de excelencia adaptada a tus necesidades. Prepárate para los certificados Cambridge, TOEFL iBT®, APTIS e IELTS.',
-    links: [
-      { href: '/academia-de-ingles-en-pamplona/', label: 'Academia de inglés en Pamplona' },
-      { href: '/sacarse-el-b1-de-ingles-en-pamplona/', label: 'Sacarse el B1 de inglés en Pamplona' },
-      { href: '/sacarse-el-b2-de-ingles-en-pamplona/', label: 'Sacarse el B2 de inglés en Pamplona' },
-      { href: '/sacarse-el-c1-de-ingles-en-pamplona/', label: 'Sacarse el C1 de inglés en Pamplona' },
-      { href: '/certificado-de-ingles-en-pamplona/', label: 'Certificado de inglés en Pamplona' },
-      { href: '/ingles-para-jovenes/', label: 'Clases de inglés para jóvenes en Pamplona' },
-    ],
+      'Un curso de inglés en Pamplona en Georgetown se arma a tu medida: prueba de nivel, calendario de 12, 24 o 36 semanas y seguimiento del profesorado. Puedes venir a Iturrama o seguir online. El objetivo es rentabilizar el tiempo de estudio, no repetir un temario genérico.',
+    links: localServiceLinks,
+  },
+  'certificado-de-ingles-en-pamplona': {
+    intro:
+      'Si buscas un certificado de inglés en Pamplona, primero fijamos el nivel y el título que necesitas. Georgetown prepara Cambridge, TOEFL iBT® y APTIS, y es centro examinador de TOEFL iBT® y APTIS. La convocatoria y la inscripción se gestionan contigo en la academia, no desde un enlace externo.',
+    links: localServiceLinks,
+  },
+  'sacarse-el-b1-de-ingles-en-pamplona': {
+    intro:
+      'Sacarse el B1 de inglés en Pamplona empieza por saber si ese es tu nivel real. Tras la prueba de nivel, Georgetown diseña un plan para el B1 Preliminary: vocabulario, comprensión y expresión, con tutoría cercana. Cuando el B1 está sólido, el siguiente paso natural es el B2.',
+    links: localServiceLinks,
+  },
+  'sacarse-el-b2-de-ingles-en-pamplona': {
+    intro:
+      'Sacarse el B2 de inglés en Pamplona es el objetivo más pedido entre universitarios y profesionales. En Georgetown preparamos el B2 First con evaluación inicial, ALTEA Labs y control periódico del progreso. El programa se acorta o se alarga según lo que te falte, no según un calendario cerrado.',
+    links: localServiceLinks,
+  },
+  'sacarse-el-c1-de-ingles-en-pamplona': {
+    intro:
+      'Sacarse el C1 de inglés en Pamplona pide precisión académica y profesional. Georgetown prepara el C1 Advanced con un plan personalizado: reforzar las destrezas débiles y practicar el registro que pide el examen. Presencial u online, siempre con profesorado experto y grupos reducidos.',
+    links: localServiceLinks,
   },
 };

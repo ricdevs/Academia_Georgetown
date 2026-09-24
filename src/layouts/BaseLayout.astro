@@ -16,6 +16,7 @@ interface Props {
   faqs?: { q: string; a: string }[];
   course?: { name: string; description: string };
   article?: { headline: string; description: string; datePublished: string };
+  itemList?: { name: string; items: { name: string; url: string }[] };
 }
 
 const {
@@ -28,6 +29,7 @@ const {
   faqs,
   course,
   article,
+  itemList,
 } = Astro.props;
 
 const path = stripBase(Astro.url.pathname);
@@ -109,6 +111,19 @@ if (article) {
     inLanguage: 'es',
     mainEntityOfPage: canonicalURL,
     publisher: { '@id': organizationId },
+  });
+}
+
+if (itemList?.items.length) {
+  graph.push({
+    '@type': 'ItemList',
+    name: itemList.name,
+    itemListElement: itemList.items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      url: item.url,
+    })),
   });
 }
 ---

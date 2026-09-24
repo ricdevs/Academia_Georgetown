@@ -117,6 +117,27 @@ for (const route of money) {
 const home = indexable.find((item) => item.route === '/');
 if (home && !home.html.includes('LanguageSchool')) errors.push('home JSON-LD missing LanguageSchool');
 if (home && !home.html.includes('academiageorgetown')) errors.push('home JSON-LD missing Instagram sameAs');
+if (home && !home.html.includes('ItemList')) errors.push('home JSON-LD missing ItemList');
+
+const landingIntros = [];
+for (const route of [
+  '/academia-de-ingles-en-pamplona/',
+  '/curso-de-ingles-en-pamplona/',
+  '/certificado-de-ingles-en-pamplona/',
+  '/sacarse-el-b1-de-ingles-en-pamplona/',
+  '/sacarse-el-b2-de-ingles-en-pamplona/',
+  '/sacarse-el-c1-de-ingles-en-pamplona/',
+]) {
+  const page = indexable.find((item) => item.route === route);
+  const intro = page?.html.match(/<article[^>]*>[\s\S]*?<h1[^>]*>[\s\S]*?<\/h1>\s*<p>([\s\S]*?)<\/p>/)?.[1] || '';
+  const text = intro.replace(/<[^>]+>/g, '').trim();
+  if (!text) errors.push(`${route} missing unique intro`);
+  if (landingIntros.includes(text)) errors.push(`${route} reuses another landing intro`);
+  landingIntros.push(text);
+  if (/cambridge\.org|ets\.org|britishcouncil|ielts\.org|toefl\.org/i.test(page?.html || '')) {
+    errors.push(`${route} links to an official exam site`);
+  }
+}
 
 const faqPages = ['/', '/ingles-para-estudiantes/', '/ingles-profesional/', '/ingles-para-jovenes/'];
 for (const route of faqPages) {

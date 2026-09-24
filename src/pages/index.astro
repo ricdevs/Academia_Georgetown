@@ -16,6 +16,13 @@ import { withBase } from '../lib/url';
   title={`${site.name} - Academia de Inglés en Pamplona`}
   preloadImage="/images/hero-home.jpg"
   faqs={faqs}
+  itemList={{
+    name: 'Certificados de Inglés Más Demandados',
+    items: certCardMedia.map((item) => ({
+      name: item.title,
+      url: new URL(item.href, site.url).href,
+    })),
+  }}
 >
   <SplitHero
     kicker="Academia de inglés en Pamplona y online"

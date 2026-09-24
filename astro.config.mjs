@@ -24,6 +24,13 @@ const redirects = {
   '/aptis/': '/aptis-advanced/',
   '/ielts/': '/certificado-de-ingles-en-pamplona/',
   '/examen-ielts/': '/certificado-de-ingles-en-pamplona/',
+  '/pass/': '/',
+  '/pec/': '/ingles-profesional/',
+  '/empresas/': '/ingles-profesional/',
+  '/sobre-nosotros/': '/academia-de-ingles-en-pamplona/',
+  '/metodo-georgetown/': '/',
+  '/intensivos/': '/curso-de-ingles-en-pamplona/',
+  '/altea/': '/',
 };
 for (const path of legacyHome) {
   redirects[path] = '/';

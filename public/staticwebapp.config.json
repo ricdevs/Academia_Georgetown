@@ -18,7 +18,14 @@
     { "route": "/cambridge/", "redirect": "/certificado-de-ingles-en-pamplona/", "statusCode": 301 },
     { "route": "/aptis/", "redirect": "/aptis-advanced/", "statusCode": 301 },
     { "route": "/ielts/", "redirect": "/certificado-de-ingles-en-pamplona/", "statusCode": 301 },
-    { "route": "/examen-ielts/", "redirect": "/certificado-de-ingles-en-pamplona/", "statusCode": 301 }
+    { "route": "/examen-ielts/", "redirect": "/certificado-de-ingles-en-pamplona/", "statusCode": 301 },
+    { "route": "/pass/", "redirect": "/", "statusCode": 301 },
+    { "route": "/pec/", "redirect": "/ingles-profesional/", "statusCode": 301 },
+    { "route": "/empresas/", "redirect": "/ingles-profesional/", "statusCode": 301 },
+    { "route": "/sobre-nosotros/", "redirect": "/academia-de-ingles-en-pamplona/", "statusCode": 301 },
+    { "route": "/metodo-georgetown/", "redirect": "/", "statusCode": 301 },
+    { "route": "/intensivos/", "redirect": "/curso-de-ingles-en-pamplona/", "statusCode": 301 },
+    { "route": "/altea/", "redirect": "/", "statusCode": 301 }
   ],
   "navigationFallback": {
     "rewrite": "/404.html",
