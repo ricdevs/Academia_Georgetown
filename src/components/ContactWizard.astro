@@ -136,7 +136,7 @@ const reasons = [
 
             <p class="ag-lead-step-error hidden" data-step-error>Elige un objetivo y tu nivel de partida para continuar.</p>
             <div class="ag-lead-actions">
-              <button class="ag-lead-next" type="button" data-next>Continuar a tus datos</button>
+              <button class="btn btn-primary ag-lead-next" type="button" data-next>Continuar a tus datos</button>
             </div>
           </div>
 
@@ -230,8 +230,8 @@ const reasons = [
             )}
 
             <div class="ag-lead-actions is-split">
-              <button class="ag-lead-back" type="button" data-back>Volver</button>
-              <button class="ag-lead-next" type="submit">{submitLabel}</button>
+              <button class="btn btn-muted ag-lead-back" type="button" data-back>Volver</button>
+              <button class="btn btn-primary ag-lead-next" type="submit">{submitLabel}</button>
             </div>
             <p class="js-form-status hidden text-sm"></p>
           </div>
@@ -243,8 +243,8 @@ const reasons = [
           <p class="ag-lead-now-kicker">¿Prefieres resolverlo ahora?</p>
           <h3>Habla de inmediato con un coordinador académico</h3>
           <p>Sin esperas ni formularios. Te informamos al instante de grupos abiertos, plazas libres y precios cerrados.</p>
-          <a class="ag-lead-call" href={phoneHref}>Llamar al {phone}</a>
-          <a class="ag-lead-wa" href={whatsappHref} target="_blank" rel="noopener noreferrer">Chatear por WhatsApp en directo</a>
+          <a class="btn btn-muted ag-lead-call" href={phoneHref}>Llamar al {phone}</a>
+          <a class="btn btn-primary ag-lead-wa" href={whatsappHref} target="_blank" rel="noopener noreferrer">Chatear por WhatsApp en directo</a>
           <p class="ag-lead-now-note">Coordinación activa en Campus Pamplona</p>
         </div>
         <div class="ag-lead-why">
@@ -265,45 +265,48 @@ const reasons = [
 
 <style>
   .ag-lead {
-    padding: 72px 0 96px;
-    background: #f6f7fb;
-    color: #0b1028;
+    padding: 56px 0 72px;
+    background: #fff;
+    color: #000;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
   }
 
   .ag-lead-wrap {
-    width: min(1180px, 92%);
+    width: 80%;
+    max-width: 1080px;
     margin-inline: auto;
   }
 
   .ag-lead-intro {
-    margin-bottom: 36px;
+    margin-bottom: 28px;
     text-align: center;
   }
 
   .ag-lead-title {
     margin: 0 auto;
     max-width: 820px;
-    color: #0b1028;
-    font-family: "Poppins", Helvetica, Arial, sans-serif;
-    font-size: clamp(27px, 3.5vw, 42px);
-    font-weight: 700;
-    line-height: 1.12;
+    color: #000;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    font-weight: 300;
+    line-height: 1.3;
     text-align: center;
   }
 
   .ag-lead-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.7fr);
-    gap: 28px;
+    grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.7fr);
+    gap: 24px;
     align-items: start;
   }
 
   .ag-lead-form,
-  .ag-lead-why {
-    padding: 28px 28px 32px;
-    border-radius: 22px;
+  .ag-lead-why,
+  .ag-lead-now {
+    padding: 32px 30px;
+    border-radius: 0;
     background: #fff;
-    box-shadow: 0 18px 50px -28px rgb(11 16 40 / 0.28);
+    box-shadow: 0 2px 18px 0 rgb(0 0 0 / 0.12);
   }
 
   .ag-lead-step-head {
@@ -319,52 +322,45 @@ const reasons = [
   .ag-lead-badge {
     margin: 0;
     font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    font-weight: 600;
+    letter-spacing: 1px;
     text-transform: uppercase;
-  }
-
-  .ag-lead-kicker,
-  .ag-lead-now-kicker {
-    color: #6b7288;
-  }
-
-  .ag-lead-badge {
-    color: #0b1028;
+    color: #666;
   }
 
   .ag-lead-step-title {
-    margin: 0 0 18px;
-    font-family: "Poppins", Helvetica, Arial, sans-serif;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1.15;
+    margin: 0 0 16px;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1.2;
+    color: #000;
   }
 
   .ag-lead-progress {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    margin: 0 0 28px;
+    margin: 0 0 24px;
     padding: 0;
     list-style: none;
-    border-bottom: 2px solid #edf0f5;
+    border-bottom: 1px solid #e6e6ea;
   }
 
   .ag-lead-progress li {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding-bottom: 12px;
-    color: #8b93a7;
+    padding-bottom: 10px;
+    color: #8a8a8a;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 400;
   }
 
   .ag-lead-progress li.is-on,
   .ag-lead-progress li.is-done {
-    color: #0b1028;
-    box-shadow: 0 2px 0 #f5b400;
+    color: #0162a9;
+    box-shadow: 0 1px 0 #0162a9;
   }
 
   .ag-lead-progress span {
@@ -374,14 +370,15 @@ const reasons = [
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: #edf0f5;
+    background: #f4f5f8;
+    color: #666;
     font-size: 11px;
   }
 
   .ag-lead-progress .is-on span,
   .ag-lead-progress .is-done span {
-    background: #f5b400;
-    color: #0b1028;
+    background: #0162a9;
+    color: #fff;
   }
 
   .ag-lead-fieldset {
@@ -391,10 +388,10 @@ const reasons = [
   }
 
   .ag-lead-fieldset legend {
-    margin-bottom: 14px;
-    color: #0b1028;
+    margin-bottom: 12px;
+    color: #000;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
   }
 
   .ag-lead-goals {
@@ -420,11 +417,11 @@ const reasons = [
     grid-template-columns: minmax(0, 1fr) 16px;
     align-items: center;
     gap: 10px;
-    min-height: 72px;
+    min-height: 68px;
     padding: 12px 14px;
-    border: 1px solid #eceff4;
-    border-radius: 12px;
-    background: #fff;
+    border: 1px solid #e6e6ea;
+    border-radius: 10px;
+    background: #f6f7f8;
   }
 
   .ag-lead-level {
@@ -432,11 +429,11 @@ const reasons = [
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 44px;
+    min-height: 42px;
     padding: 8px 14px;
-    border: 1px solid transparent;
-    border-radius: 14px;
-    background: #f7f8fb;
+    border: 1px solid #e6e6ea;
+    border-radius: 100px;
+    background: #f6f7f8;
     text-align: center;
   }
 
@@ -449,8 +446,8 @@ const reasons = [
 
   .ag-lead-goal:has(input:checked),
   .ag-lead-level:has(input:checked) {
-    border-color: #0b1028;
-    background: #fff8e6;
+    border-color: #0162a9;
+    background: #eef5fb;
   }
 
   .ag-lead-goal-copy {
@@ -460,27 +457,28 @@ const reasons = [
   .ag-lead-goal strong,
   .ag-lead-level strong {
     display: block;
-    color: #0b1028;
+    color: #000;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .ag-lead-goal strong {
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.2;
   }
 
   .ag-lead-goal em,
   .ag-lead-level em {
     display: block;
-    color: #667085;
+    color: #666;
     font-style: normal;
   }
 
   .ag-lead-goal em {
     margin-top: 2px;
-    font-size: 12px;
-    line-height: 1.35;
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 400;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -489,38 +487,51 @@ const reasons = [
 
   .ag-lead-level strong {
     font-size: 14px;
+    font-weight: 500;
     line-height: 1.2;
   }
 
   .ag-lead-radio {
     width: 16px;
     height: 16px;
-    border: 1.5px solid #c5cad6;
+    border: 1.5px solid #c5c5c5;
     border-radius: 50%;
     background: #fff;
   }
 
   .ag-lead-goal:has(input:checked) .ag-lead-radio {
-    border-color: #0b1028;
-    background: #0b1028;
-    box-shadow: inset 0 0 0 3px #fff8e6;
+    border-color: #0162a9;
+    background: #0162a9;
+    box-shadow: inset 0 0 0 3px #eef5fb;
   }
 
   .ag-lead-form .input {
     display: block;
     width: 100%;
     box-sizing: border-box;
-    margin: 0 0 14px;
-    padding: 16px 18px;
-    border: 1px solid #e6eaf1;
-    border-radius: 12px;
+    margin: 0 0 21px;
+    padding: 18px 20px;
+    border: 0;
+    border-radius: 10px;
     background: #f6f7f8;
-    color: #0b1028;
+    color: #555;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
     font-size: 15px;
+    font-weight: 400;
+  }
+
+  .ag-lead-form .input::placeholder {
+    color: #939393;
+  }
+
+  .ag-lead-form .input:focus {
+    outline: none;
+    background: #f0f1f3;
+    color: #000;
   }
 
   .ag-lead-form textarea.input {
-    min-height: 140px;
+    min-height: 150px;
     resize: vertical;
   }
 
@@ -541,61 +552,22 @@ const reasons = [
     justify-content: space-between;
   }
 
-  .ag-lead-next,
-  .ag-lead-back,
-  .ag-lead-call,
-  .ag-lead-wa {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 52px;
-    padding: 12px 22px;
-    border: 0;
-    border-radius: 999px;
-    font-size: 15px;
-    font-weight: 700;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .ag-lead-next,
-  .ag-lead-wa {
-    background: #f5b400;
-    color: #0b1028;
-  }
-
-  .ag-lead-back,
-  .ag-lead-call {
-    background: #fff;
-    color: #0b1028;
-    border: 1px solid #d7dbe6;
-  }
-
-  .ag-lead-now {
-    padding: 28px 24px;
-    border-radius: 22px;
-    background: #071048;
-    color: #fff;
-  }
-
-  .ag-lead-now-kicker {
-    color: #c5cbe0;
-  }
-
   .ag-lead-now h3,
   .ag-lead-why h3 {
-    margin: 10px 0 12px;
-    font-family: "Poppins", Helvetica, Arial, sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1.2;
+    margin: 8px 0 12px;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-size: 23px;
+    font-weight: 300;
+    line-height: 1.25;
+    color: #000;
   }
 
   .ag-lead-now p {
     margin: 0 0 18px;
-    color: #d7dced;
+    color: #454545;
     font-size: 14px;
-    line-height: 1.55;
+    font-weight: 400;
+    line-height: 1.7;
   }
 
   .ag-lead-call,
@@ -606,12 +578,8 @@ const reasons = [
 
   .ag-lead-now-note {
     margin: 8px 0 0;
-    color: #9aa3c2;
+    color: #666;
     font-size: 13px;
-  }
-
-  .ag-lead-why h3 {
-    font-size: 22px;
   }
 
   .ag-lead-why ul {
@@ -621,9 +589,9 @@ const reasons = [
   }
 
   .ag-lead-why li {
-    margin: 0 0 18px;
-    padding-left: 28px;
-    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' fill='%23fff4cc'/><path fill='%230b1028' d='m10.2 15.6-3.3-3.3 1.4-1.4 1.9 1.9 5-5 1.4 1.4z'/></svg>") no-repeat left 2px / 18px;
+    margin: 0 0 16px;
+    padding-left: 26px;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' fill='%23eef5fb'/><path fill='%230162a9' d='m10.2 15.6-3.3-3.3 1.4-1.4 1.9 1.9 5-5 1.4 1.4z'/></svg>") no-repeat left 2px / 18px;
   }
 
   .ag-lead-why strong,
@@ -634,21 +602,25 @@ const reasons = [
   .ag-lead-why strong {
     margin-bottom: 4px;
     font-size: 15px;
+    font-weight: 600;
+    color: #000;
   }
 
   .ag-lead-why span {
-    color: #667085;
+    color: #666;
     font-size: 13px;
-    line-height: 1.45;
+    font-weight: 400;
+    line-height: 1.5;
   }
 
   @media (max-width: 980px) {
     .ag-lead {
-      padding: 48px 0 64px;
+      padding: 40px 0 56px;
     }
 
     .ag-lead-title {
       max-width: none;
+      font-size: 24px;
     }
 
     .ag-lead-grid,
@@ -661,7 +633,7 @@ const reasons = [
     }
 
     .ag-lead-step-title {
-      font-size: 26px;
+      font-size: 22px;
     }
   }
 </style>
