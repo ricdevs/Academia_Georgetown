@@ -261,6 +261,11 @@ module.exports = async function (context, req) {
 
   context.res = {
     headers: { 'Content-Type': 'application/json' },
-    body: { ok: true },
+    body: {
+      ok: true,
+      stored: Boolean(persisted.ok),
+      persist: persisted.ok ? 'ok' : persisted.skipped ? 'skipped' : persisted.error || 'fail',
+      hasStorage: Boolean(process.env.AZURE_STORAGE_CONNECTION_STRING || process.env.AzureWebJobsStorage),
+    },
   };
 };
