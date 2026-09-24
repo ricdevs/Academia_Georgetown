@@ -24,3 +24,7 @@ export function stripBase(pathname: string): string {
 }
 
 export const isPagesPreview = () => (import.meta.env.BASE_URL || '/') !== '/';
+
+/** GitHub Pages or an explicit preview build. Never index these hosts. */
+export const isSeoPreview = () =>
+  isPagesPreview() || process.env.SEO_NOINDEX === 'true';
