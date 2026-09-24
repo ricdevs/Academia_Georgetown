@@ -71,6 +71,10 @@ export const profesionalFaqs = [
   },
 ];
 
+/** Shared visible landing copy. Unique intent copy lives in titles, meta, and JSON-LD. */
+export const VISIBLE_LANDING_INTRO =
+  'La Academia Georgetown es tu centro especializado para aprender inglés en Pamplona. Ofrecemos programas personalizados y eficientes que te permitirán dominar el idioma en el menor tiempo posible. Con la plataforma Georgetown ALTEA y nuestro equipo de expertos lingüistas, garantizamos una formación de excelencia adaptada a tus necesidades. Prepárate para los certificados Cambridge, TOEFL iBT®, APTIS e IELTS.';
+
 const localServiceLinks = [
   { href: '/academia-de-ingles-en-pamplona/', label: 'Academia de inglés en Pamplona' },
   { href: '/sacarse-el-b1-de-ingles-en-pamplona/', label: 'Sacarse el B1 de inglés en Pamplona' },

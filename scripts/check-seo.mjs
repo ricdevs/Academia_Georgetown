@@ -119,7 +119,9 @@ if (home && !home.html.includes('LanguageSchool')) errors.push('home JSON-LD mis
 if (home && !home.html.includes('academiageorgetown')) errors.push('home JSON-LD missing Instagram sameAs');
 if (home && !home.html.includes('ItemList')) errors.push('home JSON-LD missing ItemList');
 
-const landingIntros = [];
+const sharedVisibleIntro =
+  'La Academia Georgetown es tu centro especializado para aprender inglés en Pamplona.';
+const landingSchema = [];
 for (const route of [
   '/academia-de-ingles-en-pamplona/',
   '/curso-de-ingles-en-pamplona/',
@@ -131,9 +133,29 @@ for (const route of [
   const page = indexable.find((item) => item.route === route);
   const intro = page?.html.match(/<article[^>]*>[\s\S]*?<h1[^>]*>[\s\S]*?<\/h1>\s*<p>([\s\S]*?)<\/p>/)?.[1] || '';
   const text = intro.replace(/<[^>]+>/g, '').trim();
-  if (!text) errors.push(`${route} missing unique intro`);
-  if (landingIntros.includes(text)) errors.push(`${route} reuses another landing intro`);
-  landingIntros.push(text);
+  if (!text.includes(sharedVisibleIntro)) {
+    errors.push(`${route} is missing the shared visible landing intro`);
+  }
+  let webpageDescription = '';
+  const blocks = [...(page?.html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) || [])];
+  for (const block of blocks) {
+    try {
+      const data = JSON.parse(block[1]);
+      const nodes = Array.isArray(data['@graph']) ? data['@graph'] : [data];
+      const webpage = nodes.find((node) => node?.['@type'] === 'WebPage');
+      if (webpage?.description) webpageDescription = String(webpage.description);
+    } catch {
+      // invalid JSON-LD is already reported above
+    }
+  }
+  if (!webpageDescription) errors.push(`${route} missing WebPage JSON-LD description`);
+  if (webpageDescription && landingSchema.includes(webpageDescription)) {
+    errors.push(`${route} reuses another landing WebPage description`);
+  }
+  if (webpageDescription) landingSchema.push(webpageDescription);
+  if (webpageDescription && text.includes(webpageDescription.slice(0, 40))) {
+    errors.push(`${route} still shows unique SEO copy in the visible intro`);
+  }
   if (/cambridge\.org|ets\.org|britishcouncil|ielts\.org|toefl\.org/i.test(page?.html || '')) {
     errors.push(`${route} links to an official exam site`);
   }

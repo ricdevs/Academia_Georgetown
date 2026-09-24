@@ -10,7 +10,7 @@ import {
   seoLandings,
 } from '../data/catalog';
 import { site } from '../data/site';
-import { seoBodies } from '../data/landings';
+import { seoBodies, VISIBLE_LANDING_INTRO } from '../data/landings';
 import { withBase } from '../lib/url';
 import certificatePages from '../data/certificate-pages.json';
 import CertificatePage from '../components/CertificatePage.astro';
@@ -59,6 +59,11 @@ const cert = kind === 'cert' ? classifyCert(certLines) : null;
 <BaseLayout
   title={documentTitle}
   description={description}
+  webpage={
+    landing && seo
+      ? { name: landing.h1, description: seo.intro }
+      : undefined
+  }
   course={
     certificate
       ? { name: certificate.title, description: certificate.description }
@@ -134,7 +139,7 @@ const cert = kind === 'cert' ? classifyCert(certLines) : null;
   {landing && (
     <article class="prose-ag container-ag-1080 ag-content-page">
       <h1>{landing.h1}</h1>
-      <p>{seo?.intro}</p>
+      <p>{VISIBLE_LANDING_INTRO}</p>
       <p>A continuación, puedes ver un listado de servicios que podemos ofrecerte para mejorar tu nivel de inglés:</p>
       <ul>
         {(seo?.links ?? []).map((item) => (
