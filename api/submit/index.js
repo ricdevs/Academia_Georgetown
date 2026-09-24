@@ -52,6 +52,25 @@ function acsHeaders(method, url, body, accessKey) {
   };
 }
 
+function leadBody(data) {
+  const skip = new Set(['website', 'recaptchaToken']);
+  return Object.entries(data)
+    .filter(([key]) => !skip.has(key))
+    .map(([key, value]) => `${key}: ${typeof value === 'string' ? value : JSON.stringify(value)}`)
+    .join('\n');
+}
+
+function failureBody(reason, body) {
+  return [
+    'Este formulario se envió en la web, pero el correo principal no se entregó.',
+    'Revisad los datos, contactad al interesado y tratad esta solicitud como un lead válido.',
+    `Motivo del fallo: ${reason}`,
+    '',
+    'Datos del formulario:',
+    body,
+  ].join('\n');
+}
+
 async function sendEmail(connection, message) {
   const { endpoint, accessKey } = parseConnectionString(connection);
   if (!endpoint || !accessKey) throw new Error('bad-connection');
@@ -76,6 +95,23 @@ async function sendEmail(connection, message) {
     if (status.status === 'Succeeded') return;
     if (status.status === 'Failed') throw new Error('acs-failed');
   }
+}
+
+async function sendLead(connection, { subject, body, recipients }) {
+  let lastError;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      await sendEmail(connection, {
+        senderAddress: process.env.MAIL_FROM || 'DoNotReply@academiageorgetown.com',
+        content: { subject, plainText: body },
+        recipients: { to: recipients },
+      });
+      return;
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  throw lastError;
 }
 
 module.exports = async function (context, req) {
@@ -113,11 +149,7 @@ module.exports = async function (context, req) {
   }
 
   const to = process.env.CONTACT_TO || DEFAULT_TO;
-  const skip = new Set(['website', 'recaptchaToken']);
-  const body = Object.entries(data)
-    .filter(([k]) => !skip.has(k))
-    .map(([k, v]) => `${k}: ${typeof v === 'string' ? v : JSON.stringify(v)}`)
-    .join('\n');
+  const body = leadBody(data);
   const subject = CONTACT_SUBJECT;
   const recipients = parseRecipients(to);
   if (!recipients.length) {
@@ -128,16 +160,23 @@ module.exports = async function (context, req) {
   const connection = process.env.AZURE_COMMUNICATION_CONNECTION_STRING;
   if (connection) {
     try {
-      await sendEmail(connection, {
-        senderAddress: process.env.MAIL_FROM || 'DoNotReply@academiageorgetown.com',
-        content: { subject, plainText: body },
-        recipients: { to: recipients },
-      });
+      await sendLead(connection, { subject, body, recipients });
     } catch (error) {
-      const message = String((error && error.message) || error);
-      context.log('email send failed', message.slice(0, 200));
-      context.res = { status: 502, body: { ok: false, error: 'email-send' } };
-      return;
+      const reason = String((error && error.message) || error);
+      context.log('email send failed', reason);
+      context.log(body);
+      try {
+        await sendLead(connection, {
+          subject: `FALLO DE ENTREGA — ${CONTACT_SUBJECT}`,
+          body: failureBody(reason, body),
+          recipients,
+        });
+        context.log('email send recovered via failure notice');
+      } catch (fallbackError) {
+        context.log('email fallback failed', String((fallbackError && fallbackError.message) || fallbackError));
+        context.res = { status: 502, body: { ok: false, error: 'email-send' } };
+        return;
+      }
     }
   } else {
     context.log(subject);

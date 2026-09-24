@@ -53,7 +53,14 @@ foreach ($data as $key => $value) {
 $subject = 'Formulario de contacto Academia Georgetown';
 $body = implode("\n", $lines);
 $headers = 'From: noreply@academiageorgetown.com' . "\r\n" . 'Content-Type: text/plain; charset=UTF-8';
-@mail($to, $subject, $body, $headers);
+$sent = @mail($to, $subject, $body, $headers);
+if (!$sent) {
+  $failBody = "Este formulario se envió en la web, pero el correo principal no se entregó.\n"
+    . "Revisad los datos, contactad al interesado y tratad esta solicitud como un lead válido.\n\n"
+    . "Datos del formulario:\n"
+    . $body;
+  @mail($to, 'FALLO DE ENTREGA — ' . $subject, $failBody, $headers);
+}
 
 $clientify = getenv('CLIENTIFY_WEBHOOK_URL') ?: '';
 if ($clientify) {
