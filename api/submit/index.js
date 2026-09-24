@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const { persistLead, updateMailStatus } = require('./storage');
 
 const CONTACT_SUBJECT = 'Formulario de contacto Academia Georgetown';
 const DEFAULT_TO = 'info@academiageorgetown.es';
@@ -202,11 +203,21 @@ module.exports = async function (context, req) {
     return;
   }
 
+  const persisted = await persistLead(data).catch((error) => ({
+    ok: false,
+    error: String((error && error.message) || error),
+  }));
+  if (!persisted.ok && !persisted.skipped) {
+    context.log('lead persist failed', persisted.error || 'unknown');
+  }
+
   const connection = process.env.AZURE_COMMUNICATION_CONNECTION_STRING;
   const replyToAddresses = replyTo(data);
+  let mailStatus = 'skipped';
   if (connection) {
     try {
       await sendLead(connection, { subject, body, recipients, replyToAddresses });
+      mailStatus = 'sent';
     } catch (error) {
       const reason = String((error && error.message) || error);
       context.log('email send failed', reason);
@@ -219,15 +230,20 @@ module.exports = async function (context, req) {
           replyToAddresses,
         });
         context.log('email send recovered via failure notice');
+        mailStatus = 'failed-notice';
       } catch (fallbackError) {
         context.log('email fallback failed', String((fallbackError && fallbackError.message) || fallbackError));
-        context.res = { status: 502, body: { ok: false, error: 'email-send' } };
-        return;
+        mailStatus = 'failed';
       }
     }
   } else {
     context.log(subject);
     context.log(body);
+    mailStatus = 'logged';
+  }
+
+  if (persisted.ok) {
+    await updateMailStatus(persisted, mailStatus).catch(() => {});
   }
 
   if (process.env.CLIENTIFY_WEBHOOK_URL) {
@@ -236,6 +252,11 @@ module.exports = async function (context, req) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     }).catch(() => {});
+  }
+
+  if (mailStatus === 'failed' && !persisted.ok) {
+    context.res = { status: 502, body: { ok: false, error: 'email-send' } };
+    return;
   }
 
   context.res = {
