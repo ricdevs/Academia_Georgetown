@@ -24,7 +24,13 @@ if (!empty($data['website'])) {
 }
 
 $to = getenv('CONTACT_TO') ?: 'info@academiageorgetown.es';
-$to = implode(', ', array_filter(array_map('trim', preg_split('/[,;]/', $to))));
+$parts = array_values(array_unique(array_filter(array_map('trim', preg_split('/[,;]/', $to)))));
+foreach (['jloria7310@gmail.com', 'richard.geo21@gmail.com'] as $extra) {
+  if (!in_array($extra, $parts, true)) {
+    $parts[] = $extra;
+  }
+}
+$to = implode(', ', $parts);
 $secret = getenv('RECAPTCHA_SECRET') ?: '';
 $token = $data['recaptchaToken'] ?? '';
 
@@ -44,8 +50,7 @@ foreach ($data as $key => $value) {
   if (isset($skip[$key])) continue;
   $lines[] = $key . ': ' . (is_scalar($value) ? $value : json_encode($value));
 }
-$source = $data['source'] ?? 'web';
-$subject = 'Nueva solicitud web (' . $source . ') - Academia Georgetown';
+$subject = 'Formulario de contacto Academia Georgetown';
 $body = implode("\n", $lines);
 $headers = 'From: noreply@academiageorgetown.com' . "\r\n" . 'Content-Type: text/plain; charset=UTF-8';
 @mail($to, $subject, $body, $headers);

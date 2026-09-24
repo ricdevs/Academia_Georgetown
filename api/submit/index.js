@@ -1,10 +1,21 @@
 const crypto = require('crypto');
 
+const CONTACT_SUBJECT = 'Formulario de contacto Academia Georgetown';
+const DEFAULT_TO = 'info@academiageorgetown.es';
+const EXTRA_TO = ['jloria7310@gmail.com', 'richard.geo21@gmail.com'];
+
 function parseRecipients(value) {
+  const seen = new Set();
   return String(value || '')
     .split(/[,;]/)
     .map((address) => address.trim())
-    .filter(Boolean)
+    .concat(EXTRA_TO)
+    .filter((address) => {
+      const key = address.toLowerCase();
+      if (!address || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
     .map((address) => ({ address }));
 }
 
@@ -101,14 +112,13 @@ module.exports = async function (context, req) {
     }
   }
 
-  const to = process.env.CONTACT_TO || 'info@academiageorgetown.es';
+  const to = process.env.CONTACT_TO || DEFAULT_TO;
   const skip = new Set(['website', 'recaptchaToken']);
   const body = Object.entries(data)
     .filter(([k]) => !skip.has(k))
     .map(([k, v]) => `${k}: ${typeof v === 'string' ? v : JSON.stringify(v)}`)
     .join('\n');
-  const source = data.source || 'web';
-  const subject = `Nueva solicitud web (${source}) - Academia Georgetown`;
+  const subject = CONTACT_SUBJECT;
   const recipients = parseRecipients(to);
   if (!recipients.length) {
     context.res = { status: 502, body: { ok: false, error: 'email-recipients' } };
