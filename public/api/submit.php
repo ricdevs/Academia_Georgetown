@@ -23,18 +23,35 @@ if (!empty($data['website'])) {
   exit;
 }
 
+$name = trim((string) ($data['name'] ?? ''));
+$email = trim((string) ($data['email'] ?? ''));
+$phone = trim((string) ($data['phone'] ?? ''));
+if ($name === '' || $phone === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+  http_response_code(400);
+  echo json_encode(['ok' => false, 'error' => 'fields']);
+  exit;
+}
+
 $to = getenv('CONTACT_TO') ?: 'info@academiageorgetown.es';
 $parts = array_values(array_unique(array_filter(array_map('trim', preg_split('/[,;]/', $to)))));
-foreach (['jloria7310@gmail.com', 'richard.geo21@gmail.com'] as $extra) {
-  if (!in_array($extra, $parts, true)) {
-    $parts[] = $extra;
-  }
+$extras = ['jloria7310@gmail.com', 'richard.geo21@gmail.com'];
+$toParts = array_values(array_filter($parts, function ($address) use ($extras) {
+  return !in_array(strtolower($address), array_map('strtolower', $extras), true);
+}));
+if (!$toParts) {
+  $toParts = ['info@academiageorgetown.es'];
 }
-$to = implode(', ', $parts);
+$to = implode(', ', $toParts);
+$bcc = implode(', ', $extras);
 $secret = getenv('RECAPTCHA_SECRET') ?: '';
 $token = $data['recaptchaToken'] ?? '';
 
-if ($secret && $token) {
+if ($secret) {
+  if (!$token) {
+    http_response_code(400);
+    echo json_encode(['ok' => false, 'error' => 'captcha']);
+    exit;
+  }
   $verify = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secret) . '&response=' . urlencode($token));
   $result = json_decode($verify, true);
   if (empty($result['success'])) {
@@ -52,14 +69,22 @@ foreach ($data as $key => $value) {
 }
 $subject = 'Formulario de contacto Academia Georgetown';
 $body = implode("\n", $lines);
-$headers = 'From: noreply@academiageorgetown.com' . "\r\n" . 'Content-Type: text/plain; charset=UTF-8';
+$headers = 'From: noreply@academiageorgetown.com' . "\r\n"
+  . 'Bcc: ' . $bcc . "\r\n"
+  . 'Reply-To: ' . $email . "\r\n"
+  . 'Content-Type: text/plain; charset=UTF-8';
 $sent = @mail($to, $subject, $body, $headers);
 if (!$sent) {
   $failBody = "Este formulario se envió en la web, pero el correo principal no se entregó.\n"
     . "Revisad los datos, contactad al interesado y tratad esta solicitud como un lead válido.\n\n"
     . "Datos del formulario:\n"
     . $body;
-  @mail($to, 'FALLO DE ENTREGA — ' . $subject, $failBody, $headers);
+  $sent = @mail($to, 'FALLO DE ENTREGA — ' . $subject, $failBody, $headers);
+}
+if (!$sent) {
+  http_response_code(502);
+  echo json_encode(['ok' => false, 'error' => 'email-send']);
+  exit;
 }
 
 $clientify = getenv('CLIENTIFY_WEBHOOK_URL') ?: '';

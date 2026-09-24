@@ -10,17 +10,28 @@ export function initLeadForms() {
     form.dataset.bound = '1';
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
+      if (form.dataset.sending === '1') return;
+      form.dataset.sending = '1';
       const status = form.querySelector<HTMLElement>('.js-form-status');
+      const buttons = form.querySelectorAll<HTMLButtonElement | HTMLInputElement>('button[type="submit"], input[type="submit"]');
+      buttons.forEach((button) => {
+        button.disabled = true;
+      });
       const data = Object.fromEntries(new FormData(form).entries());
       try {
         let recaptchaToken = '';
         const grecaptcha = (window as unknown as { grecaptcha?: { execute: Function; ready: Function } }).grecaptcha;
         if (grecaptcha) {
-          recaptchaToken = await new Promise((resolve) => {
-            grecaptcha.ready(() => {
-              grecaptcha.execute(key, { action: 'submit' }).then(resolve);
-            });
-          });
+          recaptchaToken = await Promise.race([
+            new Promise<string>((resolve) => {
+              grecaptcha.ready(() => {
+                grecaptcha.execute(key, { action: 'submit' }).then(resolve);
+              });
+            }),
+            new Promise<string>((resolve) => {
+              window.setTimeout(() => resolve(''), 8000);
+            }),
+          ]);
         }
         const res = await fetch(withBase('/api/submit'), {
           method: 'POST',
@@ -49,11 +60,19 @@ export function initLeadForms() {
           status.classList.add('text-navy');
         }
         form.reset();
+        form.dataset.sending = '';
+        buttons.forEach((button) => {
+          button.disabled = false;
+        });
       } catch {
         if (status) {
           status.textContent = 'No se pudo enviar. Escríbenos a info@academiageorgetown.es o llama al 948 17 51 48.';
           status.classList.remove('hidden');
         }
+        buttons.forEach((button) => {
+          button.disabled = false;
+        });
+        form.dataset.sending = '';
       }
     });
   });

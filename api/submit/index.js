@@ -3,20 +3,49 @@ const crypto = require('crypto');
 const CONTACT_SUBJECT = 'Formulario de contacto Academia Georgetown';
 const DEFAULT_TO = 'info@academiageorgetown.es';
 const EXTRA_TO = ['jloria7310@gmail.com', 'richard.geo21@gmail.com'];
+const FIELD_LABELS = {
+  source: 'Origen',
+  name: 'Nombre',
+  phone: 'Teléfono',
+  email: 'Email',
+  dob: 'Fecha de nacimiento',
+  occupation: 'Ocupación',
+  message: 'Mensaje',
+  company: 'Empresa',
+  dni: 'DNI',
+  address: 'Dirección',
+  postalCode: 'Código postal',
+  city: 'Localidad',
+  course: 'Curso',
+  discount: 'Código de descuento',
+  bookingDate: 'Fecha de reserva',
+  bookingTime: 'Hora de reserva',
+  bookingLocation: 'Lugar de reserva',
+  lastCertificate: 'Último certificado',
+  targetCertificate: 'Certificado objetivo',
+};
 
-function parseRecipients(value) {
+function uniqueAddresses(values) {
   const seen = new Set();
-  return String(value || '')
-    .split(/[,;]/)
-    .map((address) => address.trim())
-    .concat(EXTRA_TO)
+  return values
+    .map((address) => String(address || '').trim())
     .filter((address) => {
       const key = address.toLowerCase();
-      if (!address || seen.has(key)) return false;
+      if (!address || !address.includes('@') || seen.has(key)) return false;
       seen.add(key);
       return true;
-    })
-    .map((address) => ({ address }));
+    });
+}
+
+function splitRecipients(value) {
+  const extra = new Set(EXTRA_TO.map((address) => address.toLowerCase()));
+  const configured = uniqueAddresses(String(value || '').split(/[,;]/));
+  const to = uniqueAddresses(configured.filter((address) => !extra.has(address.toLowerCase())));
+  if (!to.length) to.push(DEFAULT_TO);
+  return {
+    to: to.map((address) => ({ address })),
+    bcc: EXTRA_TO.map((address) => ({ address })),
+  };
 }
 
 function parseConnectionString(value) {
@@ -56,7 +85,10 @@ function leadBody(data) {
   const skip = new Set(['website', 'recaptchaToken']);
   return Object.entries(data)
     .filter(([key]) => !skip.has(key))
-    .map(([key, value]) => `${key}: ${typeof value === 'string' ? value : JSON.stringify(value)}`)
+    .map(([key, value]) => {
+      const label = FIELD_LABELS[key] || key;
+      return `${label}: ${typeof value === 'string' ? value : JSON.stringify(value)}`;
+    })
     .join('\n');
 }
 
@@ -69,6 +101,20 @@ function failureBody(reason, body) {
     'Datos del formulario:',
     body,
   ].join('\n');
+}
+
+function replyTo(data) {
+  const email = String(data.email || '').trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return undefined;
+  return [{ address: email }];
+}
+
+function missingFields(data) {
+  const name = String(data.name || '').trim();
+  const email = String(data.email || '').trim();
+  const phone = String(data.phone || '').trim();
+  if (!name || !phone || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return true;
+  return false;
 }
 
 async function sendEmail(connection, message) {
@@ -84,28 +130,19 @@ async function sendEmail(connection, message) {
   if (res.status !== 202 && res.status !== 200) {
     throw new Error(`acs-${res.status}`);
   }
-  const operation = res.headers.get('operation-location');
-  if (!operation) return;
-  for (let attempt = 0; attempt < 10; attempt += 1) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    const poll = await fetch(operation, {
-      headers: acsHeaders('GET', operation, '', accessKey),
-    });
-    const status = await poll.json().catch(() => ({}));
-    if (status.status === 'Succeeded') return;
-    if (status.status === 'Failed') throw new Error('acs-failed');
-  }
 }
 
-async function sendLead(connection, { subject, body, recipients }) {
+async function sendLead(connection, { subject, body, recipients, replyToAddresses }) {
   let lastError;
+  const message = {
+    senderAddress: process.env.MAIL_FROM || 'DoNotReply@academiageorgetown.com',
+    content: { subject, plainText: body },
+    recipients,
+  };
+  if (replyToAddresses) message.replyTo = replyToAddresses;
   for (let attempt = 0; attempt < 2; attempt += 1) {
     try {
-      await sendEmail(connection, {
-        senderAddress: process.env.MAIL_FROM || 'DoNotReply@academiageorgetown.com',
-        content: { subject, plainText: body },
-        recipients: { to: recipients },
-      });
+      await sendEmail(connection, message);
       return;
     } catch (error) {
       lastError = error;
@@ -132,8 +169,17 @@ module.exports = async function (context, req) {
     return;
   }
 
+  if (missingFields(data)) {
+    context.res = { status: 400, body: { ok: false, error: 'fields' } };
+    return;
+  }
+
   const secret = process.env.RECAPTCHA_SECRET;
-  if (secret && data.recaptchaToken) {
+  if (secret) {
+    if (!data.recaptchaToken) {
+      context.res = { status: 400, body: { ok: false, error: 'captcha' } };
+      return;
+    }
     const params = new URLSearchParams({
       secret,
       response: data.recaptchaToken,
@@ -148,19 +194,19 @@ module.exports = async function (context, req) {
     }
   }
 
-  const to = process.env.CONTACT_TO || DEFAULT_TO;
   const body = leadBody(data);
   const subject = CONTACT_SUBJECT;
-  const recipients = parseRecipients(to);
-  if (!recipients.length) {
+  const recipients = splitRecipients(process.env.CONTACT_TO || DEFAULT_TO);
+  if (!recipients.to.length) {
     context.res = { status: 502, body: { ok: false, error: 'email-recipients' } };
     return;
   }
 
   const connection = process.env.AZURE_COMMUNICATION_CONNECTION_STRING;
+  const replyToAddresses = replyTo(data);
   if (connection) {
     try {
-      await sendLead(connection, { subject, body, recipients });
+      await sendLead(connection, { subject, body, recipients, replyToAddresses });
     } catch (error) {
       const reason = String((error && error.message) || error);
       context.log('email send failed', reason);
@@ -170,6 +216,7 @@ module.exports = async function (context, req) {
           subject: `FALLO DE ENTREGA — ${CONTACT_SUBJECT}`,
           body: failureBody(reason, body),
           recipients,
+          replyToAddresses,
         });
         context.log('email send recovered via failure notice');
       } catch (fallbackError) {
