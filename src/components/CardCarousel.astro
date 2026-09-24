@@ -41,7 +41,7 @@ const { title, show = 3, scroll = 1, gap = 15, autoplay = 0, items } = Astro.pro
                 {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               >
                 <figure>
-                  <img src={withBase(item.image)} alt="" width="520" height="292" loading="lazy" />
+                  <img src={withBase(item.image)} alt={item.title} width="520" height="292" loading="lazy" />
                 </figure>
                 <h4>{item.title}</h4>
               </a>

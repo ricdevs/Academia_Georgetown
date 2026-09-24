@@ -6,7 +6,7 @@ import ContactSection from '../components/ContactSection.astro';
 import SplitHero from '../components/SplitHero.astro';
 import ExamLogos from '../components/ExamLogos.astro';
 import BenefitPoints from '../components/BenefitPoints.astro';
-import { pillars, site } from '../data/site';
+import { faqs, pillars, site } from '../data/site';
 import { youthCertCards } from '../data/catalog';
 import { jovenesPoints } from '../data/landings';
 
@@ -18,7 +18,7 @@ const youthImages: Record<string, string> = {
 };
 ---
 
-<BaseLayout title={`Cursos de Inglés para Jóvenes - ${site.name}`}>
+<BaseLayout title={`Cursos de Inglés para Jóvenes - ${site.name}`} faqs={faqs}>
   <SplitHero
     kicker="Academia de inglés en Pamplona y online"
     titleLines={['Inglés para', 'Escolares']}

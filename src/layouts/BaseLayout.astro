@@ -3,13 +3,19 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../data/site';
-import { isPagesPreview, withBase } from '../lib/url';
+import { isNoindexPath, seoFor } from '../data/seo';
+import { isPagesPreview, stripBase, withBase } from '../lib/url';
 
 interface Props {
   title: string;
   description?: string;
   image?: string;
   canonical?: string;
+  robots?: string;
+  preloadImage?: string;
+  faqs?: { q: string; a: string }[];
+  course?: { name: string; description: string };
+  article?: { headline: string; description: string; datePublished: string };
 }
 
 const {
@@ -17,14 +23,94 @@ const {
   description = site.description,
   image = '/images/og-default.jpg',
   canonical,
+  robots: robotsProp,
+  preloadImage,
+  faqs,
+  course,
+  article,
 } = Astro.props;
 
+const path = stripBase(Astro.url.pathname);
+const mapped = seoFor(path);
+const pageTitle = mapped?.title ?? title;
+const pageDescription = mapped?.description ?? description;
 const origin = Astro.site ?? new URL(site.url);
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, origin).href;
 const ogImage = new URL(withBase(image), origin).href;
-const robots = isPagesPreview()
-  ? 'noindex, nofollow'
-  : 'follow, index, max-snippet:-1, max-image-preview:large';
+const noindex = isPagesPreview() || isNoindexPath(path) || Boolean(robotsProp?.includes('noindex'));
+const robots =
+  robotsProp ||
+  (noindex
+    ? 'noindex, follow'
+    : 'follow, index, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
+
+const organizationId = `${site.url}/#organization`;
+const graph: Record<string, unknown>[] = [
+  {
+    '@type': ['Organization', 'LanguageSchool', 'LocalBusiness'],
+    '@id': organizationId,
+    name: site.name,
+    legalName: site.legalName,
+    url: site.url,
+    email: site.email,
+    telephone: '+34-948-17-51-48',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'C/ Iturrama 8, entreplanta B',
+      addressLocality: 'Pamplona',
+      addressRegion: 'Navarra',
+      postalCode: '31007',
+      addressCountry: 'ES',
+    },
+    areaServed: {
+      '@type': 'City',
+      name: 'Pamplona',
+    },
+    sameAs: ['https://www.instagram.com/academiageorgetown/'],
+    logo: `${site.url}/images/logo.png`,
+  },
+  {
+    '@type': 'WebSite',
+    '@id': `${site.url}/#website`,
+    url: site.url,
+    name: site.name,
+    inLanguage: 'es',
+    publisher: { '@id': organizationId },
+  },
+];
+
+if (faqs?.length) {
+  graph.push({
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  });
+}
+
+if (course) {
+  graph.push({
+    '@type': 'Course',
+    name: course.name,
+    description: course.description,
+    inLanguage: 'es',
+    provider: { '@id': organizationId },
+  });
+}
+
+if (article) {
+  graph.push({
+    '@type': 'Article',
+    headline: article.headline,
+    description: article.description,
+    datePublished: article.datePublished,
+    inLanguage: 'es',
+    mainEntityOfPage: canonicalURL,
+    publisher: { '@id': organizationId },
+  });
+}
 ---
 
 <!doctype html>
@@ -32,8 +118,8 @@ const robots = isPagesPreview()
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
     <meta name="robots" content={robots} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/png" sizes="32x32" href={withBase('/images/favicon-32.png')} />
@@ -44,45 +130,24 @@ const robots = isPagesPreview()
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=PT+Sans:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
+    {preloadImage && (
+      <link rel="preload" as="image" href={withBase(preloadImage)} fetchpriority="high" />
+    )}
     <meta property="og:locale" content="es_ES" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={pageTitle} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={ogImage} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'Organization',
-          '@id': `${site.url}/#organization`,
-          name: site.name,
-          url: site.url,
-          email: site.email,
-          telephone: '+34-948-17-51-48',
-          address: {
-            '@type': 'PostalAddress',
-            streetAddress: 'C/ Iturrama 8, entreplanta B',
-            addressLocality: 'Pamplona',
-            postalCode: '31007',
-            addressCountry: 'ES',
-          },
-          logo: `${site.url}/images/mark.jpg`,
-        },
-        {
-          '@type': 'WebSite',
-          '@id': `${site.url}/#website`,
-          url: site.url,
-          name: site.name,
-          inLanguage: 'es',
-          publisher: { '@id': `${site.url}/#organization` },
-        },
-      ],
+      '@graph': graph,
     })} />
     <script is:inline define:vars={{ gtmId: site.gtmId }}>
       window.dataLayer = window.dataLayer || [];

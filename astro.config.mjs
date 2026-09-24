@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import pec from './src/data/pec-programs.json';
 
 const legacyHome = [
   '/login/',
@@ -18,9 +19,28 @@ const legacyHome = [
 /** @type {Record<string, string>} */
 const redirects = {
   '/term_conditions/': '/terminos/',
+  '/a2-key/': '/a2-ket/',
+  '/cambridge/': '/certificado-de-ingles-en-pamplona/',
+  '/aptis/': '/aptis-advanced/',
+  '/ielts/': '/certificado-de-ingles-en-pamplona/',
+  '/examen-ielts/': '/certificado-de-ingles-en-pamplona/',
 };
 for (const path of legacyHome) {
   redirects[path] = '/';
+}
+
+const noindexSitemap = new Set([
+  '/formulario-subvencionados/',
+  ...pec.map((program) => `/${program.slug}/`),
+]);
+
+function sitemapPath(page) {
+  const url = new URL(page);
+  let pathname = url.pathname;
+  if (pathname.startsWith('/Academia_Georgetown/')) {
+    pathname = pathname.slice('/Academia_Georgetown'.length) || '/';
+  }
+  return pathname.endsWith('/') ? pathname : `${pathname}/`;
 }
 
 const githubPages = process.env.GITHUB_PAGES === 'true';
@@ -32,7 +52,15 @@ export default defineConfig({
   base: githubPages ? `/${githubName}/` : '/',
   trailingSlash: 'always',
   output: 'static',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => {
+        const pathname = sitemapPath(page);
+        if (pathname.includes('404')) return false;
+        return !noindexSitemap.has(pathname);
+      },
+    }),
+  ],
   redirects,
   vite: {
     plugins: [

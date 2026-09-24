@@ -15,7 +15,7 @@ import { profesionalFaqs, profesionalPillars, profesionalPoints } from '../data/
 const profesionalCerts = certCardMedia.filter((item) => !item.href.includes('toefl'));
 ---
 
-<BaseLayout title={`Cursos de Inglés para el sector profesional - ${site.name}`}>
+<BaseLayout title={`Cursos de Inglés para el sector profesional - ${site.name}`} faqs={profesionalFaqs}>
   <SplitHero
     kicker="Academia de inglés en Pamplona y online"
     titleLines={['Inglés', 'Profesional']}

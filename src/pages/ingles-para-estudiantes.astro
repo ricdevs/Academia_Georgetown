@@ -7,12 +7,12 @@ import SplitHero from '../components/SplitHero.astro';
 import ExamLogos from '../components/ExamLogos.astro';
 import BenefitPoints from '../components/BenefitPoints.astro';
 import QuoteBlock from '../components/QuoteBlock.astro';
-import { pillars, site } from '../data/site';
+import { faqs, pillars, site } from '../data/site';
 import { certCardMedia } from '../data/media';
 import { benefitPoints } from '../data/landings';
 ---
 
-<BaseLayout title={`Inglés para Estudiantes Universitarios - ${site.name}`}>
+<BaseLayout title={`Inglés para Estudiantes Universitarios - ${site.name}`} faqs={faqs}>
   <SplitHero
     kicker="Academia de inglés en Pamplona y online"
     titleLines={['Inglés para', 'Universitarios']}

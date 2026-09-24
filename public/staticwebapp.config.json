@@ -13,7 +13,12 @@
     { "route": "/instructors/", "redirect": "/", "statusCode": 301 },
     { "route": "/instructor/", "redirect": "/", "statusCode": 301 },
     { "route": "/become_a_teacher/", "redirect": "/", "statusCode": 301 },
-    { "route": "/term_conditions/", "redirect": "/terminos/", "statusCode": 301 }
+    { "route": "/term_conditions/", "redirect": "/terminos/", "statusCode": 301 },
+    { "route": "/a2-key/", "redirect": "/a2-ket/", "statusCode": 301 },
+    { "route": "/cambridge/", "redirect": "/certificado-de-ingles-en-pamplona/", "statusCode": 301 },
+    { "route": "/aptis/", "redirect": "/aptis-advanced/", "statusCode": 301 },
+    { "route": "/ielts/", "redirect": "/certificado-de-ingles-en-pamplona/", "statusCode": 301 },
+    { "route": "/examen-ielts/", "redirect": "/certificado-de-ingles-en-pamplona/", "statusCode": 301 }
   ],
   "navigationFallback": {
     "rewrite": "/404.html",

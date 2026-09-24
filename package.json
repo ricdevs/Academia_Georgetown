@@ -11,7 +11,8 @@
     "build:pages": "GITHUB_PAGES=true astro build",
     "preview": "astro preview",
     "preview:pages": "GITHUB_PAGES=true astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check:seo": "node scripts/check-seo.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
