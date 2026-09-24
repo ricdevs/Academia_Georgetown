@@ -7,7 +7,7 @@ export const site = {
     'Tu academia de Inglés en Pamplona. Centro Preparador y Examinador de Certificados de Inglés en Pamplona: Cambridge, TOEFL, British Council.',
   phone: '948 17 51 48',
   phoneHref: 'tel:+34948175148',
-  phoneAlt: '637 81 21 63',
+  phoneAlt: '948 17 51 48',
   email: 'info@academiageorgetown.es',
   address: 'C/ Iturrama 8, entreplanta B, 31007 Pamplona (Navarra)',
   tesla: 'https://georgetowntesla.com/home',

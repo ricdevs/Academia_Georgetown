@@ -66,7 +66,17 @@ const defaultSeoLinks = [
 ];
 ---
 
-<BaseLayout title={documentTitle} description={description}>
+<BaseLayout
+  title={documentTitle}
+  description={description}
+  course={
+    certificate
+      ? { name: certificate.title, description: certificate.description }
+      : kind === 'cert'
+        ? { name: String(title), description }
+        : undefined
+  }
+>
   {pec && (
     <article class="container-ag-1080 ag-pec">
       <p class="ag-kicker">{pec.area}</p>
@@ -142,7 +152,7 @@ const defaultSeoLinks = [
         ))}
       </ul>
       <p>
-        Si estás interesado, contacta a través del formulario o llama al {site.phoneAlt}.
+        Si estás interesado, contacta a través del formulario o llama al {site.phone}.
       </p>
     </article>
   )}

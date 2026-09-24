@@ -1,0 +1,50 @@
+{
+  "generated": "2026-09-24",
+  "notes": "Phase 0 baseline. Indexable money/local/cert/audience/conversion URLs. Specialty flyers are noindex. Visual IA unchanged.",
+  "money": [
+    "/",
+    "/ingles-para-estudiantes/",
+    "/ingles-profesional/",
+    "/ingles-para-jovenes/",
+    "/prueba-de-nivel/",
+    "/contacto/"
+  ],
+  "localSeo": [
+    "/academia-de-ingles-en-pamplona/",
+    "/curso-de-ingles-en-pamplona/",
+    "/certificado-de-ingles-en-pamplona/",
+    "/sacarse-el-b1-de-ingles-en-pamplona/",
+    "/sacarse-el-b2-de-ingles-en-pamplona/",
+    "/sacarse-el-c1-de-ingles-en-pamplona/"
+  ],
+  "certificates": [
+    "/b2-first-certificate/",
+    "/c1-advanced/",
+    "/c2-proficiency/",
+    "/a2-ket/",
+    "/b1-preliminary/",
+    "/toefl-ibt/",
+    "/aptis-general/",
+    "/aptis-advanced/"
+  ],
+  "conversion": [
+    "/matricula-y-financiacion/",
+    "/contenido/",
+    "/referidos/",
+    "/contacto-upna/"
+  ],
+  "blog": ["/blog/"],
+  "legal": ["/terminos/", "/politica-privacidad/", "/aviso-legal/", "/career/"],
+  "noindex": [
+    "/404/",
+    "/formulario-subvencionados/",
+    "all /flyer* and specialty program slugs from pec-programs.json"
+  ],
+  "keepLiveSlugs": true,
+  "truthLock": {
+    "phone": "948 17 51 48",
+    "examVenue": ["TOEFL iBT", "APTIS"],
+    "pass": false,
+    "zoomOnly": false
+  }
+}
